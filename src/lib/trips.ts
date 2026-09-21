@@ -13,7 +13,12 @@ export type TripCategory =
   | "Weekday"
   | "Adventure"
   | "Heritage"
-  | "Nature";
+  | "Nature"
+  | "Trek"
+  | "Camping"
+  | "Coastal"
+  | "Wildlife"
+  | "Long Weekend";
 
 export type BookingStatus = "open" | "few-left" | "sold-out" | "closed";
 
@@ -391,6 +396,257 @@ export const trips: Trip[] = [
     ],
     isSample: true,
   },
+  {
+    id: "t6",
+    slug: "munnar-tea-hills-long-weekend",
+    title: "Munnar Tea Hills Long Weekend",
+    destination: "Munnar, Kerala",
+    startingPoint: "Bengaluru (Tempo Traveller pickup points shared after booking)",
+    date: "SAMPLE DATE — 5-7 Dec 2026",
+    duration: "3 Days / 2 Nights",
+    transport: "Tempo Traveller",
+    price: 9499,
+    seatsTotal: 14,
+    seatsLeft: 14,
+    bookingStatus: "open",
+    difficulty: "Easy",
+    stay: "Hillside resort/homestay, twin/triple sharing",
+    food: "Breakfast and dinner included (both nights), lunch stops are pay-as-you-go",
+    categories: ["Long Weekend", "Nature", "Trek"],
+    coverImageLabel: "Tea estate rows climbing into the mist, Munnar",
+    gallery: ["Tea garden walk", "Top Station viewpoint", "Group dinner at the homestay"],
+    description: [
+      "Endless tea gardens, a road that climbs through the clouds, and the kind of quiet you only get 1,600 metres up. Munnar is the trip for people who want green in every direction and no itinerary to plan themselves.",
+      "Three days is enough to actually slow down — a tea estate walk, a viewpoint sunrise, and evenings that don't need an agenda.",
+    ],
+    highlights: [
+      "Tea estate walk with a working plantation guide",
+      "Top Station — the highest viewpoint on the Munnar-Kodaikanal road",
+      "Two full days in the hills, not just a drive-through",
+    ],
+    itinerary: [
+      {
+        day: 1,
+        title: "Bengaluru to Munnar",
+        items: [
+          { time: "06:00", label: "Depart Bengaluru" },
+          { time: "09:30", label: "Breakfast stop" },
+          { time: "17:00", label: "Arrive Munnar, check in" },
+          { time: "20:00", label: "Group dinner at the homestay" },
+        ],
+      },
+      {
+        day: 2,
+        title: "Tea gardens and Top Station",
+        items: [
+          { time: "07:00", label: "Breakfast" },
+          { time: "08:30", label: "Tea estate walk and factory visit" },
+          { time: "12:00", label: "Lunch (on your own)" },
+          { time: "14:00", label: "Top Station viewpoint" },
+          { time: "17:00", label: "Free evening in town" },
+          { time: "20:00", label: "Dinner at the homestay" },
+        ],
+      },
+      {
+        day: 3,
+        title: "Munnar to Bengaluru",
+        items: [
+          { time: "07:00", label: "Breakfast" },
+          { time: "08:30", label: "Depart for Bengaluru" },
+          { time: "13:00", label: "Lunch stop (on your own)" },
+          { time: "20:00", label: "Arrive Bengaluru, trip ends" },
+        ],
+      },
+    ],
+    inclusions: [
+      "Tempo Traveller transport both ways",
+      "2 nights hillside stay, twin/triple sharing",
+      "Breakfast and dinner (both nights)",
+      "Tea estate walk and Top Station visit",
+      "Trip WhatsApp group with live updates",
+    ],
+    exclusions: [
+      "Lunch on all days",
+      "Entry fees not part of the listed itinerary",
+      "Personal expenses and shopping",
+      "Anything not explicitly listed above",
+    ],
+    whoFor: [
+      "Anyone who wants a proper long weekend out of the city without planning it",
+      "Non-riders who still want the destination and the group",
+      "Couples and friend groups after a slower-paced trip",
+    ],
+    faqs: [
+      { question: "Do I need to ride a bike for this?", answer: "No — this trip uses a Tempo Traveller, no riding required." },
+      { question: "How far is Munnar from Bengaluru?", answer: "Around 470 km — this is why it's a 3-day trip rather than a standard weekend." },
+      { question: "Can I come alone?", answer: "Yes, solo travellers are common on our Tempo trips." },
+      { question: "What's the cancellation policy?", answer: "SAMPLE — replace with your actual policy before launch." },
+    ],
+    isSample: true,
+  },
+  {
+    id: "t7",
+    slug: "kochi-alleppey-backwaters-getaway",
+    title: "Kochi–Alleppey Backwaters Getaway",
+    destination: "Kochi & Alleppey, Kerala",
+    startingPoint: "Bengaluru (Tempo Traveller pickup points shared after booking)",
+    date: "SAMPLE DATE — 16-18 Jan 2027",
+    duration: "3 Days / 2 Nights",
+    transport: "Tempo Traveller",
+    price: 10999,
+    seatsTotal: 12,
+    seatsLeft: 12,
+    bookingStatus: "open",
+    difficulty: "Easy",
+    stay: "Fort Kochi heritage stay (Night 1) + houseboat on the Alleppey backwaters (Night 2)",
+    food: "All meals included on the houseboat, breakfast included in Kochi",
+    categories: ["Long Weekend", "Coastal", "Heritage"],
+    coverImageLabel: "Houseboat gliding through the Alleppey backwaters at sunset",
+    gallery: ["Fort Kochi street art walk", "Houseboat deck at sunset", "Chinese fishing nets at dusk"],
+    description: [
+      "Two very different sides of Kerala in one trip — the old-world streets and cafés of Fort Kochi, then a night on a houseboat drifting through the Alleppey backwaters with nothing to do but watch the coconut palms go by.",
+      "This is the trip we send people on when they want a proper switch-off, not another checklist of monuments.",
+    ],
+    highlights: [
+      "A full night on a private houseboat, meals included",
+      "Fort Kochi heritage walk — Chinese fishing nets, street art, old churches",
+      "Backwater village stops most day-trippers never see",
+    ],
+    itinerary: [
+      {
+        day: 1,
+        title: "Bengaluru to Kochi",
+        items: [
+          { time: "06:00", label: "Depart Bengaluru" },
+          { time: "09:30", label: "Breakfast stop" },
+          { time: "16:00", label: "Arrive Fort Kochi, check in" },
+          { time: "17:30", label: "Fort Kochi heritage walk" },
+          { time: "19:00", label: "Chinese fishing nets at sunset" },
+        ],
+      },
+      {
+        day: 2,
+        title: "Kochi to Alleppey, board the houseboat",
+        items: [
+          { time: "08:00", label: "Breakfast, check out" },
+          { time: "10:00", label: "Depart for Alleppey" },
+          { time: "12:00", label: "Board the houseboat, welcome lunch" },
+          { time: "14:00", label: "Backwater cruise through village stretches" },
+          { time: "19:00", label: "Dinner on the houseboat, overnight on the water" },
+        ],
+      },
+      {
+        day: 3,
+        title: "Alleppey to Bengaluru",
+        items: [
+          { time: "07:00", label: "Breakfast on the houseboat" },
+          { time: "09:00", label: "Disembark, depart for Bengaluru" },
+          { time: "13:00", label: "Lunch stop (on your own)" },
+          { time: "21:00", label: "Arrive Bengaluru, trip ends" },
+        ],
+      },
+    ],
+    inclusions: [
+      "Tempo Traveller transport both ways",
+      "1 night Fort Kochi stay + 1 night private houseboat",
+      "All meals on the houseboat, breakfast in Kochi",
+      "Fort Kochi heritage walk",
+      "Trip WhatsApp group with live updates",
+    ],
+    exclusions: [
+      "Lunch on Day 1 and Day 3",
+      "Monument/attraction entry fees",
+      "Personal expenses and shopping",
+      "Anything not explicitly listed above",
+    ],
+    whoFor: [
+      "Anyone who wants a genuine switch-off weekend, not a sightseeing sprint",
+      "Couples and friend groups celebrating something",
+      "Non-riders who still want the trip planned end to end",
+    ],
+    faqs: [
+      { question: "Do I need to ride a bike for this?", answer: "No — this trip uses a Tempo Traveller, no riding required." },
+      { question: "Is the houseboat private to our group?", answer: "SAMPLE — confirm your actual houseboat-sharing arrangement (private vs shared) before launch." },
+      { question: "Can I come alone?", answer: "Yes, solo travellers are welcome — you'll share the houseboat with the rest of the group." },
+      { question: "What's the cancellation policy?", answer: "SAMPLE — replace with your actual policy before launch." },
+    ],
+    isSample: true,
+  },
+  {
+    id: "t8",
+    slug: "pondicherry-weekend-getaway",
+    title: "Pondicherry Weekend Getaway",
+    destination: "Puducherry",
+    startingPoint: "Bengaluru",
+    date: "SAMPLE DATE — 30-31 Jan 2027",
+    duration: "2 Days / 1 Night",
+    transport: "Bus",
+    price: 5999,
+    seatsTotal: 25,
+    seatsLeft: 25,
+    bookingStatus: "open",
+    difficulty: "Easy",
+    stay: "French Quarter guesthouse, twin sharing",
+    food: "Breakfast included, other meals on your own at local cafés",
+    categories: ["Weekend", "Coastal", "Heritage"],
+    coverImageLabel: "Pastel colonial buildings on a quiet French Quarter street, Pondicherry",
+    gallery: ["Promenade beach at sunrise", "French Quarter street walk", "Auroville viewpoint"],
+    description: [
+      "Cobbled streets, mustard-yellow colonial buildings, beachfront cafés and a completely different pace from anywhere else on the Tripshala map. Pondicherry is the weekend for people who want charm over adrenaline.",
+      "An overnight bus down, a full day to wander the French Quarter and the promenade, and you're back in Bengaluru before Monday.",
+    ],
+    highlights: [
+      "Guided walk through the French Quarter's colonial streets",
+      "Sunrise at Promenade Beach",
+      "A stop at Auroville's viewpoint",
+    ],
+    itinerary: [
+      {
+        day: 1,
+        title: "Bengaluru to Pondicherry (overnight bus)",
+        items: [
+          { time: "22:00", label: "Board overnight bus from Bengaluru" },
+        ],
+      },
+      {
+        day: 2,
+        title: "Pondicherry exploration",
+        items: [
+          { time: "06:00", label: "Arrive Pondicherry, freshen up" },
+          { time: "07:00", label: "Sunrise at Promenade Beach" },
+          { time: "08:30", label: "Breakfast" },
+          { time: "10:00", label: "French Quarter heritage walk" },
+          { time: "13:00", label: "Lunch (on your own)" },
+          { time: "15:00", label: "Auroville viewpoint" },
+          { time: "21:00", label: "Board return overnight bus" },
+        ],
+      },
+    ],
+    inclusions: [
+      "AC overnight bus, both ways",
+      "1 night French Quarter guesthouse stay",
+      "Breakfast Day 2",
+      "French Quarter heritage walk",
+      "Trip WhatsApp group with live updates",
+    ],
+    exclusions: [
+      "Lunch and dinner",
+      "Auroville inner-circle entry (optional, on your own)",
+      "Personal expenses",
+    ],
+    whoFor: [
+      "First-time group travellers wanting a low-effort weekend out",
+      "Anyone who prefers cafés and architecture over trekking",
+      "Friend groups and couples",
+    ],
+    faqs: [
+      { question: "Is this trip beginner-friendly?", answer: "Yes — it's mostly walking on flat, paved streets, no fitness requirements." },
+      { question: "Do I need my own bike?", answer: "No, this trip travels by bus." },
+      { question: "How far is Pondicherry from Bengaluru?", answer: "Around 320 km, roughly a 7-hour overnight drive." },
+      { question: "What's the cancellation policy?", answer: "SAMPLE — replace with your actual policy before launch." },
+    ],
+    isSample: true,
+  },
 ];
 
 export function getTripBySlug(slug: string): Trip | undefined {
@@ -406,4 +662,9 @@ export const ALL_CATEGORIES: TripCategory[] = [
   "Adventure",
   "Heritage",
   "Nature",
+  "Trek",
+  "Camping",
+  "Coastal",
+  "Wildlife",
+  "Long Weekend",
 ];

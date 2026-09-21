@@ -55,8 +55,27 @@ const groups = [
 ];
 
 export default function FAQPage() {
+  const faqJsonLd = {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    mainEntity: groups.flatMap((g) =>
+      g.items.map((item) => ({
+        "@type": "Question",
+        name: item.question,
+        acceptedAnswer: {
+          "@type": "Answer",
+          text: item.answer,
+        },
+      }))
+    ),
+  };
+
   return (
     <Container className="py-14">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(faqJsonLd).replace(/</g, "\\u003c") }}
+      />
       <h1 className="font-display text-4xl font-extrabold">Frequently asked questions</h1>
       <p className="mt-3 max-w-xl text-muted">
         Can&apos;t find your answer here? Just ask — a real person replies on WhatsApp.

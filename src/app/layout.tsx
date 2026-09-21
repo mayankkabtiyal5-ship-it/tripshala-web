@@ -40,12 +40,38 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  const organizationJsonLd = {
+    "@context": "https://schema.org",
+    "@type": "TravelAgency",
+    name: site.name,
+    description: site.description,
+    url: site.url,
+    telephone: `+${site.whatsappNumber}`,
+    email: site.contactEmail,
+    address: {
+      "@type": "PostalAddress",
+      addressLocality: site.city,
+      addressCountry: "IN",
+    },
+    areaServed: {
+      "@type": "City",
+      name: site.city,
+    },
+    sameAs: [site.instagramUrl],
+  };
+
   return (
     <html lang="en">
       <head>
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
         <link href={FONTS_HREF} rel="stylesheet" />
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify(organizationJsonLd).replace(/</g, "\\u003c"),
+          }}
+        />
       </head>
       <body className="antialiased">
         <Header />
