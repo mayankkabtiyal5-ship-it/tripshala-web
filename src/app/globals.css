@@ -1,0 +1,53 @@
+@import "tailwindcss";
+
+:root {
+  /* Tripshala design tokens */
+  --color-ink: #211d1a; /* warm near-black, primary text */
+  --color-paper: #faf7f2; /* warm off-white, page background */
+  --color-paper-raised: #f2ece1; /* cards / raised surfaces */
+  --color-accent: #e2662a; /* burnt orange - primary brand accent */
+  --color-accent-dark: #b94f1e;
+  --color-accent-2: #1f6f5c; /* deep teal - secondary accent */
+  --color-muted: #7a7266; /* warm gray for secondary text */
+  --color-line: #e4ddd1; /* borders / dividers */
+  --color-success: #1f6f5c;
+  --color-warning: #b8862c;
+}
+
+@theme inline {
+  --color-ink: var(--color-ink);
+  --color-paper: var(--color-paper);
+  --color-paper-raised: var(--color-paper-raised);
+  --color-accent: var(--color-accent);
+  --color-accent-dark: var(--color-accent-dark);
+  --color-accent-2: var(--color-accent-2);
+  --color-muted: var(--color-muted);
+  --color-line: var(--color-line);
+  --font-display: "Bricolage Grotesque", ui-sans-serif, system-ui, sans-serif;
+  --font-sans: "Inter", ui-sans-serif, system-ui, sans-serif;
+}
+
+body {
+  background: var(--color-paper);
+  color: var(--color-ink);
+  font-family: "Inter", ui-sans-serif, system-ui, sans-serif;
+}
+
+h1, h2, h3, h4, .font-display {
+  font-family: "Bricolage Grotesque", ui-sans-serif, system-ui, sans-serif;
+}
+
+::selection {
+  background: var(--color-accent);
+  color: white;
+}
+
+.placeholder-media {
+  background-image: repeating-linear-gradient(
+    135deg,
+    var(--color-paper-raised),
+    var(--color-paper-raised) 10px,
+    #ebe3d4 10px,
+    #ebe3d4 20px
+  );
+}
