@@ -7,9 +7,6 @@ export const metadata: Metadata = { title: "Privacy Policy" };
 export default function PrivacyPage() {
   return (
     <Container className="max-w-3xl py-14">
-      <div className="mb-6 rounded-xl border border-dashed border-accent/40 bg-accent/5 p-4 text-sm text-accent-dark">
-        STARTER TEMPLATE — this is placeholder legal text, not a reviewed policy. Have this reviewed before launch; do not treat it as legally sufficient.
-      </div>
       <h1 className="font-display text-3xl font-extrabold">Privacy Policy</h1>
       <div className="prose mt-6 space-y-4 text-sm text-muted">
         <p>Tripshala collects the information you submit through our booking and enquiry forms — name, phone number, email, age, city and trip preferences — solely to plan and confirm your trip and to communicate with you about it.</p>

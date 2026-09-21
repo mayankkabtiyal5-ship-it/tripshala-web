@@ -8,23 +8,10 @@ export const metadata: Metadata = {
   description: "Bring a friend on a Tripshala trip and both of you get rewarded.",
 };
 
-// Three commercially sensible reward options — pick ONE for v1 (ride credit
-// is implemented as the default below since it costs nothing until it's
-// redeemed on a real trip, unlike a cash or merchandise reward).
-const rewardOptions = [
-  {
-    name: "Ride credit (recommended for v1)",
-    body: "Both the referrer and the friend get ₹[X] credit toward their next Tripshala trip. Costs nothing until redeemed on an actual booking, and keeps both people coming back.",
-  },
-  {
-    name: "Straight discount",
-    body: "The friend books at ₹[X] off; the referrer gets the same off their next trip. Simpler to explain, but has to be funded out of margin on the very next booking.",
-  },
-  {
-    name: "Merchandise / experience upgrade",
-    body: "A Tripshala cap, a free upgraded stay, or a seat priority for their next popular trip. Costs less cash but takes more operational effort to fulfil consistently.",
-  },
-];
+// NOTE FOR MAYANK: ₹500 is a reasonable starting credit amount for trips in
+// the ₹799–₹10,999 range, but it's your call — change REFERRAL_CREDIT below
+// and it updates everywhere on this page.
+const REFERRAL_CREDIT = 500;
 
 export default function ReferralPage() {
   return (
@@ -41,17 +28,14 @@ export default function ReferralPage() {
       </section>
 
       <section className="mt-14">
-        <h2 className="font-display text-2xl font-bold">Reward structure — 3 options</h2>
-        <p className="mt-2 text-sm text-muted">
-          SAMPLE — pick one before launch and delete the other two from this page. Ride credit is implemented as the v1 default in the booking form.
-        </p>
-        <div className="mt-4 grid gap-6 md:grid-cols-3">
-          {rewardOptions.map((r) => (
-            <div key={r.name} className="rounded-2xl border border-line bg-white p-6">
-              <h3 className="font-semibold">{r.name}</h3>
-              <p className="mt-2 text-sm text-muted">{r.body}</p>
-            </div>
-          ))}
+        <h2 className="font-display text-2xl font-bold">What you both get</h2>
+        <div className="mt-4 rounded-2xl border border-line bg-white p-6">
+          <p className="text-sm text-muted">
+            Once your friend&apos;s trip is confirmed, you both get{" "}
+            <strong className="text-ink">₹{REFERRAL_CREDIT.toLocaleString("en-IN")} credit</strong> toward
+            your next Tripshala trip. It costs nothing until it&apos;s actually redeemed on a real booking, and
+            it&apos;s the same reward every time — no confusing tiers.
+          </p>
         </div>
       </section>
 
