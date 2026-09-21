@@ -10,8 +10,7 @@ export const site = {
   city: "Bengaluru",
   instagramHandle: "tripshala.in",
   instagramUrl: "https://www.instagram.com/tripshala.in/",
-  // TODO(Mayank): replace with the real business WhatsApp number, digits only, country code first (e.g. 91XXXXXXXXXX).
-  whatsappNumber: "91XXXXXXXXXX",
+  whatsappNumber: "916361348289",
   // TODO(Mayank): replace with a real support/contact email.
   contactEmail: "hello@tripshala.in",
 };
