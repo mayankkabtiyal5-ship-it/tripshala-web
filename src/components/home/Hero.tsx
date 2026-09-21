@@ -1,6 +1,6 @@
 import { Container } from "../ui/Container";
 import { Button } from "../ui/Button";
-import { PlaceholderMedia } from "../ui/PlaceholderMedia";
+import { TripPhoto } from "../ui/TripPhoto";
 
 export function Hero() {
   return (
@@ -26,9 +26,11 @@ export function Hero() {
             </Button>
           </div>
         </div>
-        <PlaceholderMedia
-          label="Riders stopping for chai on a ghat road at sunrise"
+        <TripPhoto
+          src="/photos/hero-riders-savandurga.jpg"
+          alt="Riders taking a break under the rock face on a Tripshala ride"
           aspect="aspect-[5/4]"
+          priority
         />
       </Container>
     </section>

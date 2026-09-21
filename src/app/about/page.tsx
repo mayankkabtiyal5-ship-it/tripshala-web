@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import { Container } from "@/components/ui/Container";
-import { PlaceholderMedia } from "@/components/ui/PlaceholderMedia";
+import { TripPhoto } from "@/components/ui/TripPhoto";
 import { Button } from "@/components/ui/Button";
 
 export const metadata: Metadata = {
@@ -38,7 +38,11 @@ export default function AboutPage() {
             WhatsApp group by the end of the weekend.
           </p>
         </div>
-        <PlaceholderMedia label="Founder / team photo from an early trip" aspect="aspect-[4/5]" />
+        <TripPhoto
+          src="/photos/about-team-rocks.jpg"
+          alt="The Tripshala crew on an early trip"
+          aspect="aspect-[4/5]"
+        />
       </div>
 
       <div className="mt-12 rounded-2xl border border-line bg-paper-raised p-8 text-center">

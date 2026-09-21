@@ -1,11 +1,16 @@
 import { Container } from "../ui/Container";
-import { PlaceholderMedia } from "../ui/PlaceholderMedia";
+import { TripPhoto } from "../ui/TripPhoto";
 
 export function BikeOrNot() {
   return (
     <section className="border-b border-line py-16">
       <Container className="grid items-center gap-10 md:grid-cols-2">
-        <PlaceholderMedia label="Half the group on bikes, half in the Tempo Traveller, same destination" aspect="aspect-[5/4]" className="md:order-2" />
+        <TripPhoto
+          src="/photos/bike-or-tempo-group.jpg"
+          alt="Riders and the Tempo Traveller group together at the same stop"
+          aspect="aspect-[5/4]"
+          className="md:order-2"
+        />
         <div className="md:order-1">
           <h2 className="font-display text-3xl font-bold">
             Bring your bike. Or just bring yourself.

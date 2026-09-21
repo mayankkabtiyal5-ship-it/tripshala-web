@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { Trip } from "@/lib/trips";
 import { PlaceholderMedia } from "./ui/PlaceholderMedia";
+import { TripPhoto } from "./ui/TripPhoto";
 import { Badge } from "./ui/Badge";
 
 const statusLabel: Record<Trip["bookingStatus"], { text: string; tone: "success" | "warning" | "default" }> = {
@@ -18,7 +19,16 @@ export function TripCard({ trip }: { trip: Trip }) {
       href={`/trips/${trip.slug}`}
       className="group flex flex-col overflow-hidden rounded-2xl border border-line bg-white transition-shadow hover:shadow-lg"
     >
-      <PlaceholderMedia label={trip.coverImageLabel} aspect="aspect-[4/3]" className="rounded-none rounded-t-2xl border-0 border-b border-line" />
+      {trip.coverImage ? (
+        <TripPhoto
+          src={trip.coverImage}
+          alt={trip.coverImageLabel}
+          aspect="aspect-[4/3]"
+          className="rounded-none rounded-t-2xl border-0 border-b border-line"
+        />
+      ) : (
+        <PlaceholderMedia label={trip.coverImageLabel} aspect="aspect-[4/3]" className="rounded-none rounded-t-2xl border-0 border-b border-line" />
+      )}
       <div className="flex flex-1 flex-col gap-3 p-5">
         <div className="flex flex-wrap gap-2">
           {trip.categories.slice(0, 2).map((c) => (

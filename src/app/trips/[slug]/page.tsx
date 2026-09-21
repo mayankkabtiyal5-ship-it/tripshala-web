@@ -3,6 +3,7 @@ import { notFound } from "next/navigation";
 import { Container } from "@/components/ui/Container";
 import { Badge } from "@/components/ui/Badge";
 import { PlaceholderMedia } from "@/components/ui/PlaceholderMedia";
+import { TripPhoto } from "@/components/ui/TripPhoto";
 import { FAQAccordion } from "@/components/ui/FAQAccordion";
 import { BookingForm } from "@/components/BookingForm";
 import { StickyMobileCTA } from "@/components/StickyMobileCTA";
@@ -74,7 +75,11 @@ export default async function TripDetailPage({
       {/* Hero */}
       <section className="border-b border-line bg-paper-raised">
         <Container className="grid gap-8 py-10 md:grid-cols-2 md:py-14">
-          <PlaceholderMedia label={trip.coverImageLabel} aspect="aspect-[4/3]" />
+          {trip.coverImage ? (
+            <TripPhoto src={trip.coverImage} alt={trip.coverImageLabel} aspect="aspect-[4/3]" priority />
+          ) : (
+            <PlaceholderMedia label={trip.coverImageLabel} aspect="aspect-[4/3]" />
+          )}
           <div>
             <div className="flex flex-wrap gap-2">
               {trip.categories.map((c) => (

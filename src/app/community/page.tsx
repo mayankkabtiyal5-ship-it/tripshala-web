@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import { Container } from "@/components/ui/Container";
-import { PlaceholderMedia } from "@/components/ui/PlaceholderMedia";
+import { TripPhoto } from "@/components/ui/TripPhoto";
 import { Button } from "@/components/ui/Button";
 import { site } from "@/lib/site";
 import { trips } from "@/lib/trips";
@@ -13,17 +13,32 @@ export const metadata: Metadata = {
 
 const testimonials = [
   {
-    quote: "SAMPLE TESTIMONIAL — replace before launch. e.g. 'I've done four Tripshala trips now. I've met half my current riding group through them.'",
-    name: "Sample rider",
+    quote: "Had a really fun time with Tripshala. The whole trip was well planned, from the ride and stay to the little things in between. The group vibe made it even better.",
+    name: "Ayush Tomar",
   },
   {
-    quote: "SAMPLE TESTIMONIAL — replace before launch. e.g. 'First group trip I've done as a solo traveller. Wasn't awkward for even a minute.'",
-    name: "Sample traveller",
+    quote: "I honestly didn't expect the trip to be this much fun. Great roads, a really nice group and everything was taken care of without making it feel too organised.",
+    name: "Rishabh Singh",
   },
   {
-    quote: "SAMPLE TESTIMONIAL — replace before launch. e.g. 'The Tempo Traveller option meant my non-riding partner could finally come along.'",
-    name: "Sample couple",
+    quote: "Went in with a few friends and came back with some great memories. The planning was smooth and the overall vibe of the trip was exactly what a weekend getaway should be.",
+    name: "Mohit Kukreti",
   },
+  {
+    quote: "Loved how effortless the whole trip felt. We just had to show up, ride, explore and enjoy - Tripshala took care of the rest.",
+    name: "Muskan",
+  },
+];
+
+const galleryPhotos = [
+  { src: "/photos/gallery-riders-lineup.jpg", alt: "Riders lined up before the climb" },
+  { src: "/photos/gallery-group-rocks.jpg", alt: "Group on the rocks at Savandurga" },
+  { src: "/photos/gallery-coracle-hampi-2.jpg", alt: "Coracle ride on the Tungabhadra, Hampi" },
+  { src: "/photos/gallery-hut-stay-hampi.jpg", alt: "Hut stay near Hampi" },
+  { src: "/photos/gallery-foggy-trek.jpg", alt: "Foggy trek to the top" },
+  { src: "/photos/gallery-jeep-safari.jpg", alt: "Jeep safari through the hills" },
+  { src: "/photos/gallery-boat-backwaters.jpg", alt: "Boat ride through the backwaters" },
+  { src: "/photos/gallery-monastery-group.jpg", alt: "Golden Temple monastery stop" },
 ];
 
 export default function CommunityPage() {
@@ -38,24 +53,15 @@ export default function CommunityPage() {
       <section className="mt-10">
         <h2 className="font-display text-2xl font-bold">Trip photos</h2>
         <div className="mt-4 grid grid-cols-2 gap-4 sm:grid-cols-3 md:grid-cols-4">
-          {[
-            "Group at a chai stop",
-            "Bikes at a homestay",
-            "Sunrise at Nandi Hills",
-            "Coorg coffee estate walk",
-            "Bonfire evening",
-            "Hampi ruins group shot",
-            "Tempo Traveller departure",
-            "Trek to a waterfall",
-          ].map((label) => (
-            <PlaceholderMedia key={label} label={label} aspect="aspect-square" />
+          {galleryPhotos.map((p) => (
+            <TripPhoto key={p.src} src={p.src} alt={p.alt} aspect="aspect-square" sizes="(max-width: 640px) 50vw, (max-width: 768px) 33vw, 25vw" />
           ))}
         </div>
       </section>
 
       <section className="mt-14">
         <h2 className="font-display text-2xl font-bold">What people say</h2>
-        <div className="mt-4 grid gap-6 md:grid-cols-3">
+        <div className="mt-4 grid gap-6 sm:grid-cols-2">
           {testimonials.map((t) => (
             <blockquote key={t.name} className="rounded-2xl border border-dashed border-line bg-paper-raised p-6 text-sm italic text-muted">
               &ldquo;{t.quote}&rdquo;
@@ -68,9 +74,9 @@ export default function CommunityPage() {
       <section className="mt-14">
         <h2 className="font-display text-2xl font-bold">Community milestones</h2>
         <div className="mt-4 grid gap-6 sm:grid-cols-3">
-          <Milestone number={`${trips.length}+`} label="trips run (sample count)" />
-          <Milestone number="SAMPLE" label="riders &amp; travellers so far" />
-          <Milestone number="SAMPLE" label="cities visited" />
+          <Milestone number="5" label="trips hosted" />
+          <Milestone number="57" label="riders &amp; travellers so far" />
+          <Milestone number="5" label="places explored — Coorg, Kochi-Alleppey, Munnar, Mekedatu Gorge &amp; Kailasagiri" />
         </div>
       </section>
 

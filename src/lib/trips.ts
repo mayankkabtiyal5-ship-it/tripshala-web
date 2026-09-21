@@ -51,6 +51,7 @@ export interface Trip {
   food: string;
   categories: TripCategory[];
   coverImageLabel: string; // placeholder label until real photography exists
+  coverImage?: string; // real photo path (public/), once available — falls back to the placeholder when unset
   gallery: string[]; // placeholder labels
   description: string[]; // paragraphs
   highlights: string[];
@@ -81,6 +82,7 @@ export const trips: Trip[] = [
     food: "Breakfast and dinner included, lunch stops are pay-as-you-go",
     categories: ["Bike Rides", "Weekend", "2 Days", "Nature", "Adventure"],
     coverImageLabel: "Riders on the Sakleshpur ghat road, misty coffee estates",
+    coverImage: "/photos/sakleshpur-ghat-road.jpg",
     gallery: [
       "Group photo at the first breakfast stop",
       "Bikes lined up outside a homestay",
@@ -166,6 +168,7 @@ export const trips: Trip[] = [
     food: "Filter coffee stop included, breakfast on your own",
     categories: ["Bike Rides", "One Day", "Nature"],
     coverImageLabel: "Sunrise over the Nandi Hills valley, riders silhouetted",
+    coverImage: "/photos/nandi-hills-sunrise.jpg",
     gallery: ["Pre-dawn assembly point", "Valley view from the top", "Group breakfast stop"],
     description: [
       "The ride that started it all — out of the city while it's still dark, up the hill in time to watch the valley catch the first light, back home before most people are out of bed.",
@@ -218,6 +221,7 @@ export const trips: Trip[] = [
     food: "Breakfast, dinner and one estate lunch included",
     categories: ["Weekend", "2 Days", "Nature", "Heritage"],
     coverImageLabel: "Coffee estate rows in mist, Coorg",
+    coverImage: "/photos/coorg-misty-hills.jpg",
     gallery: ["Group at the estate lunch table", "Abbey Falls", "Sunset from the homestay verandah"],
     description: [
       "You don't need to ride to earn this one. A Tempo Traveller, a good playlist, and a coffee estate that's been in the same family for three generations.",
@@ -281,6 +285,7 @@ export const trips: Trip[] = [
     food: "Breakfast included, other meals on your own at local eateries",
     categories: ["Weekend", "2 Days", "Heritage"],
     coverImageLabel: "Ruins of the Vittala Temple complex, Hampi, golden hour",
+    coverImage: "/photos/hampi-vittala-temple.jpg",
     gallery: ["Sunset at Matanga Hill", "Coracle ride on the Tungabhadra", "Group photo at the stone chariot"],
     description: [
       "A UNESCO World Heritage site that used to be one of the richest cities on earth, told by a local guide who treats it like a story instead of a syllabus.",
@@ -341,6 +346,7 @@ export const trips: Trip[] = [
     food: "Breakfast and dinner included",
     categories: ["Weekday", "Nature", "Adventure"],
     coverImageLabel: "Mist over Mullayanagiri peak, Chikmagalur",
+    coverImage: "/photos/chikmagalur-peak.jpg",
     gallery: ["Sunrise trek group at the peak", "Coffee estate breakfast table", "Homestay bonfire evening"],
     description: [
       "The trip for people whose weekends are already spoken for. Same planning, same small group, just on a Tuesday — and Chikmagalur without weekend traffic is a genuinely different, quieter place.",
