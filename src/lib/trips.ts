@@ -502,7 +502,8 @@ export const trips: Trip[] = [
     stay: "Fort Kochi heritage stay (Night 1) + houseboat on the Alleppey backwaters (Night 2)",
     food: "All meals included on the houseboat, breakfast included in Kochi",
     categories: ["Long Weekend", "Coastal", "Heritage"],
-    coverImageLabel: "Houseboat gliding through the Alleppey backwaters at sunset",
+    coverImageLabel: "Houseboats moored along a tree-shaded Alleppey backwater canal",
+    coverImage: "/photos/kochi-alleppey-backwaters-canal.jpg",
     gallery: ["Fort Kochi street art walk", "Houseboat deck at sunset", "Chinese fishing nets at dusk"],
     description: [
       "Two very different sides of Kerala in one trip — the old-world streets and cafés of Fort Kochi, then a night on a houseboat drifting through the Alleppey backwaters with nothing to do but watch the coconut palms go by.",
