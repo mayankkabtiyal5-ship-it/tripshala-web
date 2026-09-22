@@ -128,6 +128,35 @@ already excluded via `.gitignore` if you ever create a local `.env.local`
 file for testing) and never in front-end code — it has full read/write
 access to your database with no restrictions.
 
+## 8c. Configure Google Places (homepage "suggest a hidden gem" search)
+
+The homepage has a "Know a hidden gem near Bengaluru?" card where visitors
+search for and suggest a place. Until you do this step, it still works —
+it just falls back to a plain text box instead of a live Google Places
+search-as-you-type field.
+
+1. Go to console.cloud.google.com, create a project (or use an existing one).
+2. **APIs & Services → Library**, search for **"Places API (New)"**, click
+   **Enable**.
+3. **APIs & Services → Credentials → Create Credentials → API key.** Copy
+   the key.
+4. Click into the new key and, under **Application restrictions**, choose
+   **Websites** and add `https://tripshala.in/*` (and your Vercel preview
+   domain if you want it working there too). This stops anyone else from
+   using your key — it's fine for this key to be public in the browser
+   (that's how Google's Places widgets work), as long as it's restricted
+   to your domain.
+5. In Vercel: **Settings → Environment Variables**, add
+   `NEXT_PUBLIC_GOOGLE_PLACES_API_KEY` = your key. (Note the `NEXT_PUBLIC_`
+   prefix — unlike the Supabase key, this one is meant to run in the
+   visitor's browser.)
+6. Redeploy.
+
+Suggestions submitted through this card land in the same `leads` table as
+booking enquiries (Supabase Table Editor → leads), tagged
+`source = hidden_gem_suggestion` so you can filter them out from real
+bookings.
+
 ## 9. Configure analytics
 
 ### Google Analytics 4

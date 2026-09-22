@@ -45,4 +45,13 @@ export const whatsappMessages = {
     buildLink(
       `Hi Tripshala! I'd like to talk about a partnership/collaboration.`
     ),
+  hiddenGemSuggestion: (params: { name: string; phone: string; place: string }) =>
+    buildLink(
+      [
+        `Hi Tripshala! I want to suggest a place for a future trip.`,
+        `Place: ${params.place}`,
+        `Name: ${params.name}`,
+        `Phone: ${params.phone}`,
+      ].join("\n")
+    ),
 };

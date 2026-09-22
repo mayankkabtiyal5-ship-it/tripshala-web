@@ -21,6 +21,7 @@ each thing goes.
 | Domain | Already assumed to be `tripshala.in` in `src/lib/site.ts` → `url` | — |
 | Google Analytics ID | Vercel environment variable `NEXT_PUBLIC_GA_ID` | Not set — analytics silently no-ops until set |
 | Meta Pixel ID | Vercel environment variable `NEXT_PUBLIC_FB_PIXEL_ID` | Not set — analytics silently no-ops until set |
+| Google Places API key (for the homepage "suggest a hidden gem" search) | Vercel environment variable `NEXT_PUBLIC_GOOGLE_PLACES_API_KEY` — see DEPLOYMENT.md "8c. Configure Google Places" | Not set — falls back to a plain text field until set |
 | Community milestone numbers | `src/app/community/page.tsx` → `Milestone` components | Marked "SAMPLE" |
 
 ## Pre-launch checklist

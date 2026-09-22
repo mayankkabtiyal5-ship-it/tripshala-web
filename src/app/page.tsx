@@ -1,5 +1,6 @@
 import { Hero } from "@/components/home/Hero";
 import { UpcomingTrips } from "@/components/home/UpcomingTrips";
+import { HiddenGemSuggest } from "@/components/home/HiddenGemSuggest";
 import { HowItWorks } from "@/components/home/HowItWorks";
 import { WhyTripshala } from "@/components/home/WhyTripshala";
 import { BikeOrNot } from "@/components/home/BikeOrNot";
@@ -11,6 +12,7 @@ export default function Home() {
     <>
       <Hero />
       <UpcomingTrips />
+      <HiddenGemSuggest />
       <HowItWorks />
       <WhyTripshala />
       <BikeOrNot />

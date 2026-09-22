@@ -28,6 +28,11 @@ export const AnalyticsEvents = {
   CLICK_INSTAGRAM: "click_instagram",
   LINKS_PAGE_CLICK_TRIPS: "links_page_click_trips",
   LINKS_PAGE_CLICK_WHATSAPP_GROUP: "links_page_click_whatsapp_group",
+  LINKS_PAGE_CLICK_COMMUNITY: "links_page_click_community",
+  LINKS_PAGE_CLICK_ABOUT: "links_page_click_about",
+  LINKS_PAGE_CLICK_REFERRAL: "links_page_click_referral",
+  LINKS_PAGE_CLICK_FAQ: "links_page_click_faq",
+  HIDDEN_GEM_SUGGESTED: "hidden_gem_suggested",
 } as const;
 
 export function track(eventName: string, params: EventParams = {}) {
