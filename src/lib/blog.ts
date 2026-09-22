@@ -1088,11 +1088,11 @@ export const posts: BlogPost[] = [
   {
     id: "b22",
     slug: "must-visit-temples-near-bangalore",
-    title: "6 Must-Visit Temples Near Bengaluru (Karnataka, Tamil Nadu & Andhra)",
+    title: "7 Must-Visit Temples Near Bengaluru (Karnataka, Tamil Nadu & Andhra)",
     excerpt:
-      "From a two-hour day trip to Lepakshi to a full Friday-night-to-Sunday temple circuit in the Western Ghats — six temple destinations within reach of Bengaluru, sorted by how much of your weekend they actually need.",
+      "From a two-hour day trip to Lepakshi to a Friday-night-to-Sunday run out to the Adiyogi statue in Coimbatore — seven temple and pilgrimage destinations within reach of Bengaluru, sorted by how much of your weekend they actually need.",
     publishedDate: "22 Sep 2026",
-    readingTime: "8 min read",
+    readingTime: "9 min read",
     tags: ["Listicles", "Guides", "Temple Trails"],
     coverImageLabel: "The hanging pillar and frescoed ceiling at Lepakshi temple",
     relatedTripSlugs: [
@@ -1102,6 +1102,7 @@ export const posts: BlogPost[] = [
       "nanjangud-mysore-temple-trail",
       "sringeri-horanadu-kalasa-temple-circuit",
       "tirupati-balaji-weekend-darshan",
+      "adiyogi-isha-yoga-center-weekend",
       "rameshwaram-island-temple-getaway",
     ],
     content: [
@@ -1111,7 +1112,7 @@ export const posts: BlogPost[] = [
       },
       {
         type: "paragraph",
-        text: "Here are six worth knowing about, sorted by how much of your weekend each one actually needs — from a two-hour-each-way day trip to a proper Friday-night-departure, Sunday-night-return temple weekend.",
+        text: "Here are seven worth knowing about, sorted by how much of your weekend each one actually needs — from a two-hour-each-way day trip to a proper Friday-night-departure, Sunday-night-return temple weekend.",
       },
       { type: "heading", text: "1. Lepakshi — the easiest big day trip there is" },
       {
@@ -1191,6 +1192,19 @@ export const posts: BlogPost[] = [
           "Time needed: 2 days / 1 night, Friday night departure works best",
         ],
       },
+      { type: "heading", text: "7. Adiyogi & Isha Yoga Center — the modern one" },
+      {
+        type: "paragraph",
+        text: "This is the odd one out on this list, and probably the one most people already have half-planned: Isha Yoga Center near Coimbatore, home to the 112-foot Adiyogi Shiva statue — a Guinness World Record holder for the largest bust sculpture — and the Dhyanalinga, a meditative energy space that doesn't belong to any one religion. It's a genuine haul from Bengaluru, but it's also the one destination on this list most people are actively trying to get to.",
+      },
+      {
+        type: "list",
+        items: [
+          "Distance: ~370km, roughly 7 hours each way",
+          "Best for: meditation and mindfulness seekers, architecture and photography fans, first-time visitors who've been meaning to go",
+          "Time needed: 2 days / 1 night, Friday night departure works best",
+        ],
+      },
       { type: "heading", text: "One more worth mentioning" },
       {
         type: "paragraph",
@@ -1202,7 +1216,7 @@ export const posts: BlogPost[] = [
         items: [
           "Want something easy this weekend, back by dinner: Lepakshi, Melkote, or Talakadu & Shivanasamudra",
           "Okay with a long single day for two temples: Nanjangud & Chamundi Hill",
-          "Ready to give up a full weekend: Sringeri-Horanadu-Kalasa, or Tirupati",
+          "Ready to give up a full weekend: Sringeri-Horanadu-Kalasa, Tirupati, or Adiyogi & Isha Yoga Center",
           "Willing to go the distance for something you won't find anywhere else: Rameshwaram",
         ],
       },
