@@ -1094,7 +1094,8 @@ export const posts: BlogPost[] = [
     publishedDate: "22 Sep 2026",
     readingTime: "9 min read",
     tags: ["Listicles", "Guides", "Temple Trails"],
-    coverImageLabel: "The hanging pillar and frescoed ceiling at Lepakshi temple",
+    coverImageLabel: "The Nagalinga stone serpent shrine at Lepakshi temple",
+    coverImage: "/photos/lepakshi-nagalinga.jpg",
     relatedTripSlugs: [
       "lepakshi-temple-day-trip",
       "melkote-temple-trail",

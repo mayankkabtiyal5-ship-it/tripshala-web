@@ -1070,7 +1070,8 @@ export const trips: Trip[] = [
     stay: "N/A — same-day trip, no overnight stay",
     food: "Tea/breakfast stop and lunch on your own at local eateries",
     categories: ["Temple Trails", "One Day", "Heritage"],
-    coverImageLabel: "The giant monolithic Nandi statue outside Lepakshi temple",
+    coverImageLabel: "The Nagalinga — a multi-hooded stone serpent shrine — at Lepakshi temple",
+    coverImage: "/photos/lepakshi-nagalinga.jpg",
     gallery: [
       "The famous hanging pillar inside the main mandapa",
       "Vijayanagara-era ceiling frescoes",
@@ -1143,7 +1144,8 @@ export const trips: Trip[] = [
     stay: "N/A — same-day trip, no overnight stay",
     food: "Tea/breakfast stop and lunch on your own at local eateries",
     categories: ["Temple Trails", "One Day", "Heritage"],
-    coverImageLabel: "View over Melkote from the Yoganarasimha hilltop temple",
+    coverImageLabel: "The stepped Kalyani tank at Melkote, with the hilltop temple beyond",
+    coverImage: "/photos/melkote-kalyani-tank.jpg",
     gallery: [
       "The Kalyani stepped tank at Cheluvanarayana Swamy Temple",
       "Steps leading up to the Yoganarasimha Temple",
@@ -1216,6 +1218,7 @@ export const trips: Trip[] = [
     food: "Tea/breakfast stop and lunch on your own at local eateries",
     categories: ["Temple Trails", "One Day", "Heritage", "Nature"],
     coverImageLabel: "Vaidyeshwara Temple half-buried in river sand at Talakadu",
+    coverImage: "/photos/talakadu-sand-temple.jpg",
     gallery: [
       "The Kaveri riverbank at Talakadu",
       "Gaganachukki falls at Shivanasamudra",
@@ -1289,6 +1292,7 @@ export const trips: Trip[] = [
     food: "Tea/breakfast stop and lunch on your own at local eateries",
     categories: ["Temple Trails", "One Day", "Heritage"],
     coverImageLabel: "Chamundeshwari Temple atop Chamundi Hill overlooking Mysuru",
+    coverImage: "/photos/chamundi-hill-temple.jpg",
     gallery: [
       "Srikanteshwara Temple's tall gopura at Nanjangud",
       "The giant Nandi statue and steps up Chamundi Hill",
@@ -1362,6 +1366,7 @@ export const trips: Trip[] = [
     food: "Breakfast both days included; free temple prasadam lunch at Horanadu; dinner and Day 2 lunch on your own",
     categories: ["Temple Trails", "Weekend", "2 Days", "Heritage"],
     coverImageLabel: "The Sharada Peetham temple complex at Sringeri on the Tunga river",
+    coverImage: "/photos/sringeri-sharada-temple.jpg",
     gallery: [
       "Vidyashankara Temple at Sringeri at sunrise",
       "Annapoorneshwari Temple at Horanadu",
@@ -1449,6 +1454,7 @@ export const trips: Trip[] = [
     food: "Breakfast both days included, other meals on your own",
     categories: ["Temple Trails", "Weekend", "2 Days", "Heritage"],
     coverImageLabel: "The gopuram of the Sri Venkateswara Temple complex at Tirumala",
+    coverImage: "/photos/tirupati-tirumala-gopuram.jpg",
     gallery: [
       "Pilgrims on the approach to the main temple",
       "Silathoranam, the natural rock arch near Tirumala",
@@ -1532,6 +1538,7 @@ export const trips: Trip[] = [
     food: "Breakfast both days included, other meals on your own",
     categories: ["Temple Trails", "Weekend", "2 Days", "Heritage"],
     coverImageLabel: "The 112-foot Adiyogi Shiva statue at Isha Yoga Center, Coimbatore",
+    coverImage: "/photos/adiyogi-statue-dusk.jpg",
     gallery: [
       "Adiyogi statue lit up at dusk",
       "The Dhyanalinga meditation dome",
