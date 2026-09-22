@@ -13,7 +13,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
   const staticRoutes = [
     "",
     "/trips",
-    "/blog",
+    "/guides",
     "/about",
     "/community",
     "/faq",
@@ -30,7 +30,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
   }));
 
   const blogRoutes = posts.map((p) => ({
-    url: `${site.url}/blog/${p.slug}`,
+    url: `${site.url}/guides/${p.slug}`,
     lastModified: CONTENT_LAST_UPDATED,
   }));
 

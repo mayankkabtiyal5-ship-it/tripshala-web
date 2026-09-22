@@ -7,7 +7,7 @@ import { Badge } from "./ui/Badge";
 export function BlogCard({ post }: { post: BlogPost }) {
   return (
     <Link
-      href={`/blog/${post.slug}`}
+      href={`/guides/${post.slug}`}
       className="group flex flex-col overflow-hidden rounded-2xl border border-line bg-white transition-shadow hover:shadow-lg"
     >
       {post.coverImage ? (

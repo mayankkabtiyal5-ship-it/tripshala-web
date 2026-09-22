@@ -22,7 +22,7 @@ export const site = {
 
 export const NAV_LINKS = [
   { href: "/trips", label: "Trips" },
-  { href: "/blog", label: "Guides" },
+  { href: "/guides", label: "Guides" },
   { href: "/community", label: "Community" },
   { href: "/about", label: "About" },
   { href: "/faq", label: "FAQ" },

@@ -15,7 +15,7 @@ export function Footer() {
           <div className="text-sm font-semibold">Explore</div>
           <ul className="mt-3 space-y-2 text-sm text-muted">
             <li><Link href="/trips" className="hover:text-ink">Trips</Link></li>
-            <li><Link href="/blog" className="hover:text-ink">Guides</Link></li>
+            <li><Link href="/guides" className="hover:text-ink">Guides</Link></li>
             <li><Link href="/community" className="hover:text-ink">Community</Link></li>
             <li><Link href="/about" className="hover:text-ink">About</Link></li>
             <li><Link href="/faq" className="hover:text-ink">FAQ</Link></li>
