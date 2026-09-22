@@ -1085,6 +1085,135 @@ export const posts: BlogPost[] = [
       { question: "Do long weekend trips cost significantly more?", answer: "They cost more in absolute terms (an extra night, extra meals) but often work out better value per day than a rushed 2-day trip to a destination that needed more time anyway." },
     ],
   },
+  {
+    id: "b22",
+    slug: "must-visit-temples-near-bangalore",
+    title: "6 Must-Visit Temples Near Bengaluru (Karnataka, Tamil Nadu & Andhra)",
+    excerpt:
+      "From a two-hour day trip to Lepakshi to a full Friday-night-to-Sunday temple circuit in the Western Ghats — six temple destinations within reach of Bengaluru, sorted by how much of your weekend they actually need.",
+    publishedDate: "22 Sep 2026",
+    readingTime: "8 min read",
+    tags: ["Listicles", "Guides", "Temple Trails"],
+    coverImageLabel: "The hanging pillar and frescoed ceiling at Lepakshi temple",
+    relatedTripSlugs: [
+      "lepakshi-temple-day-trip",
+      "melkote-temple-trail",
+      "talakadu-shivanasamudra-temple-trail",
+      "nanjangud-mysore-temple-trail",
+      "sringeri-horanadu-kalasa-temple-circuit",
+      "tirupati-balaji-weekend-darshan",
+      "rameshwaram-island-temple-getaway",
+    ],
+    content: [
+      {
+        type: "paragraph",
+        text: "Bengaluru sits within striking distance of some genuinely significant temple destinations — not just the well-worn Tirupati weekend everyone's family has done at least once, but Vijayanagara-era architecture, a temple town buried under a river's sand dunes, and a full pilgrimage circuit through the Western Ghats that most people never get around to doing.",
+      },
+      {
+        type: "paragraph",
+        text: "Here are six worth knowing about, sorted by how much of your weekend each one actually needs — from a two-hour-each-way day trip to a proper Friday-night-departure, Sunday-night-return temple weekend.",
+      },
+      { type: "heading", text: "1. Lepakshi — the easiest big day trip there is" },
+      {
+        type: "paragraph",
+        text: "Lepakshi is barely two hours from Bengaluru, just across the Andhra Pradesh border, and punches way above its distance. The 16th-century Veerabhadra Temple has some of the best-preserved Vijayanagara-era ceiling frescoes in South India, a giant monolithic Nandi carved from a single boulder, and the famous 'hanging pillar' — one of 70 pillars that doesn't actually touch the ground, which every visitor tests for themselves.",
+      },
+      {
+        type: "list",
+        items: [
+          "Distance: ~120km, roughly 2-2.5 hours each way",
+          "Best for: first-timers, families, anyone into temple architecture and history",
+          "Time needed: a single day, back by evening",
+        ],
+      },
+      { type: "heading", text: "2. Melkote — the quiet one" },
+      {
+        type: "paragraph",
+        text: "Melkote doesn't get anywhere near the footfall of Bengaluru's other weekend temple trips, which is exactly its appeal. It's a hilltop pilgrim town in Mandya district closely tied to the Sri Vaishnava saint Ramanujacharya — the Cheluvanarayana Swamy Temple and its striking stepped Kalyani tank sit in the town below, with the Yoganarasimha Temple up on the hill above for one of the better panoramic views in the region.",
+      },
+      {
+        type: "list",
+        items: [
+          "Distance: ~145km via Mandya, roughly 3 hours each way",
+          "Best for: slow travel, history, anyone tired of crowded pilgrimage towns",
+          "Time needed: a single day",
+        ],
+      },
+      { type: "heading", text: "3. Talakadu & Shivanasamudra — temples buried in sand, plus a waterfall" },
+      {
+        type: "paragraph",
+        text: "Talakadu is the strangest entry on this list — a temple town on the banks of the Kaveri that legend says got buried under sand dunes after a curse, with its Panchalinga temples only fully uncovered once every 12 years for a dedicated festival. Pair it with Shivanasamudra's twin waterfalls, twenty-odd kilometres away on the same river, for a day that mixes temple history with a proper nature stop.",
+      },
+      {
+        type: "list",
+        items: [
+          "Distance: ~135km, roughly 3 hours each way, plus 20km more to Shivanasamudra",
+          "Best for: photographers, anyone who wants temples and nature in one day",
+          "Time needed: a single day",
+        ],
+      },
+      { type: "heading", text: "4. Nanjangud & Chamundi Hill — two major temples, one long day" },
+      {
+        type: "paragraph",
+        text: "This is the ambitious day trip on the list — Srikanteshwara Temple in Nanjangud, one of Karnataka's largest temple complexes and known locally as 'Dakshina Kashi,' combined with Chamundeshwari Temple atop Chamundi Hill above Mysuru, seat of the old Mysore royal family's deity. It's a genuinely long day at 9-10 hours round trip, but it covers two major, very different temples plus a proper hilltop view over Mysuru.",
+      },
+      {
+        type: "list",
+        items: [
+          "Distance: ~150km to Nanjangud, a further 25km to Chamundi Hill",
+          "Best for: anyone comfortable with a longer day out for two temples instead of one",
+          "Time needed: a single (long) day",
+        ],
+      },
+      { type: "heading", text: "5. Sringeri, Horanadu & Kalasa — the full temple weekend" },
+      {
+        type: "paragraph",
+        text: "If you want more than a day trip, this is the one. Sringeri (seat of the Sharada Peetham founded by Adi Shankara), Horanadu (Annapoorneshwari Temple, famous for its free community lunch) and Kalasa (a quieter riverside temple on the Bhadra) sit within the same pocket of Chikkamagaluru district's Western Ghats — genuinely scenic, and rarely done as one trip because of how far out it is. Worth the overnight haul both ways.",
+      },
+      {
+        type: "list",
+        items: [
+          "Distance: ~330km, roughly 7-8 hours each way",
+          "Best for: a proper pilgrimage weekend, Western Ghats scenery, photographers",
+          "Time needed: 2 days / 1 night, Friday night departure works best",
+        ],
+      },
+      { type: "heading", text: "6. Tirupati — the classic, done properly" },
+      {
+        type: "paragraph",
+        text: "Sri Venkateswara Temple at Tirumala is one of the most visited pilgrimage sites on earth, and probably the temple trip most Bengaluru families have already half-planned in their heads. The hard part isn't the distance, it's the logistics — darshan queues, ticket options and where to stay near Tirumala all trip up first-timers. Doing it as an organised overnight weekend removes most of that friction.",
+      },
+      {
+        type: "list",
+        items: [
+          "Distance: ~250-270km via Chittoor, roughly 5-6 hours each way",
+          "Best for: families, first Tirupati trip, anyone who'd rather not navigate queues and tickets solo",
+          "Time needed: 2 days / 1 night, Friday night departure works best",
+        ],
+      },
+      { type: "heading", text: "One more worth mentioning" },
+      {
+        type: "paragraph",
+        text: "If you're up for the longest haul on this list, Rameshwaram's Ramanathaswamy Temple — one of the twelve Jyotirlingas, with the longest temple corridor in India — is a full weekend in its own right, built around two overnight buses rather than a same-day drive. It's less a 'near Bengaluru' temple and more a genuine pilgrimage trip, but it belongs on any serious South India temple list.",
+      },
+      { type: "heading", text: "How to pick" },
+      {
+        type: "list",
+        items: [
+          "Want something easy this weekend, back by dinner: Lepakshi, Melkote, or Talakadu & Shivanasamudra",
+          "Okay with a long single day for two temples: Nanjangud & Chamundi Hill",
+          "Ready to give up a full weekend: Sringeri-Horanadu-Kalasa, or Tirupati",
+          "Willing to go the distance for something you won't find anywhere else: Rameshwaram",
+        ],
+      },
+    ],
+    faqs: [
+      { question: "Which of these is best for a first-timer?", answer: "Lepakshi — it's close, easy, needs no fitness or planning around queues, and is genuinely impressive for how little time it takes." },
+      { question: "Is there a dress code at these temples?", answer: "Standard modest dress (covered shoulders and knees) works for most of these. Tirumala enforces a stricter dress code at the main temple — we cover the specifics before that trip." },
+      { question: "Can these be done independently instead of as an organised trip?", answer: "Yes, all of them can — the value of doing them with Tripshala is the Tempo Traveller pickup/drop, sorted logistics (especially for Tirupati's queues and tickets), and not having to plan the route yourself." },
+      { question: "What's the best time of year for the Western Ghats temple circuit?", answer: "October through February — the Ghats stay green post-monsoon and the roads are in better shape than during peak monsoon (June-September)." },
+    ],
+  },
 ];
 
 export function getPostBySlug(slug: string): BlogPost | undefined {
