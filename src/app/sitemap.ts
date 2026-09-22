@@ -1,5 +1,6 @@
 import type { MetadataRoute } from "next";
 import { trips } from "@/lib/trips";
+import { posts } from "@/lib/blog";
 import { site } from "@/lib/site";
 
 // Update this when the site's content actually changes (new trips, copy
@@ -12,6 +13,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
   const staticRoutes = [
     "",
     "/trips",
+    "/blog",
     "/about",
     "/community",
     "/faq",
@@ -27,5 +29,10 @@ export default function sitemap(): MetadataRoute.Sitemap {
     lastModified: CONTENT_LAST_UPDATED,
   }));
 
-  return [...staticRoutes, ...tripRoutes];
+  const blogRoutes = posts.map((p) => ({
+    url: `${site.url}/blog/${p.slug}`,
+    lastModified: CONTENT_LAST_UPDATED,
+  }));
+
+  return [...staticRoutes, ...tripRoutes, ...blogRoutes];
 }
