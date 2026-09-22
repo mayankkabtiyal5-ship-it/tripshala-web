@@ -57,7 +57,7 @@ export default function RootLayout({
       "@type": "City",
       name: site.city,
     },
-    sameAs: [site.instagramUrl],
+    sameAs: [site.instagramUrl, site.facebookUrl],
   };
 
   return (

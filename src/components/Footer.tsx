@@ -29,6 +29,11 @@ export function Footer() {
                 Instagram — @{site.instagramHandle}
               </a>
             </li>
+            <li>
+              <a href={site.facebookUrl} target="_blank" rel="noopener noreferrer" className="hover:text-ink">
+                Facebook
+              </a>
+            </li>
             <li><Link href="/contact" className="hover:text-ink">WhatsApp / Contact</Link></li>
             <li><a href={`mailto:${site.contactEmail}`} className="hover:text-ink">{site.contactEmail}</a></li>
           </ul>

@@ -10,6 +10,11 @@ export const site = {
   city: "Bengaluru",
   instagramHandle: "tripshala.in",
   instagramUrl: "https://www.instagram.com/tripshala.in/",
+  facebookUrl: "https://www.facebook.com/profile.php?id=61593246027569",
+  // The WhatsApp *group* invite link (join the community chat) — distinct
+  // from whatsappNumber, which is used for 1:1 enquiry/booking messages via
+  // wa.me links (see src/lib/whatsapp.ts).
+  whatsappCommunityLink: "https://chat.whatsapp.com/LtydU1xQ2BOKQsFvvDf6gG?s=sh&p=i&mlu=4&amv=2",
   whatsappNumber: "916361348289",
   // TODO(Mayank): replace with a real support/contact email.
   contactEmail: "hello@tripshala.in",

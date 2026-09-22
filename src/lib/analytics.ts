@@ -26,6 +26,8 @@ export const AnalyticsEvents = {
   FORM_SUBMIT: "form_submit",
   REFERRAL_CODE_ENTERED: "referral_code_entered",
   CLICK_INSTAGRAM: "click_instagram",
+  LINKS_PAGE_CLICK_TRIPS: "links_page_click_trips",
+  LINKS_PAGE_CLICK_WHATSAPP_GROUP: "links_page_click_whatsapp_group",
 } as const;
 
 export function track(eventName: string, params: EventParams = {}) {
