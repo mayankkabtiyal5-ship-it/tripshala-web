@@ -39,15 +39,33 @@ export function TripCard({ trip }: { trip: Trip }) {
           {trip.title}
         </h3>
         <p className="text-sm text-muted">📍 Bengaluru → {trip.destination}</p>
-        <div className="mt-1 grid grid-cols-2 gap-y-1 text-sm text-ink/80">
-          <span>{trip.duration}</span>
-          <span>{trip.transport}</span>
-          <span className="text-muted">{trip.date}</span>
-          <span className="font-semibold text-ink">from ₹{trip.price.toLocaleString("en-IN")}</span>
+
+        {trip.highlights.length > 0 && (
+          <ul className="flex flex-col gap-1">
+            {trip.highlights.slice(0, 2).map((h) => (
+              <li key={h} className="flex items-start gap-1.5 text-sm text-ink/80">
+                <span className="mt-0.5 text-accent-2">✓</span>
+                <span className="line-clamp-1">{h}</span>
+              </li>
+            ))}
+          </ul>
+        )}
+
+        <div className="mt-1 flex flex-wrap items-center gap-x-3 gap-y-1 text-xs text-muted">
+          <span>🕐 {trip.duration}</span>
+          <span>🚐 {trip.transport}</span>
         </div>
-        <div className="mt-auto flex items-center justify-between pt-3">
-          <Badge tone={status.tone}>{status.text}</Badge>
-          <span className="text-sm font-semibold text-accent group-hover:underline">View Trip →</span>
+
+        <div className="mt-auto flex items-end justify-between pt-3">
+          <div className="flex flex-col gap-1">
+            <Badge tone={status.tone}>{status.text}</Badge>
+            <span className="text-xs text-muted">{trip.date}</span>
+          </div>
+          <div className="text-right">
+            <div className="text-xs text-muted">From</div>
+            <div className="text-lg font-bold text-ink">₹{trip.price.toLocaleString("en-IN")}</div>
+            <div className="text-xs text-muted">per person</div>
+          </div>
         </div>
       </div>
     </Link>
