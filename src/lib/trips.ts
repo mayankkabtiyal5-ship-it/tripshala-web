@@ -668,6 +668,7 @@ export const trips: Trip[] = [
     food: "Breakfast included, other meals on your own at local eateries",
     categories: ["Weekend", "2 Days", "Heritage", "Coastal"],
     coverImageLabel: "Pamban Bridge stretching out to sea toward Rameshwaram island",
+    coverImage: "/photos/rameshwaram-pamban-bridge-aerial.jpg",
     gallery: [
       "Ramanathaswamy Temple's corridor at golden hour",
       "The ghost-town coastline at Dhanushkodi",
