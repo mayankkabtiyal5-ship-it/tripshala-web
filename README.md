@@ -2,8 +2,9 @@
 
 Bengaluru's curated weekend travel and adventure community — bike rides,
 weekend getaways and 1-2 day escapes. This is a v1 built to launch fast:
-Next.js + TypeScript + Tailwind, no database, WhatsApp as the lead-capture
-mechanism.
+Next.js + TypeScript + Tailwind, WhatsApp as the primary lead-capture
+mechanism, with every form submission also saved to Supabase as a backup
+record (see "Lead storage" below).
 
 Read **DEPLOYMENT.md** for exact steps to get this live. Read
 **CONTENT_CHECKLIST.md** for exactly what to replace before launch (it's all
@@ -12,8 +13,9 @@ clearly marked `SAMPLE` / `TODO` in the code too).
 ## Stack
 
 - **Next.js 16** (App Router) + **TypeScript** + **Tailwind CSS v4**
-- No database — trip data lives in one file, `src/lib/trips.ts`
+- Trip data lives in one file, `src/lib/trips.ts` — no database for that
 - No payment gateway — booking forms hand off to WhatsApp with a pre-filled message
+- **Supabase** (Postgres) stores a backup copy of every booking-form submission — see "Lead storage" below
 - Deploy target: **Vercel**
 
 ## File structure
@@ -29,6 +31,7 @@ src/
     faq/page.tsx              # /faq
     contact/page.tsx          # /contact
     referral/page.tsx         # /referral
+    api/leads/route.ts        # POST endpoint the booking form calls to save a lead to Supabase
     policies/terms/page.tsx
     policies/privacy/page.tsx
     policies/cancellation/page.tsx
@@ -55,6 +58,7 @@ src/
     trips.ts                   # ALL trip data + the Trip type — add new trips here, nowhere else
     whatsapp.ts                # every WhatsApp message template, in one place
     analytics.ts                # event tracking helper + the list of tracked event names
+    supabase.ts                 # server-only Supabase client used by api/leads/route.ts
 ```
 
 ### Adding a new trip
@@ -62,6 +66,26 @@ src/
 Open `src/lib/trips.ts`, copy an existing trip object, give it a new unique
 `slug`, and save. It automatically appears on `/trips` and gets its own
 `/trips/[slug]` page — no other file needs to change.
+
+## Lead storage (Supabase)
+
+WhatsApp is still the primary booking flow — the form always opens WhatsApp
+with the visitor's details pre-filled, exactly as before. On top of that,
+every submission is also saved to a Supabase table (`leads`) as a backup
+record, so nothing is lost if someone fills the form but never hits send in
+WhatsApp.
+
+- Schema: `supabase/schema.sql` — run once in the Supabase SQL Editor.
+- Server client: `src/lib/supabase.ts` — reads `SUPABASE_URL` and
+  `SUPABASE_SERVICE_ROLE_KEY` from environment variables. Until both are
+  set, it just no-ops (no crash, no broken booking flow).
+- Endpoint: `src/app/api/leads/route.ts` — the only thing that talks to
+  Supabase; the service role key never reaches the browser.
+- Full setup steps (create project, get keys, add to Vercel): see
+  DEPLOYMENT.md, "Configure Supabase".
+- To view/manage leads day to day: Supabase's own Table Editor (in your
+  project dashboard) works like a spreadsheet — filter, sort, and edit the
+  `status` column (`new` / `contacted` / `confirmed` / `cancelled`) by hand.
 
 ## Design system
 

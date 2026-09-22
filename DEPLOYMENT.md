@@ -8,6 +8,7 @@ these in order.
 - **GitHub** account (free) — github.com
 - **Vercel** account (free tier is enough) — vercel.com — sign up with your GitHub account, it's one click
 - **A WhatsApp Business number** — this is what all the "Book" and "WhatsApp Us" buttons message
+- **Supabase** account (free tier is enough) — supabase.com — sign up with GitHub, for storing a backup copy of every booking-form lead
 - (Later, optional) **Google Analytics** account and **Meta Business Suite** account, for the analytics IDs
 
 ## 2. What to install on your computer
@@ -55,7 +56,8 @@ If this project isn't already a GitHub repository:
 1. Go to vercel.com, click **Add New → Project**.
 2. Choose **Import Git Repository**, select `tripshala-web`.
 3. Vercel auto-detects Next.js — leave all build settings on default.
-4. Before clicking Deploy, open **Environment Variables** and add (see step 8 for where to get the values):
+4. Before clicking Deploy, open **Environment Variables** and add (see step 8b for Supabase, step 9 for the analytics IDs):
+   - `SUPABASE_URL` and `SUPABASE_SERVICE_ROLE_KEY` (recommended — this is what saves booking leads as a backup)
    - `NEXT_PUBLIC_GA_ID` (optional for now — can add later)
    - `NEXT_PUBLIC_FB_PIXEL_ID` (optional for now — can add later)
 5. Click **Deploy**. In about a minute you'll get a live URL like `tripshala-web.vercel.app`.
@@ -84,6 +86,47 @@ All WhatsApp behavior is controlled from **one file**: `src/lib/whatsapp.ts`
 To change what any WhatsApp message says (the general enquiry text, the
 trip-specific message, the referral message), edit the corresponding
 function in `src/lib/whatsapp.ts`.
+
+## 8b. Configure Supabase (saves a backup copy of every booking lead)
+
+The booking form on every trip page still hands off to WhatsApp exactly as
+before — this step doesn't change that. It adds a second, invisible step:
+every submission also gets saved to a Supabase table, so you never lose a
+lead who filled the form but closed the tab before hitting send in
+WhatsApp. Until you do this, the site works exactly the same — it just
+skips the backup save.
+
+1. Go to supabase.com, sign in with GitHub, click **New project**.
+   - Pick any name (e.g. `tripshala`), a strong database password (Supabase
+     generates one for you — save it somewhere, you likely won't need it
+     again), and the region closest to your users (e.g. Mumbai/`ap-south-1`
+     if available).
+2. Once the project finishes setting up, open the **SQL Editor** (left
+   sidebar), click **New query**, paste in the entire contents of
+   `supabase/schema.sql` from this project, and click **Run**. This creates
+   the `leads` table.
+3. Go to **Project Settings → API**. You need two values:
+   - **Project URL** — this is `SUPABASE_URL`
+   - **service_role** key, under "Project API keys" (click "Reveal" — this
+     is a secret key, treat it like a password) — this is `SUPABASE_SERVICE_ROLE_KEY`
+4. In Vercel: **Settings → Environment Variables**, add both:
+   - `SUPABASE_URL` = your Project URL
+   - `SUPABASE_SERVICE_ROLE_KEY` = your service_role key
+5. Redeploy (Vercel → Deployments → click the three dots on the latest one → Redeploy).
+6. To check it's working: fill out a booking form on the live site, then in
+   Supabase go to **Table Editor → leads** — your test submission should
+   appear as a new row within a few seconds.
+
+**To view and manage leads day to day**, use Supabase's Table Editor — it
+works like a spreadsheet (filter, sort, search). Update the `status` column
+by hand as you follow up: `new` → `contacted` → `confirmed` (or
+`cancelled`).
+
+**Important:** only ever put the **service_role** key in Vercel's
+environment variables, never in any file you commit to GitHub (it's
+already excluded via `.gitignore` if you ever create a local `.env.local`
+file for testing) and never in front-end code — it has full read/write
+access to your database with no restrictions.
 
 ## 9. Configure analytics
 
@@ -121,13 +164,15 @@ This needs no code changes — Next.js and GA4 read these automatically.
 - Open the live URL on your phone — check the homepage, a trip page, and that the sticky "Book / WhatsApp" bar appears on mobile.
 - Tap a WhatsApp button and confirm it opens WhatsApp with the right message and your real number.
 - Fill out a booking form and confirm the WhatsApp handoff includes all the fields you entered.
+- If you've set up Supabase (step 8b), check that same test submission shows up as a row in **Table Editor → leads**.
 - Check `/sitemap.xml` and `/robots.txt` load.
 - Run the site through https://pagespeed.web.dev once it's live, to catch anything slow.
 
 ## Notes on what v1 deliberately does NOT include
 
 Per the brief: no payment gateway, no user accounts, no custom admin
-dashboard, no complex backend. Booking is: form → WhatsApp → manual
-confirmation → (future) payment link. This is intentional, not a shortcut
-that broke — see README.md for how to extend it later (Supabase is the
-suggested next step if you outgrow WhatsApp-only lead capture).
+dashboard. Booking is: form → WhatsApp (primary) + Supabase (backup record)
+→ manual confirmation → (future) payment link. Supabase's own Table Editor
+stands in for a custom admin dashboard for now — see README.md's "Lead
+storage" section for how that's wired up, and for how to extend it further
+(e.g. a real dashboard, automated WhatsApp follow-ups) if you outgrow it.

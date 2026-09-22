@@ -234,7 +234,7 @@ export default async function TripDetailPage({
             {trip.seatsLeft} of {trip.seatsTotal} seats left · {trip.bookingStatus === "sold-out" ? "Sold out" : "Booking open"}
           </p>
           <div className="mt-4">
-            <BookingForm tripName={trip.title} tripDate={trip.date} />
+            <BookingForm tripName={trip.title} tripDate={trip.date} tripSlug={trip.slug} />
           </div>
         </div>
       </Container>

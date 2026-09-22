@@ -8,9 +8,10 @@ import { track, AnalyticsEvents } from "@/lib/analytics";
 interface BookingFormProps {
   tripName: string;
   tripDate: string;
+  tripSlug: string;
 }
 
-export function BookingForm({ tripName, tripDate }: BookingFormProps) {
+export function BookingForm({ tripName, tripDate, tripSlug }: BookingFormProps) {
   const [submitted, setSubmitted] = useState(false);
   const startedTracking = useRef(false);
 
@@ -26,14 +27,51 @@ export function BookingForm({ tripName, tripDate }: BookingFormProps) {
     const data = new FormData(e.currentTarget);
     const name = String(data.get("name") || "");
     const phone = String(data.get("phone") || "");
+    const email = String(data.get("email") || "");
+    const age = String(data.get("age") || "");
+    const city = String(data.get("city") || "");
     const people = String(data.get("people") || "1");
     const hasBike = String(data.get("hasBike") || "No");
+    const bikeModel = String(data.get("bikeModel") || "");
+    const source = String(data.get("source") || "");
     const referralCode = String(data.get("referralCode") || "");
+    const message = String(data.get("message") || "");
 
     if (referralCode) {
       track(AnalyticsEvents.REFERRAL_CODE_ENTERED, { trip: tripName, referralCode });
     }
     track(AnalyticsEvents.FORM_SUBMIT, { trip: tripName });
+
+    // Best-effort backup record in Supabase — fired in the background so a
+    // slow or failed request never delays or blocks the WhatsApp handoff,
+    // which stays the primary path regardless of whether this succeeds.
+    try {
+      fetch("/api/leads", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          tripSlug,
+          tripName,
+          tripDate,
+          name,
+          phone,
+          email,
+          age,
+          city,
+          people,
+          hasBike,
+          bikeModel,
+          source,
+          referralCode,
+          message,
+        }),
+        keepalive: true,
+      }).catch(() => {
+        // Ignore — this is a backup record, not the primary flow.
+      });
+    } catch {
+      // Ignore — never let this block the booking.
+    }
 
     const link = whatsappMessages.bookingWithDetails({
       tripName,
