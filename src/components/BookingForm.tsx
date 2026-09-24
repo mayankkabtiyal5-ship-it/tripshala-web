@@ -1,6 +1,7 @@
 "use client";
 
-import { FormEvent, useEffect, useRef } from "react";
+import { FormEvent, useEffect, useRef, useState } from "react";
+import { ChevronDown, Minus, Plus } from "lucide-react";
 import { useRouter } from "next/navigation";
 import { Button } from "./ui/Button";
 import { whatsappMessages } from "@/lib/whatsapp";
@@ -12,14 +13,17 @@ interface BookingFormProps {
   tripDate: string;
   tripSlug: string;
   pickupPoints?: string[];
-  departures?: string[]; // labels of upcoming fixed departures, e.g. "1–3 Oct · Gandhi Jayanti long weekend"
+  departures?: string[]; // labels of upcoming departures, e.g. "1–3 Oct · Gandhi Jayanti long weekend"
+  price?: number; // per person, for the live total
+  isBikeTrip?: boolean; // only bike rides ask about bringing a bike
 }
 
 export const LAST_BOOKING_KEY = "tripshala_last_booking";
 const OTHER_DATE = "Another date — suggest on WhatsApp";
 
-export function BookingForm({ tripName, tripDate, tripSlug, pickupPoints, departures = [] }: BookingFormProps) {
+export function BookingForm({ tripName, tripDate, tripSlug, pickupPoints, departures = [], price, isBikeTrip = false }: BookingFormProps) {
   const router = useRouter();
+  const [people, setPeople] = useState(1);
   const startedTracking = useRef(false);
   const formRef = useRef<HTMLFormElement>(null);
 
@@ -52,7 +56,7 @@ export function BookingForm({ tripName, tripDate, tripSlug, pickupPoints, depart
     const age = String(data.get("age") || "");
     const city = String(data.get("city") || "");
     const people = String(data.get("people") || "1");
-    const hasBike = String(data.get("hasBike") || "No");
+    const hasBike = isBikeTrip ? String(data.get("hasBike") || "No") : "";
     const bikeModel = String(data.get("bikeModel") || "");
     const source = String(data.get("source") || "");
     const referralCode = String(data.get("referralCode") || "");
@@ -109,7 +113,7 @@ export function BookingForm({ tripName, tripDate, tripSlug, pickupPoints, depart
       name,
       phone,
       people,
-      hasBike,
+      hasBike: hasBike || undefined,
       referralCode: referralCode || undefined,
       pickupPoint: pickupPoint || undefined,
     });
@@ -127,53 +131,106 @@ export function BookingForm({ tripName, tripDate, tripSlug, pickupPoints, depart
     router.push(`/booking/confirmed?${params.toString()}`);
   }
 
+  const total = price ? price * people : null;
+
   return (
     <form ref={formRef} onSubmit={handleSubmit} onFocus={handleFirstInteraction} className="grid gap-4">
-      <div className="grid gap-4 sm:grid-cols-2">
-        <Field label="Name" name="name" required />
-        <Field label="Phone" name="phone" type="tel" required />
-        <Field label="Email" name="email" type="email" />
-        <Field label="Age" name="age" type="number" />
-        <Field label="City" name="city" />
-        <Field label="Number of people" name="people" type="number" defaultValue="1" />
-      </div>
-
-      <div className="grid gap-4 sm:grid-cols-2">
-        <SelectField label="Do you have a bike?" name="hasBike" options={["No", "Yes"]} />
-        <Field label="Bike model (optional)" name="bikeModel" />
-      </div>
-
+      {/* 1. When and where */}
       {departures.length > 0 && (
         <SelectField label="Departure date" name="departure" options={[...departures, OTHER_DATE]} />
       )}
-
       {pickupPoints && pickupPoints.length > 0 && (
-        <SelectField label="Preferred pickup point" name="pickupPoint" options={pickupPoints} />
+        <SelectField label="Pickup point" name="pickupPoint" options={pickupPoints} />
       )}
 
+      {/* 2. Who */}
       <div className="grid gap-4 sm:grid-cols-2">
-        <SelectField
-          label="How did you hear about us?"
-          name="source"
-          options={["Instagram", "WhatsApp group", "Friend/referral", "Google search", "Other"]}
-        />
-        <Field label="Referral code (optional)" name="referralCode" />
+        <Field label="Name" name="name" required autoComplete="name" />
+        <Field label="Phone" name="phone" type="tel" required autoComplete="tel" inputMode="tel" />
       </div>
 
-      <div>
-        <label className="text-sm font-medium">Message (optional)</label>
-        <textarea
-          name="message"
-          rows={3}
-          className="mt-1 w-full rounded-xl border border-line bg-white px-4 py-2.5 text-sm outline-none focus:border-accent"
-        />
+      <div className="flex items-center justify-between gap-4 rounded-xl border border-line px-4 py-2.5">
+        <span className="text-sm font-medium">Travellers</span>
+        <div className="flex items-center gap-3">
+          <button
+            type="button"
+            aria-label="Fewer travellers"
+            onClick={() => setPeople((n) => Math.max(1, n - 1))}
+            disabled={people <= 1}
+            className="flex h-8 w-8 items-center justify-center rounded-full border border-line transition-colors hover:border-ink disabled:opacity-40"
+          >
+            <Minus size={14} />
+          </button>
+          <span className="w-5 text-center font-semibold tabular-nums" aria-live="polite">
+            {people}
+          </span>
+          <button
+            type="button"
+            aria-label="More travellers"
+            onClick={() => setPeople((n) => Math.min(11, n + 1))}
+            className="flex h-8 w-8 items-center justify-center rounded-full border border-line transition-colors hover:border-ink"
+          >
+            <Plus size={14} />
+          </button>
+        </div>
+        <input type="hidden" name="people" value={people} />
       </div>
 
-      <Button type="submit" variant="primary" className="mt-2 w-full">
-        Book / Enquire on WhatsApp
+      {isBikeTrip && (
+        <div className="grid gap-4">
+          <SelectField label="Bringing your own bike?" name="hasBike" options={["Yes", "No — need a seat in the backup vehicle"]} />
+          <Field label="Bike model (optional)" name="bikeModel" />
+        </div>
+      )}
+
+      {/* 3. Optional extras, tucked away */}
+      <details className="group rounded-xl border border-line [&_summary::-webkit-details-marker]:hidden">
+        <summary className="flex cursor-pointer list-none items-center justify-between px-4 py-3 text-sm font-medium">
+          <span>
+            Add more details <span className="font-normal text-muted">(optional)</span>
+          </span>
+          <ChevronDown aria-hidden size={16} className="ml-auto text-muted transition-transform group-open:rotate-180" />
+        </summary>
+        <div className="grid gap-4 border-t border-line p-4">
+          <div className="grid gap-4 sm:grid-cols-2">
+            <Field label="Email" name="email" type="email" autoComplete="email" />
+            <Field label="Age" name="age" type="number" />
+            <Field label="City" name="city" autoComplete="address-level2" />
+            <Field label="Referral code" name="referralCode" />
+          </div>
+          <SelectField
+            label="How did you hear about us?"
+            name="source"
+            options={["Instagram", "WhatsApp group", "Friend/referral", "Google search", "Other"]}
+          />
+          <div>
+            <label className="text-sm font-medium" htmlFor="booking-message">Message</label>
+            <textarea
+              id="booking-message"
+              name="message"
+              rows={3}
+              placeholder="Travelling with friends, dietary needs, questions…"
+              className="mt-1 w-full rounded-xl border border-line bg-white px-4 py-2.5 text-sm outline-none focus:border-accent"
+            />
+          </div>
+        </div>
+      </details>
+
+      {/* 4. Total + submit */}
+      {total !== null && (
+        <div className="flex items-baseline justify-between border-t border-line pt-4">
+          <span className="text-sm text-muted">
+            {people} × ₹{price!.toLocaleString("en-IN")}
+          </span>
+          <span className="text-xl font-semibold tabular-nums">₹{total.toLocaleString("en-IN")}</span>
+        </div>
+      )}
+
+      <Button type="submit" variant="primary" className="w-full py-3.5">
+        Reserve on WhatsApp
       </Button>
-      <p className="text-center text-xs text-muted">
-        Submitting opens WhatsApp with your details pre-filled — nothing is charged here.
+      <p className="text-center text-xs leading-relaxed text-muted">
+        Nothing is charged now. WhatsApp opens with your details filled in, and a real person confirms your seat — usually within a few hours.
       </p>
     </form>
   );
@@ -185,12 +242,16 @@ function Field({
   type = "text",
   required = false,
   defaultValue,
+  autoComplete,
+  inputMode,
 }: {
   label: string;
   name: string;
   type?: string;
   required?: boolean;
   defaultValue?: string;
+  autoComplete?: string;
+  inputMode?: "tel" | "text" | "email" | "numeric";
 }) {
   return (
     <label className="block">
@@ -203,6 +264,8 @@ function Field({
         type={type}
         required={required}
         defaultValue={defaultValue}
+        autoComplete={autoComplete}
+        inputMode={inputMode}
         className="mt-1 w-full rounded-xl border border-line bg-white px-4 py-2.5 text-sm outline-none focus:border-accent"
       />
     </label>

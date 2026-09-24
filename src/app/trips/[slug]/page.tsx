@@ -13,7 +13,7 @@ import { TripHeroCTAs } from "@/components/TripHeroCTAs";
 import { ItineraryTimeline } from "@/components/ItineraryTimeline";
 import { ItineraryPdfButton } from "@/components/ItineraryPdfButton";
 import { TripMoments } from "@/components/TripMoments";
-import { CalendarDays, Check, Flag, MapPin, X } from "lucide-react";
+import { Armchair, CalendarDays, Check, ChevronDown, Flag, MapPin, RotateCcw, ShieldCheck, X } from "lucide-react";
 import { TripHeroMedia } from "@/components/trip/TripHeroMedia";
 import { TripSectionNav } from "@/components/trip/TripSectionNav";
 import { PackingList } from "@/components/trip/PackingList";
@@ -327,31 +327,57 @@ export default async function TripDetailPage({
 
         {/* Booking sidebar */}
         <div id="book" className="h-fit scroll-mt-36 rounded-2xl bg-white p-6 shadow-[0_18px_40px_-24px_rgba(28,25,23,0.35)] ring-1 ring-line md:sticky md:top-32">
-          <div className="flex items-baseline justify-between gap-3">
-            <h2 className="font-display text-xl font-medium">Book your spot</h2>
-            <span className="text-xs text-muted">
-              {deps[0]?.seatsLeft ?? trip.seatsLeft} of {trip.seatsTotal} seats left
-            </span>
-          </div>
+          {(() => {
+            const left = deps[0]?.seatsLeft ?? trip.seatsLeft;
+            const pct = Math.round((1 - left / trip.seatsTotal) * 100);
+            return (
+              <>
+                <p className="text-[0.65rem] font-semibold uppercase tracking-[0.16em] text-muted">Book your spot</p>
+                <div className="mt-2 flex items-end justify-between gap-3">
+                  <p>
+                    {trip.originalPrice && trip.originalPrice > trip.price && (
+                      <span className="mr-2 text-sm text-muted line-through">₹{trip.originalPrice.toLocaleString("en-IN")}</span>
+                    )}
+                    <span className="font-display text-3xl font-medium">₹{trip.price.toLocaleString("en-IN")}</span>
+                    <span className="text-sm text-muted"> / person</span>
+                  </p>
+                </div>
+                <div className="mt-3">
+                  <div className="flex justify-between text-xs">
+                    <span className="font-medium text-ink/80">
+                      {left <= 4 ? `Only ${left} seats left` : left < trip.seatsTotal ? `${left} of ${trip.seatsTotal} seats open` : "Seats open"}
+                    </span>
+                    <span className="text-muted">{trip.seatsTotal}-seat group</span>
+                  </div>
+                  {left < trip.seatsTotal && (
+                    <div className="mt-1.5 h-1 overflow-hidden rounded-full bg-paper-raised">
+                      <div className="h-full rounded-full bg-accent" style={{ width: `${pct}%` }} />
+                    </div>
+                  )}
+                </div>
+              </>
+            );
+          })()}
 
-          {/* What the price covers */}
-          <div className="mt-4 rounded-xl bg-paper-raised/70 p-4">
-            <p className="text-sm">
-              <span className="text-2xl font-semibold">₹{trip.price.toLocaleString("en-IN")}</span>
-              <span className="text-muted"> per person covers</span>
-            </p>
-            <ul className="mt-3 space-y-1.5 text-sm text-ink/80">
-              {trip.inclusions.slice(0, 5).map((inc) => (
+          <details className="group mt-4 rounded-xl bg-paper-raised/70 [&_summary::-webkit-details-marker]:hidden">
+            <summary className="flex cursor-pointer list-none items-center justify-between gap-3 px-4 py-3 text-sm font-medium">
+              What your ₹{trip.price.toLocaleString("en-IN")} covers
+              <ChevronDown aria-hidden size={16} className="text-muted transition-transform group-open:rotate-180" />
+            </summary>
+            <ul className="space-y-1.5 px-4 pb-4 text-sm text-ink/80">
+              {trip.inclusions.slice(0, 6).map((inc) => (
                 <li key={inc} className="flex items-start gap-2">
                   <Check aria-hidden size={14} strokeWidth={2} className="mt-[3px] shrink-0 text-accent-2" />
                   <span>{inc}</span>
                 </li>
               ))}
+              <li>
+                <a href="#inclusions" className="text-xs font-semibold text-accent underline underline-offset-4">
+                  See everything included
+                </a>
+              </li>
             </ul>
-            <a href="#inclusions" className="mt-3 inline-block text-xs font-semibold text-accent underline underline-offset-4">
-              See everything included
-            </a>
-          </div>
+          </details>
 
           <div className="mt-5">
             <BookingForm
@@ -360,7 +386,15 @@ export default async function TripDetailPage({
               tripSlug={trip.slug}
               pickupPoints={trip.pickupPoints}
               departures={deps.slice(0, 8).map(departureLabel)}
+              price={trip.price}
+              isBikeTrip={trip.transport.includes("Bike") || trip.categories.includes("Bike Rides")}
             />
+          </div>
+
+          <div className="mt-5 grid grid-cols-3 gap-2 border-t border-line pt-4 text-center text-[0.7rem] leading-snug text-muted">
+            <div><ShieldCheck aria-hidden size={16} strokeWidth={1.75} className="mx-auto mb-1 text-accent" />Trip captain on board</div>
+            <div><Armchair aria-hidden size={16} strokeWidth={1.75} className="mx-auto mb-1 text-accent" />Small group, room to breathe</div>
+            <div><RotateCcw aria-hidden size={16} strokeWidth={1.75} className="mx-auto mb-1 text-accent" /><a href="/policies/cancellation" className="underline underline-offset-2">Clear cancellation terms</a></div>
           </div>
         </div>
       </Container>

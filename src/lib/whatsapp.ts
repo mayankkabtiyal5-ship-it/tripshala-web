@@ -34,7 +34,7 @@ export const whatsappMessages = {
     name: string;
     phone: string;
     people: string;
-    hasBike: string;
+    hasBike?: string; // only asked on bike rides
     referralCode?: string;
     pickupPoint?: string;
   }) => {
@@ -44,8 +44,8 @@ export const whatsappMessages = {
       `Name: ${params.name}`,
       `Phone: ${params.phone}`,
       `Number of people: ${params.people}`,
-      `Bringing own bike: ${params.hasBike}`,
     ];
+    if (params.hasBike) lines.push(`Bringing own bike: ${params.hasBike}`);
     if (params.pickupPoint) lines.push(`Pickup point: ${params.pickupPoint}`);
     if (params.referralCode) lines.push(`Referral code: ${params.referralCode}`);
     return buildLink(lines.join("\n"));
