@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Container } from "@/components/ui/Container";
 import { Button } from "@/components/ui/Button";
+import { ReferralCodeTool } from "@/components/ReferralCodeTool";
 import { whatsappMessages } from "@/lib/whatsapp";
 
 export const metadata: Metadata = {
@@ -18,13 +19,20 @@ export default function ReferralPage() {
     <Container className="py-14">
       <h1 className="font-display text-4xl font-extrabold">Bring a friend. Ride more. Pay less.</h1>
       <p className="mt-3 max-w-xl text-muted">
-        Tripshala grows through the people already on it — not just ads. Here&apos;s how referrals work.
+        Tripshala grows through the people already on it — not just ads. Get your code below, no waiting on us.
       </p>
 
       <section className="mt-10 grid gap-6 sm:grid-cols-3">
-        <Step number="1" title="Get your code" body="Every rider gets a personal referral code — ask for yours on WhatsApp." />
-        <Step number="2" title="Friend books with it" body="Your friend enters your code in the referral field when booking any trip." />
+        <Step number="1" title="Get your code" body="Enter your name and phone below — your code and shareable link show up instantly." />
+        <Step number="2" title="Share your link" body="Send your link on WhatsApp. It fills the code in automatically when your friend books — nothing for them to type or remember." />
         <Step number="3" title="You both get rewarded" body="Once their trip is confirmed, the reward lands for both of you." />
+      </section>
+
+      <section className="mt-14 max-w-xl">
+        <h2 className="font-display text-2xl font-bold">Get your code</h2>
+        <div className="mt-4">
+          <ReferralCodeTool />
+        </div>
       </section>
 
       <section className="mt-14">
@@ -43,11 +51,12 @@ export default function ReferralPage() {
         <strong className="text-ink">Preventing abuse (set this up before launch):</strong> cap rewards to one per confirmed (not just booked) trip, require the friend to be a genuinely new customer, and hold the reward until after the referred trip is completed — not at the point of booking.
       </section>
 
-      <div className="mt-10 text-center">
-        <Button href={whatsappMessages.referral()} target="_blank" rel="noopener noreferrer" variant="whatsapp">
-          Get my referral code
+      <p className="mt-10 text-center text-sm text-muted">
+        Questions about how it works?{" "}
+        <Button href={whatsappMessages.referral()} target="_blank" rel="noopener noreferrer" variant="whatsapp" className="ml-2">
+          Ask on WhatsApp
         </Button>
-      </div>
+      </p>
     </Container>
   );
 }

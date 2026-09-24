@@ -60,6 +60,7 @@ If this project isn't already a GitHub repository:
    - `SUPABASE_URL` and `SUPABASE_SERVICE_ROLE_KEY` (recommended — this is what saves booking leads as a backup)
    - `NEXT_PUBLIC_GA_ID` (optional for now — can add later)
    - `NEXT_PUBLIC_FB_PIXEL_ID` (optional for now — can add later)
+   - `INTERNAL_DASHBOARD_KEY` (optional — see step 8d, unlocks the internal referrals summary page)
 5. Click **Deploy**. In about a minute you'll get a live URL like `tripshala-web.vercel.app`.
 
 Every time you push new commits to the `main` branch on GitHub, Vercel
@@ -156,6 +157,28 @@ Suggestions submitted through this card land in the same `leads` table as
 booking enquiries (Supabase Table Editor → leads), tagged
 `source = hidden_gem_suggestion` so you can filter them out from real
 bookings.
+
+## 8d. Configure the internal referrals dashboard
+
+The `/referral` page now generates a code and shareable link for anyone
+instantly, with no work from you. This step is only for the separate
+**internal summary page** at `/internal/referrals` — a read-only list,
+grouped by code, of who referred whom, so you don't have to dig through the
+Supabase Table Editor by hand. Until you do this step, that page shows "Not
+found" to everyone, including you.
+
+1. Pick a long, random string only you know (a password manager's "generate
+   password" button works well) — this is your dashboard key.
+2. In Vercel: **Settings → Environment Variables**, add
+   `INTERNAL_DASHBOARD_KEY` = that string.
+3. Redeploy.
+4. Open `https://tripshala.in/internal/referrals?key=<that string>` — bookmark
+   this exact URL (with the key in it). Treat it like a password: it's the
+   only thing standing between this page and anyone who guesses the URL.
+
+This page is never linked from the site and is excluded from search engines
+and the sitemap, but isn't a real login system — don't share the link, and
+rotate `INTERNAL_DASHBOARD_KEY` in Vercel if you ever think it's leaked.
 
 ## 9. Configure analytics
 

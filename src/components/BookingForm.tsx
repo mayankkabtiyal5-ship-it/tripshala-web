@@ -1,9 +1,10 @@
 "use client";
 
-import { FormEvent, useRef, useState } from "react";
+import { FormEvent, useEffect, useRef, useState } from "react";
 import { Button } from "./ui/Button";
 import { whatsappMessages } from "@/lib/whatsapp";
 import { track, AnalyticsEvents } from "@/lib/analytics";
+import { readStoredReferralCode } from "@/lib/referral";
 
 interface BookingFormProps {
   tripName: string;
@@ -14,6 +15,20 @@ interface BookingFormProps {
 export function BookingForm({ tripName, tripDate, tripSlug }: BookingFormProps) {
   const [submitted, setSubmitted] = useState(false);
   const startedTracking = useRef(false);
+  const formRef = useRef<HTMLFormElement>(null);
+
+  // Auto-fill the referral code field from whatever a ?ref=CODE link left in
+  // this browser (see ReferralCapture), without touching it if the visitor
+  // already typed something in themselves. Done imperatively via the DOM
+  // rather than a defaultValue driven by state, so the server-rendered and
+  // first client-rendered HTML always match (no hydration mismatch).
+  useEffect(() => {
+    const stored = readStoredReferralCode();
+    const input = formRef.current?.elements.namedItem("referralCode") as HTMLInputElement | null;
+    if (stored && input && !input.value) {
+      input.value = stored;
+    }
+  }, []);
 
   function handleFirstInteraction() {
     if (!startedTracking.current) {
@@ -99,7 +114,7 @@ export function BookingForm({ tripName, tripDate, tripSlug }: BookingFormProps) 
   }
 
   return (
-    <form onSubmit={handleSubmit} onFocus={handleFirstInteraction} className="grid gap-4">
+    <form ref={formRef} onSubmit={handleSubmit} onFocus={handleFirstInteraction} className="grid gap-4">
       <div className="grid gap-4 sm:grid-cols-2">
         <Field label="Name" name="name" required />
         <Field label="Phone" name="phone" type="tel" required />

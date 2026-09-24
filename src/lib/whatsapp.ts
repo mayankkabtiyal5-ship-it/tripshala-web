@@ -8,6 +8,13 @@ function buildLink(message: string) {
   return `https://wa.me/${site.whatsappNumber}?text=${encoded}`;
 }
 
+// For a visitor sharing something FROM their own WhatsApp TO a friend —
+// no fixed recipient, so this omits the phone number. WhatsApp opens with
+// the message pre-filled and lets the visitor pick who to send it to.
+export function buildWhatsAppShareLink(message: string) {
+  return `https://wa.me/?text=${encodeURIComponent(message)}`;
+}
+
 export const whatsappMessages = {
   general: () =>
     buildLink(

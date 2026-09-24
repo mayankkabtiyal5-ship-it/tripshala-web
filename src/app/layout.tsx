@@ -1,9 +1,11 @@
 import type { Metadata } from "next";
+import { Suspense } from "react";
 import "./globals.css";
 import { Header } from "@/components/Header";
 import { Footer } from "@/components/Footer";
 import { WhatsAppFloatingButton } from "@/components/WhatsAppFloatingButton";
 import { Analytics } from "@/components/Analytics";
+import { ReferralCapture } from "@/components/ReferralCapture";
 import { site } from "@/lib/site";
 
 // Fonts are loaded via a browser-fetched stylesheet (below) rather than
@@ -86,6 +88,9 @@ export default function RootLayout({
         <Footer />
         <WhatsAppFloatingButton />
         <Analytics />
+        <Suspense fallback={null}>
+          <ReferralCapture />
+        </Suspense>
       </body>
     </html>
   );
