@@ -1,4 +1,5 @@
 import { Container } from "../ui/Container";
+import { Reveal } from "../motion/Reveal";
 import { TripPhoto } from "../ui/TripPhoto";
 
 export function BikeOrNot() {
@@ -11,7 +12,7 @@ export function BikeOrNot() {
           aspect="aspect-[4/5]"
           className="md:order-2"
         />
-        <div className="md:order-1">
+        <Reveal className="md:order-1">
           <p className="eyebrow">Two ways to travel</p>
           <h2 className="mt-4 text-4xl font-medium leading-[1.1] md:text-5xl">
             Bring your bike. <em className="italic text-accent">Or just bring yourself.</em>
@@ -25,7 +26,7 @@ export function BikeOrNot() {
             Every listing says exactly how you&apos;ll travel, so there&apos;s never a
             surprise at the pickup point.
           </p>
-        </div>
+        </Reveal>
       </Container>
     </section>
   );

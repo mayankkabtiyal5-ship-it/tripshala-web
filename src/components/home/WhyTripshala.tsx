@@ -1,5 +1,7 @@
-import { Armchair, CalendarClock, MapPin, Moon } from "lucide-react";
+import Link from "next/link";
+import { ArrowRight, Armchair, CalendarClock, MapPin, Moon } from "lucide-react";
 import { Container } from "../ui/Container";
+import { Reveal } from "../motion/Reveal";
 
 // Built around what Tripshala actually does differently (all of it already
 // true in the trip data), instead of generic "good people / curated" lines.
@@ -31,7 +33,7 @@ export function WhyTripshala() {
     <section className="bg-paper-raised py-20 md:py-28">
       <Container>
         <div className="grid gap-12 md:grid-cols-[1fr_1.6fr] md:gap-16">
-          <div>
+          <Reveal>
             <p className="eyebrow">Why Tripshala</p>
             <h2 className="mt-4 text-4xl font-medium leading-[1.1] md:text-5xl">
               The details other trips leave to chance.
@@ -40,14 +42,21 @@ export function WhyTripshala() {
               A good weekend away is mostly logistics done well. We sweat those,
               so the only thing left for you is the trip itself.
             </p>
-          </div>
+            <Link
+              href="/standard"
+              className="group mt-6 inline-flex items-center gap-2 text-sm font-semibold text-ink underline decoration-ink/20 underline-offset-8 hover:decoration-accent"
+            >
+              Read the Tripshala Standard
+              <ArrowRight aria-hidden size={16} className="transition-transform group-hover:translate-x-1" />
+            </Link>
+          </Reveal>
           <div className="grid gap-x-10 gap-y-10 sm:grid-cols-2">
-            {benefits.map(({ icon: Icon, title, body }) => (
-              <div key={title} className="border-t border-ink/10 pt-6">
+            {benefits.map(({ icon: Icon, title, body }, i) => (
+              <Reveal key={title} delay={i * 90} className="border-t border-ink/10 pt-6">
                 <Icon aria-hidden size={22} strokeWidth={1.5} className="text-accent" />
                 <h3 className="mt-4 text-lg font-semibold">{title}</h3>
                 <p className="mt-2 leading-relaxed text-muted">{body}</p>
-              </div>
+              </Reveal>
             ))}
           </div>
         </div>

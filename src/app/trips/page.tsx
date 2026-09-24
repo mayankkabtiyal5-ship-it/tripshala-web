@@ -2,7 +2,9 @@ import type { Metadata } from "next";
 import { Suspense } from "react";
 import { Container } from "@/components/ui/Container";
 import { TripFilters } from "@/components/TripFilters";
-import { trips } from "@/lib/trips";
+import { trips, toCardTrip } from "@/lib/trips";
+
+export const revalidate = 21600;
 
 export const metadata: Metadata = {
   title: "Upcoming Trips",
@@ -13,7 +15,8 @@ export const metadata: Metadata = {
 export default function TripsPage() {
   return (
     <Container className="py-12">
-      <h1 className="font-display text-4xl font-medium">Upcoming Trips</h1>
+      <p className="eyebrow">{trips.length} trips from Bengaluru</p>
+      <h1 className="mt-3 font-display text-5xl font-medium leading-[1.05]">Upcoming trips</h1>
       <p className="mt-3 max-w-xl text-muted">
         Every trip below is planned end to end — route, stay and stops. Filter
         by how you want to travel this weekend.
@@ -21,7 +24,7 @@ export default function TripsPage() {
 
       <div className="mt-8">
         <Suspense fallback={null}>
-          <TripFilters trips={trips} />
+          <TripFilters trips={trips.map(toCardTrip)} />
         </Suspense>
       </div>
     </Container>

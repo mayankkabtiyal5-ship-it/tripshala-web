@@ -1,6 +1,7 @@
 "use client";
 
-import { FormEvent, useEffect, useRef, useState } from "react";
+import { FormEvent, useEffect, useRef } from "react";
+import { useRouter } from "next/navigation";
 import { Button } from "./ui/Button";
 import { whatsappMessages } from "@/lib/whatsapp";
 import { track, AnalyticsEvents } from "@/lib/analytics";
@@ -11,10 +12,14 @@ interface BookingFormProps {
   tripDate: string;
   tripSlug: string;
   pickupPoints?: string[];
+  departures?: string[]; // labels of upcoming fixed departures, e.g. "1–3 Oct · Gandhi Jayanti long weekend"
 }
 
-export function BookingForm({ tripName, tripDate, tripSlug, pickupPoints }: BookingFormProps) {
-  const [submitted, setSubmitted] = useState(false);
+export const LAST_BOOKING_KEY = "tripshala_last_booking";
+const OTHER_DATE = "Another date — suggest on WhatsApp";
+
+export function BookingForm({ tripName, tripDate, tripSlug, pickupPoints, departures = [] }: BookingFormProps) {
+  const router = useRouter();
   const startedTracking = useRef(false);
   const formRef = useRef<HTMLFormElement>(null);
 
@@ -53,6 +58,8 @@ export function BookingForm({ tripName, tripDate, tripSlug, pickupPoints }: Book
     const referralCode = String(data.get("referralCode") || "");
     const pickupPoint = String(data.get("pickupPoint") || "");
     const message = String(data.get("message") || "");
+    const chosenDate = String(data.get("departure") || "") || tripDate;
+    const dateForMessage = chosenDate === OTHER_DATE ? "flexible — suggest a date" : chosenDate;
 
     // The leads table has no dedicated pickup-point column, so it's folded
     // into the free-text message rather than requiring a schema change.
@@ -75,7 +82,7 @@ export function BookingForm({ tripName, tripDate, tripSlug, pickupPoints }: Book
         body: JSON.stringify({
           tripSlug,
           tripName,
-          tripDate,
+          tripDate: dateForMessage,
           name,
           phone,
           email,
@@ -98,7 +105,7 @@ export function BookingForm({ tripName, tripDate, tripSlug, pickupPoints }: Book
 
     const link = whatsappMessages.bookingWithDetails({
       tripName,
-      date: tripDate,
+      date: dateForMessage,
       name,
       phone,
       people,
@@ -107,19 +114,17 @@ export function BookingForm({ tripName, tripDate, tripSlug, pickupPoints }: Book
       pickupPoint: pickupPoint || undefined,
     });
 
-    setSubmitted(true);
-    window.open(link, "_blank", "noopener,noreferrer");
-  }
+    // Keep the WhatsApp link for the confirmation page's "open it again"
+    // button (popup blockers, or the app didn't open).
+    try {
+      sessionStorage.setItem(LAST_BOOKING_KEY, JSON.stringify({ link, tripSlug, date: dateForMessage, name }));
+    } catch {
+      // Storage unavailable — the confirmation page still works without it.
+    }
 
-  if (submitted) {
-    return (
-      <div className="rounded-2xl border border-accent-2/30 bg-accent-2/10 p-6 text-center">
-        <p className="font-semibold text-accent-2">We&apos;ve opened WhatsApp with your details filled in.</p>
-        <p className="mt-2 text-sm text-muted">
-          Just hit send — a real person replies, usually within a few hours.
-        </p>
-      </div>
-    );
+    window.open(link, "_blank", "noopener,noreferrer");
+    const params = new URLSearchParams({ trip: tripSlug, date: dateForMessage, name: name.split(" ")[0] || "" });
+    router.push(`/booking/confirmed?${params.toString()}`);
   }
 
   return (
@@ -137,6 +142,10 @@ export function BookingForm({ tripName, tripDate, tripSlug, pickupPoints }: Book
         <SelectField label="Do you have a bike?" name="hasBike" options={["No", "Yes"]} />
         <Field label="Bike model (optional)" name="bikeModel" />
       </div>
+
+      {departures.length > 0 && (
+        <SelectField label="Departure date" name="departure" options={[...departures, OTHER_DATE]} />
+      )}
 
       {pickupPoints && pickupPoints.length > 0 && (
         <SelectField label="Preferred pickup point" name="pickupPoint" options={pickupPoints} />

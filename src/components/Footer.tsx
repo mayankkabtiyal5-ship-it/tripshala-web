@@ -22,6 +22,7 @@ export function Footer() {
             <li><Link href="/community" className="hover:text-ink">Community</Link></li>
             <li><Link href="/about" className="hover:text-ink">About</Link></li>
             <li><Link href="/faq" className="hover:text-ink">FAQ</Link></li>
+            <li><Link href="/standard" className="hover:text-ink">The Tripshala Standard</Link></li>
             <li><Link href="/referral" className="hover:text-ink">Refer a friend — earn ₹299</Link></li>
           </ul>
         </div>

@@ -3,9 +3,18 @@ import { ArrowRight } from "lucide-react";
 import { Container } from "../ui/Container";
 import { TripCard } from "../TripCard";
 import { trips } from "@/lib/trips";
+import { upcomingDepartures } from "@/lib/departures";
+import { Reveal } from "../motion/Reveal";
 
 export function UpcomingTrips() {
-  const featured = trips.slice(0, 3);
+  // Soonest fixed departures first; trips without dates fill the rest.
+  const featured = [...trips]
+    .sort((a, b) => {
+      const da = upcomingDepartures(a)[0]?.start ?? "9999";
+      const db = upcomingDepartures(b)[0]?.start ?? "9999";
+      return da.localeCompare(db);
+    })
+    .slice(0, 6);
 
   return (
     <section className="py-20 md:py-28">
@@ -31,8 +40,10 @@ export function UpcomingTrips() {
           </p>
         ) : (
           <div className="mt-12 grid gap-6 sm:grid-cols-2 lg:grid-cols-3 lg:gap-8">
-            {featured.map((trip) => (
-              <TripCard key={trip.id} trip={trip} />
+            {featured.map((trip, i) => (
+              <Reveal key={trip.id} delay={(i % 3) * 80} className="[&>a]:h-full">
+                <TripCard trip={trip} />
+              </Reveal>
             ))}
           </div>
         )}

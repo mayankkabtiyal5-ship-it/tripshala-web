@@ -24,7 +24,7 @@ export function Hero() {
         fill
         priority
         sizes="100vw"
-        className="-z-20 object-cover object-center"
+        className="hero-drift -z-20 object-cover object-center"
       />
       {/* Legibility wash: darker at the bottom-left where the copy sits. */}
       <div

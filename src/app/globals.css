@@ -91,3 +91,61 @@ h3, h4 {
     #ebe3d4 20px
   );
 }
+
+/* ---------- Motion (premium pass 2) ---------- */
+
+/* Scroll reveal: content is visible by default (no-JS, crawlers); with JS on,
+   blocks start slightly lowered and transparent, then settle in as they
+   enter the viewport (the Reveal component adds .is-in). */
+.reveal {
+  transition: opacity 0.9s cubic-bezier(0.2, 0.7, 0.2, 1), transform 0.9s cubic-bezier(0.2, 0.7, 0.2, 1);
+  transition-delay: var(--reveal-delay, 0ms);
+}
+@media (scripting: enabled) {
+  .reveal:not(.is-in) {
+    opacity: 0;
+    transform: translateY(22px);
+  }
+}
+
+/* Slow drift on the hero photograph. */
+@keyframes hero-drift {
+  from { transform: scale(1.1); }
+  to { transform: scale(1); }
+}
+.hero-drift {
+  animation: hero-drift 18s cubic-bezier(0.2, 0.6, 0.2, 1) both;
+}
+
+/* Soft fade between pages (app/template.tsx re-mounts on navigation). */
+@keyframes page-enter {
+  from { opacity: 0; transform: translateY(8px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+.page-enter {
+  animation: page-enter 0.45s cubic-bezier(0.2, 0.7, 0.2, 1) backwards; /* no fill after: a lingering transform would break position:fixed children */
+}
+
+/* Skeleton shimmer for loading states. */
+@keyframes shimmer {
+  from { background-position: -600px 0; }
+  to { background-position: 600px 0; }
+}
+.skeleton {
+  background: linear-gradient(90deg, var(--color-paper-raised) 0%, #ece5d8 50%, var(--color-paper-raised) 100%);
+  background-size: 1200px 100%;
+  animation: shimmer 1.6s linear infinite;
+}
+
+/* Horizontal rails: hide the scrollbar but keep scroll + snap. */
+.rail {
+  scrollbar-width: none;
+  scroll-snap-type: x mandatory;
+}
+.rail::-webkit-scrollbar { display: none; }
+.rail > * { scroll-snap-align: start; }
+
+@media (prefers-reduced-motion: reduce) {
+  .reveal:not(.is-in) { opacity: 1; transform: none; }
+  .hero-drift, .page-enter, .skeleton { animation: none; }
+}

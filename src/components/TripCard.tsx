@@ -1,7 +1,8 @@
 import Link from "next/link";
-import Image from "next/image";
-import { ArrowUpRight, Bike, BusFront, Check, Clock } from "lucide-react";
-import { Trip } from "@/lib/trips";
+import { FadeImage } from "./ui/FadeImage";
+import { ArrowUpRight, Bike, BusFront, CalendarDays, Check, Clock } from "lucide-react";
+import type { CardTrip as Trip } from "@/lib/trips";
+import { formatDepartureRange, upcomingDepartures } from "@/lib/departures";
 import { PlaceholderMedia } from "./ui/PlaceholderMedia";
 
 // Premium card: photo-led, one quiet status pill, one price. Urgency and
@@ -19,20 +20,23 @@ export function TripCard({ trip }: { trip: Trip }) {
   const pill = statusPill[trip.bookingStatus];
   const hasDiscount = typeof trip.originalPrice === "number" && trip.originalPrice > trip.price;
   const TransportIcon = trip.transport === "Bike" ? Bike : BusFront;
+  const deps = upcomingDepartures(trip);
+  const next = deps[0];
+  const occasion = next?.note?.replace(/ long weekend$/i, "");
 
   return (
     <Link
       href={`/trips/${trip.slug}`}
-      className="group flex flex-col overflow-hidden rounded-2xl bg-white ring-1 ring-line transition-all duration-300 hover:-translate-y-0.5 hover:shadow-[0_18px_40px_-20px_rgba(28,25,23,0.35)]"
+      className="group flex flex-col overflow-hidden rounded-2xl bg-white text-ink ring-1 ring-line transition-all duration-300 hover:-translate-y-0.5 hover:shadow-[0_18px_40px_-20px_rgba(28,25,23,0.35)]"
     >
       <div className="relative aspect-[4/3] overflow-hidden">
         {trip.coverImage ? (
-          <Image
+          <FadeImage
             src={trip.coverImage}
             alt={trip.coverImageLabel}
             fill
             sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
-            className="object-cover transition-transform duration-700 ease-out group-hover:scale-[1.04]"
+            className="object-cover group-hover:scale-[1.04]"
           />
         ) : (
           <PlaceholderMedia label={trip.coverImageLabel} title={trip.destination.split(",")[0]} aspect="aspect-[4/3]" className="rounded-none" />
@@ -40,9 +44,11 @@ export function TripCard({ trip }: { trip: Trip }) {
         <div aria-hidden className="absolute inset-x-0 bottom-0 h-1/3 bg-gradient-to-t from-black/45 to-transparent" />
         <div className="absolute bottom-3 left-4 right-4 flex items-center justify-between text-xs font-medium text-white">
           <span className="tracking-wide">{trip.categories.slice(0, 2).join(" · ")}</span>
-          {pill && (
+          {pill ? (
             <span className="rounded-full bg-white/95 px-2.5 py-1 text-[0.7rem] font-semibold text-ink">{pill}</span>
-          )}
+          ) : occasion ? (
+            <span className="rounded-full bg-accent px-2.5 py-1 text-[0.7rem] font-semibold text-white">{occasion}</span>
+          ) : null}
         </div>
       </div>
 
@@ -82,7 +88,17 @@ export function TripCard({ trip }: { trip: Trip }) {
 
         <div className="mt-auto pt-5">
         <div className="flex items-end justify-between border-t border-line pt-4">
-          <span className="max-w-[55%] text-xs leading-snug text-muted">{trip.date}</span>
+          {next ? (
+            <span className="flex max-w-[58%] items-start gap-1.5 text-xs leading-snug text-ink/80">
+              <CalendarDays aria-hidden size={13} strokeWidth={1.75} className="mt-px shrink-0 text-accent" />
+              <span>
+                {formatDepartureRange(next)}
+                {deps.length > 1 && <span className="block text-muted">+{deps.length - 1} more date{deps.length > 2 ? "s" : ""}</span>}
+              </span>
+            </span>
+          ) : (
+            <span className="max-w-[55%] text-xs leading-snug text-muted">{trip.date}</span>
+          )}
           <div className="text-right">
             <div className="text-[0.7rem] uppercase tracking-wider text-muted">
               From{" "}

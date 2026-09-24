@@ -6,14 +6,21 @@ import { WhyTripshala } from "@/components/home/WhyTripshala";
 import { BikeOrNot } from "@/components/home/BikeOrNot";
 import { CommunityTeaser } from "@/components/home/CommunityTeaser";
 import { InstagramSection } from "@/components/home/InstagramSection";
+import { SeasonalFeature, getActiveSeason } from "@/components/home/SeasonalFeature";
+import { BrowseByType } from "@/components/home/BrowseByType";
 
-// Order tells one story: see the trips → why us → how easy it is → the two
+// Re-render a few times a day so date-driven sections (long-weekend band,
+// next departures) roll over on their own without a redeploy.
+export const revalidate = 21600;
+
+// Order tells one story: this season's trips → browse by type → why us → how easy it is → the two
 // ways to travel → the people → then invite ideas and follow along.
 export default function Home() {
   return (
     <>
       <Hero />
-      <UpcomingTrips />
+      {getActiveSeason() ? <SeasonalFeature /> : <UpcomingTrips />}
+      <BrowseByType />
       <WhyTripshala />
       <HowItWorks />
       <BikeOrNot />

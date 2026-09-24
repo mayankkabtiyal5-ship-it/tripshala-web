@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { ArrowRight } from "lucide-react";
 import { Container } from "../ui/Container";
+import { Reveal } from "../motion/Reveal";
 import { TripPhoto } from "../ui/TripPhoto";
 import { testimonials } from "@/lib/testimonials";
 
@@ -24,20 +25,20 @@ export function CommunityTeaser() {
           </Link>
         </div>
 
-        <div className="mt-12 grid gap-4 md:grid-cols-3 md:gap-6">
+        <Reveal className="mt-12 grid gap-4 md:grid-cols-3 md:gap-6">
           <TripPhoto src="/photos/munnar-group-lakeside.jpg" alt="Tripshala group by the lake in Munnar" aspect="aspect-[4/5]" sizes="(max-width: 768px) 100vw, 33vw" />
           <TripPhoto src="/photos/fog-trek-summit.jpg" alt="A traveller with arms open on a fog-covered summit" aspect="aspect-[4/5]" sizes="(max-width: 768px) 100vw, 33vw" />
           <TripPhoto src="/photos/kochi-mattancherry-group.jpg" alt="Group on the stairs at Mattancherry Palace, Kochi" aspect="aspect-[4/5]" sizes="(max-width: 768px) 100vw, 33vw" />
-        </div>
+        </Reveal>
 
         <div className="mt-16 grid gap-x-16 gap-y-12 md:grid-cols-2">
-          {featured.map((t) => (
-            <figure key={t.name} className="border-t border-white/15 pt-8">
+          {featured.map((t, i) => (
+            <Reveal as="figure" key={t.name} delay={(i % 2) * 100} className="border-t border-white/15 pt-8">
               <blockquote className="font-display text-xl font-light leading-snug text-paper/95 md:text-2xl">
                 &ldquo;{t.quote}&rdquo;
               </blockquote>
               <figcaption className="mt-5 text-sm font-medium tracking-wide text-paper/60">{t.name}</figcaption>
-            </figure>
+            </Reveal>
           ))}
         </div>
       </Container>

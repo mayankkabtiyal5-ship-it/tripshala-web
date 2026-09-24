@@ -1,4 +1,5 @@
 import { Container } from "../ui/Container";
+import { Reveal } from "../motion/Reveal";
 
 const steps = [
   {
@@ -27,12 +28,12 @@ export function HowItWorks() {
           Three steps, then the open road.
         </h2>
         <ol className="mt-14 grid gap-10 md:grid-cols-3 md:gap-12">
-          {steps.map((s) => (
-            <li key={s.number} className="border-t border-ink/10 pt-6">
+          {steps.map((s, i) => (
+            <Reveal as="li" key={s.number} delay={i * 110} className="border-t border-ink/10 pt-6">
               <div className="font-display text-5xl font-light italic text-accent">{s.number}</div>
               <h3 className="mt-4 text-xl font-semibold">{s.title}</h3>
               <p className="mt-2 leading-relaxed text-muted">{s.body}</p>
-            </li>
+            </Reveal>
           ))}
         </ol>
       </Container>

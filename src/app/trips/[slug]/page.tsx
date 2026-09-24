@@ -3,7 +3,6 @@ import { notFound } from "next/navigation";
 import { Container } from "@/components/ui/Container";
 import { Badge } from "@/components/ui/Badge";
 import { PlaceholderMedia } from "@/components/ui/PlaceholderMedia";
-import { TripPhoto } from "@/components/ui/TripPhoto";
 import { FAQAccordion } from "@/components/ui/FAQAccordion";
 import { BookingForm } from "@/components/BookingForm";
 import { StickyMobileCTA } from "@/components/StickyMobileCTA";
@@ -14,7 +13,15 @@ import { TripHeroCTAs } from "@/components/TripHeroCTAs";
 import { ItineraryTimeline } from "@/components/ItineraryTimeline";
 import { ItineraryPdfButton } from "@/components/ItineraryPdfButton";
 import { TripMoments } from "@/components/TripMoments";
-import { Check, Flag, MapPin, X } from "lucide-react";
+import { CalendarDays, Check, Flag, MapPin, X } from "lucide-react";
+import { TripHeroMedia } from "@/components/trip/TripHeroMedia";
+import { TripSectionNav } from "@/components/trip/TripSectionNav";
+import { PackingList } from "@/components/trip/PackingList";
+import { packingListFor } from "@/lib/packing";
+import { departureLabel, formatDepartureRange, tripDateLabel, upcomingDepartures } from "@/lib/departures";
+
+// Re-render a few times a day so past departure dates drop off on their own.
+export const revalidate = 21600;
 
 export function generateStaticParams() {
   return trips.map((t) => ({ slug: t.slug }));
@@ -36,7 +43,7 @@ export async function generateMetadata({
     openGraph: {
       title: `${keywordTitle} | ${site.name}`,
       description: keywordDescription,
-      images: trip.coverImage ? [trip.coverImage] : undefined,
+      // The share image comes from ./opengraph-image.tsx (photo, title, price).
     },
   };
 }
@@ -71,6 +78,20 @@ export default async function TripDetailPage({
     },
   };
 
+  const deps = upcomingDepartures(trip);
+  const dateText = tripDateLabel(trip);
+  const heroPhotos = trip.coverImage
+    ? [{ src: trip.coverImage, alt: trip.coverImageLabel, caption: trip.title }, ...(trip.photos ?? [])]
+    : [];
+  const sections = [
+    { id: "overview", label: "Overview" },
+    ...(trip.photos && trip.photos.length > 0 ? [{ id: "photos", label: "Photos" }] : []),
+    { id: "itinerary", label: "Itinerary" },
+    { id: "inclusions", label: "What's included" },
+    { id: "packing", label: "What to pack" },
+    { id: "faqs", label: "FAQs" },
+  ];
+
   const faqJsonLd = {
     "@context": "https://schema.org",
     "@type": "FAQPage",
@@ -99,8 +120,8 @@ export default async function TripDetailPage({
       {/* Hero */}
       <section className="border-b border-line bg-paper-raised">
         <Container className="grid items-center gap-10 py-10 md:grid-cols-2 md:gap-14 md:py-16">
-          {trip.coverImage ? (
-            <TripPhoto src={trip.coverImage} alt={trip.coverImageLabel} aspect="aspect-[4/3]" priority />
+          {heroPhotos.length > 0 ? (
+            <TripHeroMedia photos={heroPhotos} />
           ) : (
             <PlaceholderMedia label={trip.coverImageLabel} title={trip.destination.split(",")[0]} aspect="aspect-[4/3]" />
           )}
@@ -115,7 +136,10 @@ export default async function TripDetailPage({
             </h1>
             <p className="mt-3 inline-flex items-center gap-1.5 text-muted"><MapPin aria-hidden size={15} strokeWidth={1.75} /> Bengaluru to {trip.destination}</p>
             <div className="mt-4 flex flex-wrap items-center gap-4 text-sm">
-              <span className="font-semibold">{trip.date}</span>
+              <span className="inline-flex items-center gap-1.5 font-semibold">
+                <CalendarDays aria-hidden size={15} strokeWidth={1.75} className="text-accent" />
+                {dateText}
+              </span>
               <span>{trip.duration}</span>
               <span>{trip.transport}</span>
             </div>
@@ -126,20 +150,22 @@ export default async function TripDetailPage({
             <TripHeroCTAs
               slug={trip.slug}
               title={trip.title}
-              date={trip.date}
+              date={dateText}
               disabled={trip.bookingStatus === "sold-out" || trip.bookingStatus === "closed"}
             />
           </div>
         </Container>
       </section>
 
+      <TripSectionNav sections={sections} />
+
       <Container className="grid gap-12 py-12 pb-28 md:grid-cols-3 md:pb-12">
         <div className="space-y-12 md:col-span-2">
           {/* Quick info */}
-          <section>
+          <section id="overview" className="scroll-mt-36">
             <h2 className="font-display text-2xl font-medium">Quick info</h2>
             <dl className="mt-5 grid grid-cols-2 gap-x-6 gap-y-5 rounded-2xl bg-white p-6 ring-1 ring-line sm:grid-cols-3">
-              <QuickInfo label="Date" value={trip.date} />
+              <QuickInfo label={deps.length > 0 ? "Next departure" : "Date"} value={deps[0] ? formatDepartureRange(deps[0]) : trip.date} />
               <QuickInfo label="Duration" value={trip.duration} />
               <QuickInfo label="Starting point" value={trip.startingPoint} />
               <QuickInfo label="Ending point" value={trip.endingPoint} />
@@ -171,7 +197,7 @@ export default async function TripDetailPage({
 
           {/* From past trips */}
           {trip.photos && trip.photos.length > 0 && (
-            <section>
+            <section id="photos" className="scroll-mt-36">
               <p className="eyebrow">From past trips</p>
               <h2 className="mt-2 font-display text-2xl font-medium">What it actually looks like</h2>
               <div className="mt-5">
@@ -181,7 +207,7 @@ export default async function TripDetailPage({
           )}
 
           {/* Itinerary */}
-          <section>
+          <section id="itinerary" className="scroll-mt-36">
             <div className="flex flex-wrap items-center justify-between gap-3">
               <div>
                 <p className="eyebrow">Day by day</p>
@@ -247,7 +273,7 @@ export default async function TripDetailPage({
           </section>
 
           {/* Inclusions / exclusions */}
-          <section className="grid gap-8 sm:grid-cols-2">
+          <section id="inclusions" className="grid scroll-mt-36 gap-8 sm:grid-cols-2">
             <div>
               <h2 className="font-display text-xl font-medium">Included</h2>
               <ul className="mt-3 space-y-2 text-sm text-muted">
@@ -270,6 +296,15 @@ export default async function TripDetailPage({
             </div>
           </section>
 
+          {/* What to pack */}
+          <section id="packing" className="scroll-mt-36">
+            <p className="eyebrow">Before you go</p>
+            <h2 className="mt-2 font-display text-2xl font-medium">What to pack</h2>
+            <div className="mt-5">
+              <PackingList groups={packingListFor(trip)} />
+            </div>
+          </section>
+
           {/* Who is this for */}
           <section>
             <h2 className="font-display text-2xl font-medium">Who is this for?</h2>
@@ -282,7 +317,7 @@ export default async function TripDetailPage({
           </section>
 
           {/* FAQ */}
-          <section>
+          <section id="faqs" className="scroll-mt-36">
             <h2 className="font-display text-2xl font-medium">Frequently asked questions</h2>
             <div className="mt-4">
               <FAQAccordion items={trip.faqs} />
@@ -291,23 +326,49 @@ export default async function TripDetailPage({
         </div>
 
         {/* Booking sidebar */}
-        <div id="book" className="h-fit scroll-mt-20 rounded-2xl bg-white p-6 shadow-[0_18px_40px_-24px_rgba(28,25,23,0.35)] ring-1 ring-line md:sticky md:top-24">
-          <h2 className="font-display text-xl font-medium">Book your spot</h2>
-          <p className="mt-1 text-sm text-muted">
-            {trip.seatsLeft} of {trip.seatsTotal} seats left · {trip.bookingStatus === "sold-out" ? "Sold out" : "Booking open"}
-          </p>
-          <div className="mt-4">
+        <div id="book" className="h-fit scroll-mt-36 rounded-2xl bg-white p-6 shadow-[0_18px_40px_-24px_rgba(28,25,23,0.35)] ring-1 ring-line md:sticky md:top-32">
+          <div className="flex items-baseline justify-between gap-3">
+            <h2 className="font-display text-xl font-medium">Book your spot</h2>
+            <span className="text-xs text-muted">
+              {deps[0]?.seatsLeft ?? trip.seatsLeft} of {trip.seatsTotal} seats left
+            </span>
+          </div>
+
+          {/* What the price covers */}
+          <div className="mt-4 rounded-xl bg-paper-raised/70 p-4">
+            <p className="text-sm">
+              <span className="text-2xl font-semibold">₹{trip.price.toLocaleString("en-IN")}</span>
+              <span className="text-muted"> per person covers</span>
+            </p>
+            <ul className="mt-3 space-y-1.5 text-sm text-ink/80">
+              {trip.inclusions.slice(0, 5).map((inc) => (
+                <li key={inc} className="flex items-start gap-2">
+                  <Check aria-hidden size={14} strokeWidth={2} className="mt-[3px] shrink-0 text-accent-2" />
+                  <span>{inc}</span>
+                </li>
+              ))}
+            </ul>
+            <a href="#inclusions" className="mt-3 inline-block text-xs font-semibold text-accent underline underline-offset-4">
+              See everything included
+            </a>
+          </div>
+
+          <div className="mt-5">
             <BookingForm
               tripName={trip.title}
-              tripDate={trip.date}
+              tripDate={dateText}
               tripSlug={trip.slug}
               pickupPoints={trip.pickupPoints}
+              departures={deps.map(departureLabel)}
             />
           </div>
         </div>
       </Container>
 
-      <StickyMobileCTA trip={trip} />
+      <StickyMobileCTA
+        trip={{ slug: trip.slug, title: trip.title, date: dateText }}
+        disabled={trip.bookingStatus === "sold-out" || trip.bookingStatus === "closed"}
+      />
     </>
   );
 }

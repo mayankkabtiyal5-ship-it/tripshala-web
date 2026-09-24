@@ -1,11 +1,10 @@
 "use client";
 
-import { Trip } from "@/lib/trips";
 import { whatsappMessages } from "@/lib/whatsapp";
 import { track, AnalyticsEvents } from "@/lib/analytics";
 
-export function StickyMobileCTA({ trip }: { trip: Trip }) {
-  const disabled = trip.bookingStatus === "sold-out" || trip.bookingStatus === "closed";
+// Takes only what it needs (not the whole trip) to keep the client payload small.
+export function StickyMobileCTA({ trip, disabled }: { trip: { slug: string; title: string; date: string }; disabled: boolean }) {
 
   return (
     <div className="print:hidden fixed inset-x-0 bottom-0 z-40 flex gap-2 border-t border-line bg-paper/95 p-3 backdrop-blur md:hidden">

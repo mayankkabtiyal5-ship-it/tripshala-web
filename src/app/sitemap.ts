@@ -7,7 +7,7 @@ import { site } from "@/lib/site";
 // edits, etc). Using `new Date()` here would mark every page as "changed"
 // on every deploy, which tells Google nothing useful and can dilute how
 // often it bothers re-crawling pages that truly did change.
-const CONTENT_LAST_UPDATED = new Date("2026-09-21");
+const CONTENT_LAST_UPDATED = new Date("2026-09-24");
 
 export default function sitemap(): MetadataRoute.Sitemap {
   const staticRoutes = [
@@ -20,6 +20,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     "/faq",
     "/contact",
     "/referral",
+    "/standard",
   ].map((path) => ({
     url: `${site.url}${path}`,
     lastModified: CONTENT_LAST_UPDATED,

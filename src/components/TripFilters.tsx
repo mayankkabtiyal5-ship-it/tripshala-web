@@ -4,7 +4,7 @@ import { X } from "lucide-react";
 
 import { useCallback, useEffect, useMemo, useState } from "react";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
-import { ALL_CATEGORIES, Trip, TripCategory } from "@/lib/trips";
+import { ALL_CATEGORIES, type CardTrip as Trip, TripCategory } from "@/lib/trips";
 import { TripCard } from "./TripCard";
 import { track, AnalyticsEvents } from "@/lib/analytics";
 

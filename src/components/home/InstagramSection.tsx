@@ -1,6 +1,7 @@
 "use client";
 
 import { Container } from "../ui/Container";
+import { Reveal } from "../motion/Reveal";
 import { Button } from "../ui/Button";
 import { TripPhoto } from "../ui/TripPhoto";
 import { site } from "@/lib/site";
@@ -39,11 +40,11 @@ export function InstagramSection() {
           </Button>
         </div>
 
-        <div className="mt-12 grid grid-cols-2 gap-3 sm:grid-cols-3 md:grid-cols-6">
+        <Reveal className="mt-12 grid grid-cols-2 gap-3 sm:grid-cols-3 md:grid-cols-6">
           {posts.map((p) => (
             <TripPhoto key={p.src} src={p.src} alt={p.alt} aspect="aspect-[4/5]" sizes="(max-width: 768px) 50vw, 16vw" />
           ))}
-        </div>
+        </Reveal>
       </Container>
     </section>
   );
