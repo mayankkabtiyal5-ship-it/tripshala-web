@@ -24,15 +24,12 @@ export async function generateMetadata({
   const { slug } = await params;
   const trip = getTripBySlug(slug);
   if (!trip) return {};
-  const keywordTitle = `${trip.title} — ${trip.destination} from Bengaluru`;
-  const keywordDescription = `${trip.description[0]} ${trip.duration} · ${trip.transport} · from ₹${trip.price.toLocaleString("en-IN")} per person.`;
   return {
-    title: keywordTitle,
-    description: keywordDescription,
+    title: trip.title,
+    description: trip.description[0],
     openGraph: {
-      title: `${keywordTitle} | ${site.name}`,
-      description: keywordDescription,
-      images: trip.coverImage ? [trip.coverImage] : undefined,
+      title: `${trip.title} | ${site.name}`,
+      description: trip.description[0],
     },
   };
 }
@@ -67,29 +64,12 @@ export default async function TripDetailPage({
     },
   };
 
-  const faqJsonLd = {
-    "@context": "https://schema.org",
-    "@type": "FAQPage",
-    mainEntity: trip.faqs.map((f) => ({
-      "@type": "Question",
-      name: f.question,
-      acceptedAnswer: {
-        "@type": "Answer",
-        text: f.answer,
-      },
-    })),
-  };
-
   return (
     <>
       <TrackViewTrip slug={trip.slug} />
       <script
         type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd).replace(/</g, "\\u003c") }}
-      />
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(faqJsonLd).replace(/</g, "\\u003c") }}
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
       />
 
       {/* Hero */}
@@ -234,7 +214,7 @@ export default async function TripDetailPage({
             {trip.seatsLeft} of {trip.seatsTotal} seats left · {trip.bookingStatus === "sold-out" ? "Sold out" : "Booking open"}
           </p>
           <div className="mt-4">
-            <BookingForm tripName={trip.title} tripDate={trip.date} tripSlug={trip.slug} />
+            <BookingForm tripName={trip.title} tripDate={trip.date} />
           </div>
         </div>
       </Container>
