@@ -134,7 +134,7 @@ export default async function BlogPostPage({
           {post.coverImage ? (
             <TripPhoto src={post.coverImage} alt={post.coverImageLabel} aspect="aspect-[16/9]" priority />
           ) : (
-            <PlaceholderMedia label={post.coverImageLabel} aspect="aspect-[16/9]" />
+            <PlaceholderMedia label={post.coverImageLabel} title={post.title} aspect="aspect-[16/9]" />
           )}
 
           <div className="mt-2">

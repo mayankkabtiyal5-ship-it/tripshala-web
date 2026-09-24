@@ -18,7 +18,7 @@ export function BlogCard({ post }: { post: BlogPost }) {
           className="rounded-none rounded-t-2xl border-0 border-b border-line"
         />
       ) : (
-        <PlaceholderMedia label={post.coverImageLabel} aspect="aspect-[4/3]" className="rounded-none rounded-t-2xl border-0 border-b border-line" />
+        <PlaceholderMedia label={post.coverImageLabel} title={post.title} aspect="aspect-[4/3]" className="rounded-none rounded-t-2xl" />
       )}
       <div className="flex flex-1 flex-col gap-3 p-5">
         <div className="flex flex-wrap gap-2">

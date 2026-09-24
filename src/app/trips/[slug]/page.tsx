@@ -102,7 +102,7 @@ export default async function TripDetailPage({
           {trip.coverImage ? (
             <TripPhoto src={trip.coverImage} alt={trip.coverImageLabel} aspect="aspect-[4/3]" priority />
           ) : (
-            <PlaceholderMedia label={trip.coverImageLabel} aspect="aspect-[4/3]" />
+            <PlaceholderMedia label={trip.coverImageLabel} title={trip.destination.split(",")[0]} aspect="aspect-[4/3]" />
           )}
           <div>
             <div className="flex flex-wrap gap-2">

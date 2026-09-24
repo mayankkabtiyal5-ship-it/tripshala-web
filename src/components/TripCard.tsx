@@ -35,7 +35,7 @@ export function TripCard({ trip }: { trip: Trip }) {
             className="object-cover transition-transform duration-700 ease-out group-hover:scale-[1.04]"
           />
         ) : (
-          <PlaceholderMedia label={trip.coverImageLabel} aspect="aspect-[4/3]" className="rounded-none border-0" />
+          <PlaceholderMedia label={trip.coverImageLabel} title={trip.destination.split(",")[0]} aspect="aspect-[4/3]" className="rounded-none" />
         )}
         <div aria-hidden className="absolute inset-x-0 bottom-0 h-1/3 bg-gradient-to-t from-black/45 to-transparent" />
         <div className="absolute bottom-3 left-4 right-4 flex items-center justify-between text-xs font-medium text-white">

@@ -11,7 +11,7 @@ import { track, AnalyticsEvents } from "@/lib/analytics";
 // Duration-ish tags vs. everything else ("Trip Type") — splits the 14 flat
 // category pills into two facets that can be combined (AND), instead of one
 // long row of mutually-exclusive pills.
-const DURATION_OPTIONS: TripCategory[] = ["One Day", "Weekday", "Weekend", "2 Days", "Long Weekend"];
+const DURATION_OPTIONS: TripCategory[] = ["One Day", "Weekend", "2 Days", "Long Weekend"];
 const TYPE_OPTIONS: TripCategory[] = ALL_CATEGORIES.filter((c) => !DURATION_OPTIONS.includes(c));
 
 const PRICE_BRACKETS = [
