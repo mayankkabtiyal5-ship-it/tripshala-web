@@ -33,6 +33,9 @@ export const AnalyticsEvents = {
   LINKS_PAGE_CLICK_REFERRAL: "links_page_click_referral",
   LINKS_PAGE_CLICK_FAQ: "links_page_click_faq",
   HIDDEN_GEM_SUGGESTED: "hidden_gem_suggested",
+  CLICK_WHATSAPP_CARD: "click_whatsapp_card",
+  FILTER_APPLIED: "filter_applied",
+  CORPORATE_SCHOOL_FORM_SUBMIT: "corporate_school_form_submit",
 } as const;
 
 export function track(eventName: string, params: EventParams = {}) {

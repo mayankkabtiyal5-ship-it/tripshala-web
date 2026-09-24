@@ -49,6 +49,7 @@ export interface Trip {
   duration: string; // e.g. "2 Days / 1 Night"
   transport: "Bike" | "Tempo Traveller" | "Bus" | "Bike or Tempo Traveller";
   price: number; // per person, INR
+  originalPrice?: number; // per person, INR — set this ONLY when a real discount is running; TripCard then shows a struck-through original price and a "Save ₹X" badge next to the current price. Leave unset for regular pricing — never fill it in just to make a card look more attractive.
   seatsTotal: number;
   seatsLeft: number;
   bookingStatus: BookingStatus;

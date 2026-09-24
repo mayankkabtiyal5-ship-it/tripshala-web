@@ -15,6 +15,7 @@ export function Footer() {
           <div className="text-sm font-semibold">Explore</div>
           <ul className="mt-3 space-y-2 text-sm text-muted">
             <li><Link href="/trips" className="hover:text-ink">Trips</Link></li>
+            <li><Link href="/corporate-school-trips" className="hover:text-ink">Corporate &amp; School Trips</Link></li>
             <li><Link href="/guides" className="hover:text-ink">Guides</Link></li>
             <li><Link href="/community" className="hover:text-ink">Community</Link></li>
             <li><Link href="/about" className="hover:text-ink">About</Link></li>
@@ -36,6 +37,11 @@ export function Footer() {
               </a>
             </li>
             <li><Link href="/contact" className="hover:text-ink">WhatsApp / Contact</Link></li>
+            <li>
+              <a href={`https://wa.me/${site.whatsappNumber}`} target="_blank" rel="noopener noreferrer" className="hover:text-ink">
+                +91 {site.whatsappNumber.slice(2, 7)} {site.whatsappNumber.slice(7)}
+              </a>
+            </li>
             <li><a href={`mailto:${site.contactEmail}`} className="hover:text-ink">{site.contactEmail}</a></li>
           </ul>
         </div>

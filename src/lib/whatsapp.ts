@@ -49,6 +49,28 @@ export const whatsappMessages = {
     buildLink(
       `Hi Tripshala! I'd like to talk about a partnership/collaboration.`
     ),
+  groupEnquiry: (params: {
+    orgName: string;
+    contactName: string;
+    phone: string;
+    groupType: string;
+    groupSize: string;
+    activity?: string;
+    dates?: string;
+    message?: string;
+  }) => {
+    const lines = [
+      `Hi Tripshala! I'd like to enquire about a ${params.groupType} trip.`,
+      `Organization: ${params.orgName}`,
+      `Contact person: ${params.contactName}`,
+      `Phone: ${params.phone}`,
+      `Group size: ${params.groupSize}`,
+    ];
+    if (params.activity) lines.push(`Preferred activity/destination: ${params.activity}`);
+    if (params.dates) lines.push(`Preferred dates: ${params.dates}`);
+    if (params.message) lines.push(`Message: ${params.message}`);
+    return buildLink(lines.join("\n"));
+  },
   hiddenGemSuggestion: (params: { name: string; phone: string; place: string }) =>
     buildLink(
       [

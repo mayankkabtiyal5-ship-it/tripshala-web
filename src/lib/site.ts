@@ -22,6 +22,7 @@ export const site = {
 
 export const NAV_LINKS = [
   { href: "/trips", label: "Trips" },
+  { href: "/corporate-school-trips", label: "For Groups" },
   { href: "/guides", label: "Guides" },
   { href: "/community", label: "Community" },
   { href: "/about", label: "About" },

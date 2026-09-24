@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { Suspense } from "react";
 import { Container } from "@/components/ui/Container";
 import { TripFilters } from "@/components/TripFilters";
 import { trips } from "@/lib/trips";
@@ -19,7 +20,9 @@ export default function TripsPage() {
       </p>
 
       <div className="mt-8">
-        <TripFilters trips={trips} />
+        <Suspense fallback={null}>
+          <TripFilters trips={trips} />
+        </Suspense>
       </div>
     </Container>
   );
