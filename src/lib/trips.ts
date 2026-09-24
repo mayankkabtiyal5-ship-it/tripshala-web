@@ -2911,7 +2911,7 @@ export const trips: Trip[] = [
       "Trip WhatsApp group with live updates",
     ],
     exclusions: [
-      "Dinner before the trek",
+      "Forest department trek permit (booked in advance with your ID — we'll share the details)",
       "Breakfast on the way back",
       "Personal expenses and shopping",
       "Anything not explicitly listed above",
