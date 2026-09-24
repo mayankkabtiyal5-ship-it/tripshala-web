@@ -5,7 +5,8 @@ import { useState } from "react";
 import { Menu, X } from "lucide-react";
 import { Container } from "./ui/Container";
 import { Button } from "./ui/Button";
-import { NAV_LINKS, site } from "@/lib/site";
+import { NAV_LINKS } from "@/lib/site";
+import { Logo } from "./ui/Logo";
 
 export function Header() {
   const [open, setOpen] = useState(false);
@@ -13,8 +14,8 @@ export function Header() {
   return (
     <header className="print:hidden sticky top-0 z-40 border-b border-line bg-paper/90 backdrop-blur">
       <Container className="flex h-16 items-center justify-between">
-        <Link href="/" className="font-display text-2xl font-semibold tracking-tight">
-          {site.name}
+        <Link href="/" aria-label="Tripshala — home">
+          <Logo />
         </Link>
 
         <nav className="hidden items-center gap-8 md:flex">

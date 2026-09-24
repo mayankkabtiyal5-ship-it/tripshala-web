@@ -39,6 +39,12 @@ export interface FAQItem {
   answer: string;
 }
 
+export interface TripMoment {
+  src: string;
+  alt: string;
+  caption?: string;
+}
+
 export interface Trip {
   id: string;
   slug: string;
@@ -62,6 +68,7 @@ export interface Trip {
   coverImageLabel: string; // placeholder label until real photography exists
   coverImage?: string; // real photo path (public/), once available — falls back to the placeholder when unset
   gallery: string[]; // placeholder labels
+  photos?: TripMoment[]; // real photos from past runs of this trip — shown as a "From past trips" gallery on the trip page
   description: string[]; // paragraphs
   highlights: string[];
   itinerary: ItineraryDay[];
@@ -237,6 +244,9 @@ export const trips: Trip[] = [
     categories: ["Weekend", "2 Days", "Nature", "Heritage"],
     coverImageLabel: "Coffee estate rows in mist, Coorg",
     coverImage: "/photos/coorg-misty-hills.jpg",
+    photos: [
+      { src: "/photos/coorg-group-selfie.jpg", alt: "The group at the Coorg sign on a past trip", caption: "The Coorg crew" },
+    ],
     gallery: ["Group at the estate lunch table", "Abbey Falls", "Sunset from the homestay verandah"],
     description: [
       "You don't need to ride to earn this one. A Tempo Traveller, a good playlist, and a coffee estate that's been in the same family for three generations.",
@@ -307,6 +317,10 @@ export const trips: Trip[] = [
     categories: ["Weekend", "2 Days", "Heritage"],
     coverImageLabel: "Ruins of the Vittala Temple complex, Hampi, golden hour",
     coverImage: "/photos/hampi-vittala-temple.jpg",
+    photos: [
+      { src: "/photos/hampi-stone-chariot-hd.jpg", alt: "The stone chariot at Vittala Temple, Hampi", caption: "Stone chariot, Vittala Temple" },
+      { src: "/photos/hampi-hut-stay-camp.jpg", alt: "Thatched huts and tents against Hampi’s boulder hills", caption: "Hut stay near Hampi" },
+    ],
     gallery: ["Sunset at Matanga Hill", "Coracle ride on the Tungabhadra", "Group photo at the stone chariot"],
     description: [
       "A UNESCO World Heritage site that used to be one of the richest cities on earth, told by a local guide who treats it like a story instead of a syllabus.",
@@ -436,6 +450,11 @@ export const trips: Trip[] = [
     categories: ["Long Weekend", "Nature", "Trek"],
     coverImageLabel: "A waterfall cascading through a Munnar tea estate",
     coverImage: "/photos/munnar-tea-estate-falls.jpg",
+    photos: [
+      { src: "/photos/munnar-group-lakeside.jpg", alt: "Tripshala group by the lake in Munnar", caption: "Lakeside, Munnar" },
+      { src: "/photos/munnar-mattupetty-boats.jpg", alt: "Boats on the lake below the Munnar hills", caption: "Mattupetty lake" },
+      { src: "/photos/munnar-tea-slopes.jpg", alt: "Rolling tea slopes under a cliff in Munnar", caption: "Tea country" },
+    ],
     gallery: ["Sunrise at Kolukkumalai tea estate", "Mattupetty Dam", "Group dinner at the homestay"],
     description: [
       "Endless tea gardens, a road that climbs through the clouds, and the kind of quiet you only get 1,600 metres up. Munnar is the trip for people who want green in every direction and no itinerary to plan themselves.",
@@ -533,6 +552,10 @@ export const trips: Trip[] = [
     categories: ["Long Weekend", "Coastal", "Heritage"],
     coverImageLabel: "Houseboats moored along a tree-shaded Alleppey backwater canal",
     coverImage: "/photos/kochi-alleppey-backwaters-canal.jpg",
+    photos: [
+      { src: "/photos/kochi-mattancherry-group.jpg", alt: "Group on the stairs at Mattancherry Palace, Kochi", caption: "Mattancherry Palace, Kochi" },
+      { src: "/photos/alleppey-lighthouse.jpg", alt: "The red-and-white Alleppey lighthouse", caption: "Alleppey lighthouse" },
+    ],
     gallery: ["Fort Kochi street art walk", "Houseboat deck at sunset", "Chinese fishing nets at dusk"],
     description: [
       "Two very different sides of Kerala in one trip — the old-world streets and cafés of Fort Kochi, then a night on a houseboat drifting through the Alleppey backwaters with nothing to do but watch the coconut palms go by.",
@@ -705,6 +728,10 @@ export const trips: Trip[] = [
     categories: ["Weekend", "2 Days", "Heritage", "Coastal", "Temple Trails"],
     coverImageLabel: "Pamban Bridge stretching out to sea toward Rameshwaram island",
     coverImage: "/photos/rameshwaram-pamban-bridge-aerial.jpg",
+    photos: [
+      { src: "/photos/rameshwaram-beach-walk.jpg", alt: "A traveller walking the quiet Rameshwaram shoreline", caption: "The quiet shoreline" },
+      { src: "/photos/rameshwaram-shoreline.jpg", alt: "Curving beach and calm sea at Rameshwaram", caption: "Rameshwaram coast" },
+    ],
     gallery: [
       "Ramanathaswamy Temple's corridor at golden hour",
       "The ghost-town coastline at Dhanushkodi",

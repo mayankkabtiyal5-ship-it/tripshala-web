@@ -1,14 +1,15 @@
 import Link from "next/link";
 import { Container } from "./ui/Container";
 import { site } from "@/lib/site";
+import { Logo } from "./ui/Logo";
 
 export function Footer() {
   return (
     <footer className="print:hidden border-t border-line bg-paper-raised">
       <Container className="grid gap-10 py-16 md:grid-cols-4 md:py-20">
         <div>
-          <div className="font-display text-2xl font-semibold tracking-tight">{site.name}</div>
-          <p className="mt-3 font-display text-lg italic leading-snug text-ink/80">{site.tagline}</p>
+          <Logo />
+          <p className="mt-4 font-display text-lg italic leading-snug text-ink/80">{site.brandLine}</p>
           <p className="mt-3 text-sm text-muted">{site.description}</p>
         </div>
 

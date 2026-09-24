@@ -13,6 +13,7 @@ import { TrackViewTrip } from "@/components/TrackViewTrip";
 import { TripHeroCTAs } from "@/components/TripHeroCTAs";
 import { ItineraryTimeline } from "@/components/ItineraryTimeline";
 import { ItineraryPdfButton } from "@/components/ItineraryPdfButton";
+import { TripMoments } from "@/components/TripMoments";
 import { Check, Flag, MapPin, X } from "lucide-react";
 
 export function generateStaticParams() {
@@ -167,6 +168,17 @@ export default async function TripDetailPage({
               ))}
             </ul>
           </section>
+
+          {/* From past trips */}
+          {trip.photos && trip.photos.length > 0 && (
+            <section>
+              <p className="eyebrow">From past trips</p>
+              <h2 className="mt-2 font-display text-2xl font-medium">What it actually looks like</h2>
+              <div className="mt-5">
+                <TripMoments photos={trip.photos} />
+              </div>
+            </section>
+          )}
 
           {/* Itinerary */}
           <section>

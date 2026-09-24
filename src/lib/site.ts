@@ -4,6 +4,7 @@
 export const site = {
   name: "Tripshala",
   tagline: "The trip's planned. You just have to show up.",
+  brandLine: "More than a trip. A tribe.", // the line under the logo
   description:
     "Bengaluru's curated weekend travel and adventure community — bike rides, weekend getaways and 1-2 day escapes, planned for you.",
   url: "https://tripshala.in",

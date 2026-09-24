@@ -2,17 +2,9 @@ import Link from "next/link";
 import { ArrowRight } from "lucide-react";
 import { Container } from "../ui/Container";
 import { TripPhoto } from "../ui/TripPhoto";
+import { testimonials } from "@/lib/testimonials";
 
-const testimonials = [
-  {
-    quote: "Had a really fun time with Tripshala. The whole trip was well planned, from the ride and stay to the little things in between. The group vibe made it even better.",
-    name: "Ayush Tomar",
-  },
-  {
-    quote: "Loved how effortless the whole trip felt. We just had to show up, ride, explore and enjoy - Tripshala took care of the rest.",
-    name: "Muskan",
-  },
-];
+const featured = testimonials.filter((t) => t.featured).slice(0, 4);
 
 export function CommunityTeaser() {
   return (
@@ -33,15 +25,15 @@ export function CommunityTeaser() {
         </div>
 
         <div className="mt-12 grid gap-4 md:grid-cols-3 md:gap-6">
-          <TripPhoto src="/photos/community-lake-group.jpg" alt="Group photo by the lake on a Tripshala trip" sizes="(max-width: 768px) 100vw, 33vw" />
-          <TripPhoto src="/photos/community-bikes-lineup.jpg" alt="Bikes lined up on a Tripshala ride" sizes="(max-width: 768px) 100vw, 33vw" />
-          <TripPhoto src="/photos/community-tea-estate-group.jpg" alt="Group photo at a tea estate stop" sizes="(max-width: 768px) 100vw, 33vw" />
+          <TripPhoto src="/photos/munnar-group-lakeside.jpg" alt="Tripshala group by the lake in Munnar" aspect="aspect-[4/5]" sizes="(max-width: 768px) 100vw, 33vw" />
+          <TripPhoto src="/photos/fog-trek-summit.jpg" alt="A traveller with arms open on a fog-covered summit" aspect="aspect-[4/5]" sizes="(max-width: 768px) 100vw, 33vw" />
+          <TripPhoto src="/photos/kochi-mattancherry-group.jpg" alt="Group on the stairs at Mattancherry Palace, Kochi" aspect="aspect-[4/5]" sizes="(max-width: 768px) 100vw, 33vw" />
         </div>
 
-        <div className="mt-16 grid gap-12 md:grid-cols-2 md:gap-16">
-          {testimonials.map((t) => (
+        <div className="mt-16 grid gap-x-16 gap-y-12 md:grid-cols-2">
+          {featured.map((t) => (
             <figure key={t.name} className="border-t border-white/15 pt-8">
-              <blockquote className="font-display text-2xl font-light leading-snug text-paper/95 md:text-[1.7rem]">
+              <blockquote className="font-display text-xl font-light leading-snug text-paper/95 md:text-2xl">
                 &ldquo;{t.quote}&rdquo;
               </blockquote>
               <figcaption className="mt-5 text-sm font-medium tracking-wide text-paper/60">{t.name}</figcaption>

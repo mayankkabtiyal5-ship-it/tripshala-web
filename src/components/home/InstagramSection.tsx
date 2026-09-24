@@ -10,9 +10,9 @@ import { track, AnalyticsEvents } from "@/lib/analytics";
 // breaks if Instagram changes their platform policy. Swap these tiles for
 // real post screenshots/exports periodically to keep it current.
 const posts = [
-  { src: "/photos/ig-hampi-chariot.jpg", alt: "Stone chariot at Hampi" },
+  { src: "/photos/hampi-stone-chariot-hd.jpg", alt: "Stone chariot at Hampi" },
   { src: "/photos/ig-monastery.jpg", alt: "Golden Temple monastery, Coorg" },
-  { src: "/photos/ig-lighthouse.jpg", alt: "Lighthouse stop on a Tripshala trip" },
+  { src: "/photos/alleppey-lighthouse.jpg", alt: "Alleppey lighthouse stop on a Tripshala trip" },
   { src: "/photos/ig-coracle-hampi.jpg", alt: "Coracle ride on the Tungabhadra, Hampi" },
   { src: "/photos/ig-solo-rider.jpg", alt: "Solo rider on a Tripshala ride" },
   { src: "/photos/ig-aerial-group.jpg", alt: "Group photo from above" },
