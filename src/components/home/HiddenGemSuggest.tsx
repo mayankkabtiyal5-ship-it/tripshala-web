@@ -164,11 +164,12 @@ export function HiddenGemSuggest() {
   }
 
   return (
-    <section className="border-b border-line bg-paper-raised py-16">
-      <Container className="grid gap-8 md:grid-cols-2 md:items-center">
+    <section className="bg-paper-raised py-20 md:py-28">
+      <Container className="grid gap-10 md:grid-cols-2 md:items-center md:gap-16">
         <div>
-          <h2 className="font-display text-3xl font-bold">Know a hidden gem near Bengaluru?</h2>
-          <p className="mt-3 max-w-md text-muted">
+          <p className="eyebrow">Suggest a destination</p>
+          <h2 className="mt-4 text-4xl font-medium leading-[1.1] md:text-5xl">Know a hidden gem near Bengaluru?</h2>
+          <p className="mt-5 max-w-md leading-relaxed text-muted">
             The best trips on this site started as a place someone in the
             community mentioned once. Tell us about somewhere less-explored
             and we&apos;ll look into planning a trip there — and you&apos;ll

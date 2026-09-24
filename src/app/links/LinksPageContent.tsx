@@ -41,7 +41,7 @@ const discoverLinks = [
 export function LinksPageContent() {
   return (
     <Container className="flex max-w-md flex-col items-center py-14 text-center">
-      <div className="font-display text-2xl font-extrabold">{site.name}</div>
+      <div className="font-display text-2xl font-medium">{site.name}</div>
       <p className="mt-2 text-sm text-muted">
         Bengaluru&apos;s travel and riding community — bike rides, weekend
         getaways and curated trips.

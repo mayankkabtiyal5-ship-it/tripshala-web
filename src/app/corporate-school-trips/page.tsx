@@ -1,3 +1,4 @@
+import { Check } from "lucide-react";
 import type { Metadata } from "next";
 import { Container } from "@/components/ui/Container";
 import { CorporateEnquiryForm } from "@/components/CorporateEnquiryForm";
@@ -32,7 +33,7 @@ const WHAT_WE_HANDLE = [
 export default function CorporateSchoolTripsPage() {
   return (
     <Container className="py-14">
-      <h1 className="font-display text-4xl font-extrabold">Corporate Offsites &amp; School Trips</h1>
+      <h1 className="font-display text-4xl font-medium">Corporate Offsites &amp; School Trips</h1>
       <p className="mt-3 max-w-2xl text-muted">
         The same end-to-end planning behind every {site.name} weekend trip, built around your organization&apos;s
         group, budget and calendar instead of an open batch.
@@ -52,7 +53,7 @@ export default function CorporateSchoolTripsPage() {
         <ul className="mt-4 grid gap-2 sm:grid-cols-2">
           {WHAT_WE_HANDLE.map((item) => (
             <li key={item} className="flex items-start gap-2 text-sm text-ink/80">
-              <span className="mt-0.5 text-accent-2">✓</span>
+              <Check aria-hidden size={15} strokeWidth={2} className="mt-0.5 shrink-0 text-accent-2" />
               <span>{item}</span>
             </li>
           ))}

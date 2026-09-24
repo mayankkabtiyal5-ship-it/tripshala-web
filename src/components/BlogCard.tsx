@@ -26,7 +26,7 @@ export function BlogCard({ post }: { post: BlogPost }) {
             <Badge key={t}>{t}</Badge>
           ))}
         </div>
-        <h3 className="font-display text-lg font-bold leading-snug group-hover:text-accent">
+        <h3 className="font-display text-lg font-medium leading-snug group-hover:text-accent">
           {post.title}
         </h3>
         <p className="text-sm text-muted line-clamp-2">{post.excerpt}</p>

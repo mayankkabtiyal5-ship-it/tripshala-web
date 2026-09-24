@@ -6,7 +6,7 @@ export const metadata: Metadata = { title: "Terms" };
 export default function TermsPage() {
   return (
     <Container className="max-w-3xl py-14">
-      <h1 className="font-display text-3xl font-extrabold">Terms of Use</h1>
+      <h1 className="font-display text-3xl font-medium">Terms of Use</h1>
       <div className="prose mt-6 space-y-4 text-sm text-muted">
         <p>These terms govern your use of the Tripshala website and participation in Tripshala trips. By booking a trip, you agree to these terms.</p>
         <p><strong className="text-ink">Bookings.</strong> A booking is confirmed only once Tripshala confirms it in writing (WhatsApp or email), not upon form submission alone.</p>

@@ -20,12 +20,13 @@ const posts = [
 
 export function InstagramSection() {
   return (
-    <section className="border-b border-line bg-paper-raised py-16">
+    <section className="py-20 md:py-28">
       <Container>
         <div className="flex flex-wrap items-end justify-between gap-4">
           <div>
-            <h2 className="font-display text-3xl font-bold">Follow the road with us.</h2>
-            <p className="mt-2 text-muted">@{site.instagramHandle} on Instagram</p>
+            <p className="eyebrow">On Instagram</p>
+            <h2 className="mt-4 text-4xl font-medium leading-[1.1] md:text-5xl">Follow the road with us.</h2>
+            <p className="mt-3 text-muted">@{site.instagramHandle} on Instagram</p>
           </div>
           <Button
             href={site.instagramUrl}
@@ -38,9 +39,9 @@ export function InstagramSection() {
           </Button>
         </div>
 
-        <div className="mt-8 grid grid-cols-2 gap-4 sm:grid-cols-3 md:grid-cols-6">
+        <div className="mt-12 grid grid-cols-2 gap-3 sm:grid-cols-3 md:grid-cols-6">
           {posts.map((p) => (
-            <TripPhoto key={p.src} src={p.src} alt={p.alt} aspect="aspect-square" sizes="(max-width: 768px) 50vw, 16vw" />
+            <TripPhoto key={p.src} src={p.src} alt={p.alt} aspect="aspect-[4/5]" sizes="(max-width: 768px) 50vw, 16vw" />
           ))}
         </div>
       </Container>

@@ -1,5 +1,7 @@
 "use client";
 
+import { Download } from "lucide-react";
+
 import { FormEvent, useState } from "react";
 import { useRouter } from "next/navigation";
 import { track, AnalyticsEvents } from "@/lib/analytics";
@@ -116,7 +118,7 @@ export function ItineraryPdfButton({ tripSlug, tripName }: { tripSlug: string; t
       onClick={handleClick}
       className="flex items-center gap-1.5 rounded-xl border border-line px-3.5 py-2 text-xs font-semibold text-ink transition-colors hover:border-ink"
     >
-      📄 Download itinerary (PDF)
+      <Download aria-hidden size={14} /> Download itinerary (PDF)
     </button>
   );
 }

@@ -18,7 +18,7 @@ const tiers = [
 export default function CancellationPage() {
   return (
     <Container className="max-w-3xl py-14">
-      <h1 className="font-display text-3xl font-extrabold">Cancellation &amp; Refund Policy</h1>
+      <h1 className="font-display text-3xl font-medium">Cancellation &amp; Refund Policy</h1>
       <p className="mt-3 text-sm text-muted">
         Seats, stays and transport are booked and paid for on your behalf as soon as a trip fills up, so refunds get smaller closer to departure — this is standard across group trip operators. Here&apos;s exactly how it works.
       </p>

@@ -1,5 +1,7 @@
 "use client";
 
+import { X } from "lucide-react";
+
 import { useCallback, useEffect, useMemo, useState } from "react";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import { ALL_CATEGORIES, Trip, TripCategory } from "@/lib/trips";
@@ -205,7 +207,7 @@ function FacetPanel({
           type="button"
           onClick={() => onPick(o)}
           className={`rounded-full border px-3.5 py-2 text-xs font-semibold transition-colors ${
-            active === o ? "border-accent-2 bg-accent-2 text-white" : "border-line bg-white text-ink hover:border-ink"
+            active === o ? "border-ink bg-ink text-paper" : "border-line bg-white text-ink hover:border-ink"
           }`}
         >
           {o}
@@ -225,7 +227,7 @@ function Chip({ label, onRemove }: { label: string; onRemove: () => void }) {
         aria-label={`Remove ${label} filter`}
         className="flex h-4 w-4 items-center justify-center rounded-full text-paper/70 hover:text-paper"
       >
-        ✕
+        <X aria-hidden size={12} />
       </button>
     </span>
   );

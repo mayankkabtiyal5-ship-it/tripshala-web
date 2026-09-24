@@ -5,14 +5,15 @@ import { site } from "@/lib/site";
 export function Footer() {
   return (
     <footer className="print:hidden border-t border-line bg-paper-raised">
-      <Container className="grid gap-10 py-14 md:grid-cols-4">
+      <Container className="grid gap-10 py-16 md:grid-cols-4 md:py-20">
         <div>
-          <div className="font-display text-lg font-bold">{site.name}</div>
+          <div className="font-display text-2xl font-semibold tracking-tight">{site.name}</div>
+          <p className="mt-3 font-display text-lg italic leading-snug text-ink/80">{site.tagline}</p>
           <p className="mt-3 text-sm text-muted">{site.description}</p>
         </div>
 
         <div>
-          <div className="text-sm font-semibold">Explore</div>
+          <div className="text-xs font-semibold uppercase tracking-[0.16em] text-ink/60">Explore</div>
           <ul className="mt-3 space-y-2 text-sm text-muted">
             <li><Link href="/trips" className="hover:text-ink">Trips</Link></li>
             <li><Link href="/corporate-school-trips" className="hover:text-ink">Corporate &amp; School Trips</Link></li>
@@ -20,11 +21,12 @@ export function Footer() {
             <li><Link href="/community" className="hover:text-ink">Community</Link></li>
             <li><Link href="/about" className="hover:text-ink">About</Link></li>
             <li><Link href="/faq" className="hover:text-ink">FAQ</Link></li>
+            <li><Link href="/referral" className="hover:text-ink">Refer a friend — earn ₹299</Link></li>
           </ul>
         </div>
 
         <div>
-          <div className="text-sm font-semibold">Connect</div>
+          <div className="text-xs font-semibold uppercase tracking-[0.16em] text-ink/60">Connect</div>
           <ul className="mt-3 space-y-2 text-sm text-muted">
             <li>
               <a href={site.instagramUrl} target="_blank" rel="noopener noreferrer" className="hover:text-ink">
@@ -47,7 +49,7 @@ export function Footer() {
         </div>
 
         <div>
-          <div className="text-sm font-semibold">Policies</div>
+          <div className="text-xs font-semibold uppercase tracking-[0.16em] text-ink/60">Policies</div>
           <ul className="mt-3 space-y-2 text-sm text-muted">
             <li><Link href="/policies/terms" className="hover:text-ink">Terms</Link></li>
             <li><Link href="/policies/privacy" className="hover:text-ink">Privacy</Link></li>

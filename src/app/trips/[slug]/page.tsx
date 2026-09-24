@@ -13,6 +13,7 @@ import { TrackViewTrip } from "@/components/TrackViewTrip";
 import { TripHeroCTAs } from "@/components/TripHeroCTAs";
 import { ItineraryTimeline } from "@/components/ItineraryTimeline";
 import { ItineraryPdfButton } from "@/components/ItineraryPdfButton";
+import { Check, Flag, MapPin, X } from "lucide-react";
 
 export function generateStaticParams() {
   return trips.map((t) => ({ slug: t.slug }));
@@ -96,7 +97,7 @@ export default async function TripDetailPage({
 
       {/* Hero */}
       <section className="border-b border-line bg-paper-raised">
-        <Container className="grid gap-8 py-10 md:grid-cols-2 md:py-14">
+        <Container className="grid items-center gap-10 py-10 md:grid-cols-2 md:gap-14 md:py-16">
           {trip.coverImage ? (
             <TripPhoto src={trip.coverImage} alt={trip.coverImageLabel} aspect="aspect-[4/3]" priority />
           ) : (
@@ -108,16 +109,16 @@ export default async function TripDetailPage({
                 <Badge key={c}>{c}</Badge>
               ))}
             </div>
-            <h1 className="mt-4 font-display text-3xl font-extrabold leading-tight md:text-4xl">
+            <h1 className="mt-5 font-display text-4xl font-medium leading-[1.08] md:text-5xl">
               {trip.title}
             </h1>
-            <p className="mt-2 text-muted">📍 Bengaluru → {trip.destination}</p>
+            <p className="mt-3 inline-flex items-center gap-1.5 text-muted"><MapPin aria-hidden size={15} strokeWidth={1.75} /> Bengaluru to {trip.destination}</p>
             <div className="mt-4 flex flex-wrap items-center gap-4 text-sm">
               <span className="font-semibold">{trip.date}</span>
               <span>{trip.duration}</span>
               <span>{trip.transport}</span>
             </div>
-            <div className="mt-4 text-2xl font-bold">
+            <div className="mt-6 text-3xl font-semibold">
               from ₹{trip.price.toLocaleString("en-IN")}
               <span className="ml-2 text-sm font-normal text-muted">per person</span>
             </div>
@@ -135,8 +136,8 @@ export default async function TripDetailPage({
         <div className="space-y-12 md:col-span-2">
           {/* Quick info */}
           <section>
-            <h2 className="font-display text-2xl font-bold">Quick info</h2>
-            <dl className="mt-4 grid grid-cols-2 gap-4 rounded-2xl border border-line p-5 sm:grid-cols-3">
+            <h2 className="font-display text-2xl font-medium">Quick info</h2>
+            <dl className="mt-5 grid grid-cols-2 gap-x-6 gap-y-5 rounded-2xl bg-white p-6 ring-1 ring-line sm:grid-cols-3">
               <QuickInfo label="Date" value={trip.date} />
               <QuickInfo label="Duration" value={trip.duration} />
               <QuickInfo label="Starting point" value={trip.startingPoint} />
@@ -152,7 +153,7 @@ export default async function TripDetailPage({
 
           {/* About */}
           <section>
-            <h2 className="font-display text-2xl font-bold">About the trip</h2>
+            <h2 className="font-display text-2xl font-medium">About the trip</h2>
             <div className="mt-4 space-y-4 text-muted">
               {trip.description.map((p, i) => (
                 <p key={i}>{p}</p>
@@ -160,8 +161,8 @@ export default async function TripDetailPage({
             </div>
             <ul className="mt-4 space-y-2">
               {trip.highlights.map((h) => (
-                <li key={h} className="flex gap-2 text-sm">
-                  <span className="text-accent">✓</span> {h}
+                <li key={h} className="flex items-start gap-2 text-sm">
+                  <Check aria-hidden size={15} strokeWidth={2} className="mt-0.5 shrink-0 text-accent" /> {h}
                 </li>
               ))}
             </ul>
@@ -170,13 +171,13 @@ export default async function TripDetailPage({
           {/* Itinerary */}
           <section>
             <div className="flex flex-wrap items-center justify-between gap-3">
-              <h2 className="font-display text-2xl font-bold">Itinerary</h2>
+              <h2 className="font-display text-2xl font-medium">Itinerary</h2>
               <ItineraryPdfButton tripSlug={trip.slug} tripName={trip.title} />
             </div>
 
             <div className="mt-4 grid gap-3 rounded-2xl bg-paper-raised p-4 text-sm sm:grid-cols-2">
               <div className="flex items-start gap-2.5">
-                <span aria-hidden>📍</span>
+                <MapPin aria-hidden size={16} strokeWidth={1.75} className="mt-0.5 shrink-0 text-accent" />
                 <div>
                   <div className="font-semibold text-ink">Pickup</div>
                   {trip.pickupPoints ? (
@@ -199,7 +200,7 @@ export default async function TripDetailPage({
                 </div>
               </div>
               <div className="flex items-start gap-2.5">
-                <span aria-hidden>🏁</span>
+                <Flag aria-hidden size={16} strokeWidth={1.75} className="mt-0.5 shrink-0 text-accent" />
                 <div>
                   <div className="font-semibold text-ink">Drop-off</div>
                   <div className="text-muted">{trip.endingPoint}</div>
@@ -215,21 +216,21 @@ export default async function TripDetailPage({
           {/* Inclusions / exclusions */}
           <section className="grid gap-8 sm:grid-cols-2">
             <div>
-              <h2 className="font-display text-xl font-bold">Included</h2>
+              <h2 className="font-display text-xl font-medium">Included</h2>
               <ul className="mt-3 space-y-2 text-sm text-muted">
                 {trip.inclusions.map((i) => (
                   <li key={i} className="flex gap-2">
-                    <span className="text-accent-2">✓</span> {i}
+                    <Check aria-hidden size={15} strokeWidth={2} className="mt-0.5 shrink-0 text-accent-2" /> {i}
                   </li>
                 ))}
               </ul>
             </div>
             <div>
-              <h2 className="font-display text-xl font-bold">Not included</h2>
+              <h2 className="font-display text-xl font-medium">Not included</h2>
               <ul className="mt-3 space-y-2 text-sm text-muted">
                 {trip.exclusions.map((i) => (
                   <li key={i} className="flex gap-2">
-                    <span className="text-muted">✕</span> {i}
+                    <X aria-hidden size={15} strokeWidth={2} className="mt-0.5 shrink-0 text-muted/70" /> {i}
                   </li>
                 ))}
               </ul>
@@ -238,7 +239,7 @@ export default async function TripDetailPage({
 
           {/* Who is this for */}
           <section>
-            <h2 className="font-display text-2xl font-bold">Who is this for?</h2>
+            <h2 className="font-display text-2xl font-medium">Who is this for?</h2>
             <p className="mt-2 text-sm text-muted">Perfect for:</p>
             <div className="mt-3 flex flex-wrap gap-2">
               {trip.whoFor.map((w) => (
@@ -249,7 +250,7 @@ export default async function TripDetailPage({
 
           {/* FAQ */}
           <section>
-            <h2 className="font-display text-2xl font-bold">Frequently asked questions</h2>
+            <h2 className="font-display text-2xl font-medium">Frequently asked questions</h2>
             <div className="mt-4">
               <FAQAccordion items={trip.faqs} />
             </div>
@@ -257,8 +258,8 @@ export default async function TripDetailPage({
         </div>
 
         {/* Booking sidebar */}
-        <div id="book" className="h-fit scroll-mt-20 rounded-2xl border border-line bg-white p-6 md:sticky md:top-24">
-          <h2 className="font-display text-xl font-bold">Book your spot</h2>
+        <div id="book" className="h-fit scroll-mt-20 rounded-2xl bg-white p-6 shadow-[0_18px_40px_-24px_rgba(28,25,23,0.35)] ring-1 ring-line md:sticky md:top-24">
+          <h2 className="font-display text-xl font-medium">Book your spot</h2>
           <p className="mt-1 text-sm text-muted">
             {trip.seatsLeft} of {trip.seatsTotal} seats left · {trip.bookingStatus === "sold-out" ? "Sold out" : "Booking open"}
           </p>

@@ -45,7 +45,7 @@ export default async function InternalReferralsPage({
   if (!supabase) {
     return (
       <Container className="py-14">
-        <h1 className="font-display text-3xl font-extrabold">Referral codes</h1>
+        <h1 className="font-display text-3xl font-medium">Referral codes</h1>
         <p className="mt-3 text-sm text-muted">
           Supabase isn&apos;t configured yet (see DEPLOYMENT.md) — there&apos;s nothing to show until leads start
           being saved there.
@@ -63,7 +63,7 @@ export default async function InternalReferralsPage({
   if (error || !data) {
     return (
       <Container className="py-14">
-        <h1 className="font-display text-3xl font-extrabold">Referral codes</h1>
+        <h1 className="font-display text-3xl font-medium">Referral codes</h1>
         <p className="mt-3 text-sm text-muted">Couldn&apos;t load referrals right now — try again shortly.</p>
       </Container>
     );
@@ -79,7 +79,7 @@ export default async function InternalReferralsPage({
 
   return (
     <Container className="py-14">
-      <h1 className="font-display text-3xl font-extrabold">Referral codes</h1>
+      <h1 className="font-display text-3xl font-medium">Referral codes</h1>
       <p className="mt-2 max-w-2xl text-sm text-muted">
         {codes.length} code{codes.length === 1 ? "" : "s"} in use. A code&apos;s owner is whoever generated it on
         /referral; every other row under it is someone who entered that code while booking. This page is
@@ -97,7 +97,7 @@ export default async function InternalReferralsPage({
             <div key={code} className="rounded-2xl border border-line bg-white p-5">
               <div className="flex flex-wrap items-center justify-between gap-2">
                 <div>
-                  <span className="font-display text-lg font-bold tracking-wide">{code}</span>
+                  <span className="font-display text-lg font-medium tracking-wide">{code}</span>
                   {issuer && (
                     <span className="ml-2 text-sm text-muted">
                       — {issuer.name} ({issuer.phone})

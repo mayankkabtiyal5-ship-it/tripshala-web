@@ -1,3 +1,4 @@
+import { Check } from "lucide-react";
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { Container } from "@/components/ui/Container";
@@ -38,7 +39,7 @@ export async function generateMetadata({
 function ContentBlockView({ block }: { block: BlogContentBlock }) {
   switch (block.type) {
     case "heading":
-      return <h2 className="mt-8 font-display text-2xl font-bold">{block.text}</h2>;
+      return <h2 className="mt-8 font-display text-2xl font-medium">{block.text}</h2>;
     case "paragraph":
       return <p className="mt-4 text-muted">{block.text}</p>;
     case "list":
@@ -46,7 +47,7 @@ function ContentBlockView({ block }: { block: BlogContentBlock }) {
         <ul className="mt-4 space-y-2">
           {block.items.map((item) => (
             <li key={item} className="flex gap-2 text-sm text-muted">
-              <span className="text-accent">✓</span> {item}
+              <Check aria-hidden size={15} strokeWidth={2} className="mt-0.5 shrink-0 text-accent" /> {item}
             </li>
           ))}
         </ul>
@@ -116,7 +117,7 @@ export default async function BlogPostPage({
               <Badge key={t}>{t}</Badge>
             ))}
           </div>
-          <h1 className="mt-4 max-w-3xl font-display text-3xl font-extrabold leading-tight md:text-4xl">
+          <h1 className="mt-4 max-w-3xl font-display text-3xl font-medium leading-tight md:text-4xl">
             {post.title}
           </h1>
           <p className="mt-3 max-w-2xl text-muted">{post.excerpt}</p>
@@ -144,7 +145,7 @@ export default async function BlogPostPage({
 
           {post.faqs && post.faqs.length > 0 && (
             <section className="mt-10">
-              <h2 className="font-display text-2xl font-bold">Frequently asked questions</h2>
+              <h2 className="font-display text-2xl font-medium">Frequently asked questions</h2>
               <div className="mt-4">
                 <FAQAccordion items={post.faqs} />
               </div>
@@ -155,7 +156,7 @@ export default async function BlogPostPage({
         <aside className="h-fit space-y-6 md:sticky md:top-24">
           {relatedTrips.length > 0 && (
             <div className="rounded-2xl border border-line bg-white p-5">
-              <h2 className="font-display text-lg font-bold">
+              <h2 className="font-display text-lg font-medium">
                 {relatedTrips.length > 1 ? "Related trips" : "Book this trip"}
               </h2>
               <div className="mt-4 space-y-4">

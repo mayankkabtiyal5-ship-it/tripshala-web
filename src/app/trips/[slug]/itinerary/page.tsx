@@ -1,3 +1,4 @@
+import { ArrowLeft } from "lucide-react";
 import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
@@ -45,13 +46,13 @@ export default async function ItineraryPrintPage({
     <div className="mx-auto max-w-3xl px-6 py-10 print:px-0 print:py-0">
       <div className="print:hidden mb-6 flex items-center justify-between">
         <Link href={`/trips/${trip.slug}`} className="text-sm text-muted hover:text-ink">
-          ← Back to trip page
+          <ArrowLeft aria-hidden size={14} className="mr-1 inline-block -translate-y-px" />Back to trip page
         </Link>
         <PrintButton />
       </div>
 
       <p className="text-xs font-semibold uppercase tracking-wide text-accent-2">{site.name} · Itinerary</p>
-      <h1 className="mt-1 font-display text-3xl font-extrabold">{trip.title}</h1>
+      <h1 className="mt-1 font-display text-3xl font-medium">{trip.title}</h1>
       <p className="mt-1 text-muted">
         {trip.destination} · {trip.duration} · {trip.transport}
       </p>
@@ -78,7 +79,7 @@ export default async function ItineraryPrintPage({
       <div className="mt-8 space-y-8">
         {trip.itinerary.map((day) => (
           <div key={day.day} className="break-inside-avoid">
-            <h2 className="font-display text-lg font-bold">
+            <h2 className="font-display text-lg font-medium">
               Day {day.day}: {day.title}
             </h2>
             <ul className="mt-3 space-y-1.5 border-l-2 border-line pl-4 text-sm">

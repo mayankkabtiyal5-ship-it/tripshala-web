@@ -11,7 +11,7 @@ export const metadata: Metadata = {
 export default function AboutPage() {
   return (
     <Container className="py-14">
-      <h1 className="font-display text-4xl font-extrabold">Why Tripshala exists</h1>
+      <h1 className="font-display text-4xl font-medium">Why Tripshala exists</h1>
 
       <div className="mt-8 grid gap-10 md:grid-cols-2">
         <div className="space-y-4 text-lg text-muted">
@@ -46,7 +46,7 @@ export default function AboutPage() {
       </div>
 
       <div className="mt-12 rounded-2xl border border-line bg-paper-raised p-8 text-center">
-        <h2 className="font-display text-2xl font-bold">Come find out for yourself.</h2>
+        <h2 className="font-display text-2xl font-medium">Come find out for yourself.</h2>
         <p className="mt-2 text-muted">The next trip is already planned. You just have to show up.</p>
         <div className="mt-5">
           <Button href="/trips" variant="primary">Explore Upcoming Trips</Button>

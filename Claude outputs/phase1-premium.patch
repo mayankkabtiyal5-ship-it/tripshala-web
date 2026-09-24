@@ -1,0 +1,1818 @@
+diff --git a/package-lock.json b/package-lock.json
+index e3826a4..6f6af7a 100644
+--- a/package-lock.json
++++ b/package-lock.json
+@@ -9,6 +9,7 @@
+       "version": "0.1.0",
+       "dependencies": {
+         "@supabase/supabase-js": "^2.116.0",
++        "lucide-react": "^1.48.0",
+         "next": "16.3.5",
+         "react": "19.2.8",
+         "react-dom": "19.2.8"
+@@ -5144,6 +5145,15 @@
+         "yallist": "^3.0.2"
+       }
+     },
++    "node_modules/lucide-react": {
++      "version": "1.48.0",
++      "resolved": "https://registry.npmjs.org/lucide-react/-/lucide-react-1.48.0.tgz",
++      "integrity": "sha512-R0CIKY/fXiC6y9xRBADgsK+VW2p/pcTJOMhLZf1T+uG+vJUvyUR02nGOgmIIC7MPkiNK4Ox8QDnbqF8rJYWPZQ==",
++      "license": "ISC",
++      "peerDependencies": {
++        "react": "^16.5.1 || ^17.0.0 || ^18.0.0 || ^19.0.0"
++      }
++    },
+     "node_modules/magic-string": {
+       "version": "0.30.21",
+       "resolved": "https://registry.npmjs.org/magic-string/-/magic-string-0.30.21.tgz",
+diff --git a/package.json b/package.json
+index 3f7defb..e2fd47b 100644
+--- a/package.json
++++ b/package.json
+@@ -10,6 +10,7 @@
+   },
+   "dependencies": {
+     "@supabase/supabase-js": "^2.116.0",
++    "lucide-react": "^1.48.0",
+     "next": "16.3.5",
+     "react": "19.2.8",
+     "react-dom": "19.2.8"
+diff --git a/src/app/about/page.tsx b/src/app/about/page.tsx
+index 50eb4bb..b05d7f6 100644
+--- a/src/app/about/page.tsx
++++ b/src/app/about/page.tsx
+@@ -11,7 +11,7 @@ export const metadata: Metadata = {
+ export default function AboutPage() {
+   return (
+     <Container className="py-14">
+-      <h1 className="font-display text-4xl font-extrabold">Why Tripshala exists</h1>
++      <h1 className="font-display text-4xl font-medium">Why Tripshala exists</h1>
+ 
+       <div className="mt-8 grid gap-10 md:grid-cols-2">
+         <div className="space-y-4 text-lg text-muted">
+@@ -46,7 +46,7 @@ export default function AboutPage() {
+       </div>
+ 
+       <div className="mt-12 rounded-2xl border border-line bg-paper-raised p-8 text-center">
+-        <h2 className="font-display text-2xl font-bold">Come find out for yourself.</h2>
++        <h2 className="font-display text-2xl font-medium">Come find out for yourself.</h2>
+         <p className="mt-2 text-muted">The next trip is already planned. You just have to show up.</p>
+         <div className="mt-5">
+           <Button href="/trips" variant="primary">Explore Upcoming Trips</Button>
+diff --git a/src/app/community/page.tsx b/src/app/community/page.tsx
+index f1cbb7d..b701e11 100644
+--- a/src/app/community/page.tsx
++++ b/src/app/community/page.tsx
+@@ -44,14 +44,14 @@ const galleryPhotos = [
+ export default function CommunityPage() {
+   return (
+     <Container className="py-14">
+-      <h1 className="font-display text-4xl font-extrabold">The Tripshala Community</h1>
++      <h1 className="font-display text-4xl font-medium">The Tripshala Community</h1>
+       <p className="mt-3 max-w-xl text-muted">
+         Riders, non-riders, solo travellers and friend groups — the people
+         who keep showing up are the actual reason this works.
+       </p>
+ 
+       <section className="mt-10">
+-        <h2 className="font-display text-2xl font-bold">Trip photos</h2>
++        <h2 className="font-display text-2xl font-medium">Trip photos</h2>
+         <div className="mt-4 grid grid-cols-2 gap-4 sm:grid-cols-3 md:grid-cols-4">
+           {galleryPhotos.map((p) => (
+             <TripPhoto key={p.src} src={p.src} alt={p.alt} aspect="aspect-square" sizes="(max-width: 640px) 50vw, (max-width: 768px) 33vw, 25vw" />
+@@ -60,7 +60,7 @@ export default function CommunityPage() {
+       </section>
+ 
+       <section className="mt-14">
+-        <h2 className="font-display text-2xl font-bold">What people say</h2>
++        <h2 className="font-display text-2xl font-medium">What people say</h2>
+         <div className="mt-4 grid gap-6 sm:grid-cols-2">
+           {testimonials.map((t) => (
+             <blockquote key={t.name} className="rounded-2xl border border-dashed border-line bg-paper-raised p-6 text-sm italic text-muted">
+@@ -72,7 +72,7 @@ export default function CommunityPage() {
+       </section>
+ 
+       <section className="mt-14">
+-        <h2 className="font-display text-2xl font-bold">Community milestones</h2>
++        <h2 className="font-display text-2xl font-medium">Community milestones</h2>
+         <div className="mt-4 grid gap-6 sm:grid-cols-3">
+           <Milestone number="5" label="trips hosted" />
+           <Milestone number="57" label="riders &amp; travellers so far" />
+@@ -81,7 +81,7 @@ export default function CommunityPage() {
+       </section>
+ 
+       <section className="mt-14">
+-        <h2 className="font-display text-2xl font-bold">Follow along</h2>
++        <h2 className="font-display text-2xl font-medium">Follow along</h2>
+         <p className="mt-2 text-muted">@{site.instagramHandle} on Instagram</p>
+         <div className="mt-4">
+           <Button href={site.instagramUrl} target="_blank" rel="noopener noreferrer" variant="secondary">
+@@ -92,7 +92,7 @@ export default function CommunityPage() {
+ 
+       <section className="mt-14">
+         <div className="flex flex-wrap items-end justify-between gap-4">
+-          <h2 className="font-display text-2xl font-bold">Join the next one</h2>
++          <h2 className="font-display text-2xl font-medium">Join the next one</h2>
+           <Button href="/trips" variant="primary">See upcoming trips</Button>
+         </div>
+         <div className="mt-6 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+@@ -108,7 +108,7 @@ export default function CommunityPage() {
+ function Milestone({ number, label }: { number: string; label: string }) {
+   return (
+     <div className="rounded-2xl border border-line p-6 text-center">
+-      <div className="font-display text-3xl font-extrabold text-accent">{number}</div>
++      <div className="font-display text-3xl font-medium text-accent">{number}</div>
+       <div className="mt-1 text-sm text-muted">{label}</div>
+     </div>
+   );
+diff --git a/src/app/contact/page.tsx b/src/app/contact/page.tsx
+index b569599..a7fdf0e 100644
+--- a/src/app/contact/page.tsx
++++ b/src/app/contact/page.tsx
+@@ -33,7 +33,7 @@ const options = [
+ export default function ContactPage() {
+   return (
+     <Container className="py-14">
+-      <h1 className="font-display text-4xl font-extrabold">Talk to Tripshala</h1>
++      <h1 className="font-display text-4xl font-medium">Talk to Tripshala</h1>
+       <p className="mt-3 max-w-xl text-muted">
+         WhatsApp is the fastest way to reach us — pick the reason below and
+         we&apos;ll open a chat with the right message already started.
+diff --git a/src/app/corporate-school-trips/page.tsx b/src/app/corporate-school-trips/page.tsx
+index 59b4f7b..0b3dc59 100644
+--- a/src/app/corporate-school-trips/page.tsx
++++ b/src/app/corporate-school-trips/page.tsx
+@@ -1,3 +1,4 @@
++import { Check } from "lucide-react";
+ import type { Metadata } from "next";
+ import { Container } from "@/components/ui/Container";
+ import { CorporateEnquiryForm } from "@/components/CorporateEnquiryForm";
+@@ -32,7 +33,7 @@ const WHAT_WE_HANDLE = [
+ export default function CorporateSchoolTripsPage() {
+   return (
+     <Container className="py-14">
+-      <h1 className="font-display text-4xl font-extrabold">Corporate Offsites &amp; School Trips</h1>
++      <h1 className="font-display text-4xl font-medium">Corporate Offsites &amp; School Trips</h1>
+       <p className="mt-3 max-w-2xl text-muted">
+         The same end-to-end planning behind every {site.name} weekend trip, built around your organization&apos;s
+         group, budget and calendar instead of an open batch.
+@@ -52,7 +53,7 @@ export default function CorporateSchoolTripsPage() {
+         <ul className="mt-4 grid gap-2 sm:grid-cols-2">
+           {WHAT_WE_HANDLE.map((item) => (
+             <li key={item} className="flex items-start gap-2 text-sm text-ink/80">
+-              <span className="mt-0.5 text-accent-2">✓</span>
++              <Check aria-hidden size={15} strokeWidth={2} className="mt-0.5 shrink-0 text-accent-2" />
+               <span>{item}</span>
+             </li>
+           ))}
+diff --git a/src/app/faq/page.tsx b/src/app/faq/page.tsx
+index 34e08ba..824a38d 100644
+--- a/src/app/faq/page.tsx
++++ b/src/app/faq/page.tsx
+@@ -76,7 +76,7 @@ export default function FAQPage() {
+         type="application/ld+json"
+         dangerouslySetInnerHTML={{ __html: JSON.stringify(faqJsonLd).replace(/</g, "\\u003c") }}
+       />
+-      <h1 className="font-display text-4xl font-extrabold">Frequently asked questions</h1>
++      <h1 className="font-display text-4xl font-medium">Frequently asked questions</h1>
+       <p className="mt-3 max-w-xl text-muted">
+         Can&apos;t find your answer here? Just ask — a real person replies on WhatsApp.
+       </p>
+@@ -84,7 +84,7 @@ export default function FAQPage() {
+       <div className="mt-10 space-y-10">
+         {groups.map((g) => (
+           <section key={g.heading}>
+-            <h2 className="font-display text-xl font-bold">{g.heading}</h2>
++            <h2 className="font-display text-xl font-medium">{g.heading}</h2>
+             <div className="mt-4">
+               <FAQAccordion items={g.items} />
+             </div>
+@@ -93,7 +93,7 @@ export default function FAQPage() {
+       </div>
+ 
+       <div className="mt-14 rounded-2xl border border-line bg-paper-raised p-8 text-center">
+-        <h2 className="font-display text-xl font-bold">Still have a question?</h2>
++        <h2 className="font-display text-xl font-medium">Still have a question?</h2>
+         <div className="mt-4">
+           <Button href={whatsappMessages.general()} target="_blank" rel="noopener noreferrer" variant="whatsapp">
+             Ask us on WhatsApp
+diff --git a/src/app/globals.css b/src/app/globals.css
+index d14757b..485ed40 100644
+--- a/src/app/globals.css
++++ b/src/app/globals.css
+@@ -1,17 +1,19 @@
+ @import "tailwindcss";
+ 
+ :root {
+-  /* Tripshala design tokens */
+-  --color-ink: #211d1a; /* warm near-black, primary text */
+-  --color-paper: #faf7f2; /* warm off-white, page background */
+-  --color-paper-raised: #f2ece1; /* cards / raised surfaces */
+-  --color-accent: #e2662a; /* burnt orange - primary brand accent */
+-  --color-accent-dark: #b94f1e;
+-  --color-accent-2: #1f6f5c; /* deep teal - secondary accent */
+-  --color-muted: #7a7266; /* warm gray for secondary text */
+-  --color-line: #e4ddd1; /* borders / dividers */
+-  --color-success: #1f6f5c;
+-  --color-warning: #b8862c;
++  /* Tripshala design tokens.
++     Premium pass: one accent colour, warm neutrals, and teal kept only as a
++     quiet secondary (never competing with the orange for attention). */
++  --color-ink: #1c1917; /* warm near-black, primary text */
++  --color-paper: #fbf8f3; /* warm off-white, page background */
++  --color-paper-raised: #f3eee5; /* raised surfaces */
++  --color-accent: #c8552a; /* deeper terracotta - the one brand accent */
++  --color-accent-dark: #a2421f;
++  --color-accent-2: #2f5d50; /* muted forest - secondary, used sparingly */
++  --color-muted: #6f675c; /* warm gray for secondary text */
++  --color-line: #e7e0d4; /* borders / dividers */
++  --color-success: #2f5d50;
++  --color-warning: #9a6b1f;
+ }
+ 
+ @theme inline {
+@@ -23,23 +25,28 @@
+   --color-accent-2: var(--color-accent-2);
+   --color-muted: var(--color-muted);
+   --color-line: var(--color-line);
+-  /* One typeface, site-wide — Inter for both display/heading text and
+-     body copy (previously Bricolage Grotesque for headings). */
+-  --font-display: "Inter", ui-sans-serif, system-ui, sans-serif;
++  /* Two-typeface system: Fraunces (a warm, editorial serif) for display
++     headings, Inter for everything else. To go back to Inter-only, change
++     --font-display to the same value as --font-sans. */
++  --font-display: "Fraunces", ui-serif, Georgia, serif;
+   --font-sans: "Inter", ui-sans-serif, system-ui, sans-serif;
+ }
+ 
+ body {
+   background: var(--color-paper);
+   color: var(--color-ink);
+-  font-family: "Inter", ui-sans-serif, system-ui, sans-serif;
++  font-family: var(--font-sans);
++  font-feature-settings: "ss01", "cv11";
+ }
+ 
+-h1, h2, h3, h4, .font-display {
+-  font-family: "Inter", ui-sans-serif, system-ui, sans-serif;
+-  /* Slightly tighter tracking stands in for what the old display face's
+-     distinct character gave headings, now that they share a typeface
+-     with body text. */
++h1, h2, .font-display {
++  font-family: var(--font-display);
++  font-optical-sizing: auto;
++  letter-spacing: -0.02em;
++}
++
++h3, h4 {
++  font-family: var(--font-sans);
+   letter-spacing: -0.01em;
+ }
+ 
+@@ -48,6 +55,33 @@ h1, h2, h3, h4, .font-display {
+   color: white;
+ }
+ 
++/* Small uppercase label that sits above section headings. */
++.eyebrow {
++  font-family: var(--font-sans);
++  font-size: 0.75rem;
++  font-weight: 600;
++  letter-spacing: 0.16em;
++  text-transform: uppercase;
++  color: var(--color-accent);
++}
++
++/* Gentle entrance for hero content. Disabled for reduced-motion users. */
++@keyframes rise-in {
++  from { opacity: 0; transform: translateY(14px); }
++  to { opacity: 1; transform: translateY(0); }
++}
++.rise-in {
++  animation: rise-in 0.9s cubic-bezier(0.2, 0.7, 0.2, 1) both;
++}
++.rise-in-delay-1 { animation-delay: 0.12s; }
++.rise-in-delay-2 { animation-delay: 0.24s; }
++.rise-in-delay-3 { animation-delay: 0.36s; }
++
++@media (prefers-reduced-motion: reduce) {
++  .rise-in { animation: none; }
++  * { transition-duration: 0.01ms !important; }
++}
++
+ .placeholder-media {
+   background-image: repeating-linear-gradient(
+     135deg,
+diff --git a/src/app/guides/[slug]/page.tsx b/src/app/guides/[slug]/page.tsx
+index 668912b..fcd73fe 100644
+--- a/src/app/guides/[slug]/page.tsx
++++ b/src/app/guides/[slug]/page.tsx
+@@ -1,3 +1,4 @@
++import { Check } from "lucide-react";
+ import type { Metadata } from "next";
+ import { notFound } from "next/navigation";
+ import { Container } from "@/components/ui/Container";
+@@ -38,7 +39,7 @@ export async function generateMetadata({
+ function ContentBlockView({ block }: { block: BlogContentBlock }) {
+   switch (block.type) {
+     case "heading":
+-      return <h2 className="mt-8 font-display text-2xl font-bold">{block.text}</h2>;
++      return <h2 className="mt-8 font-display text-2xl font-medium">{block.text}</h2>;
+     case "paragraph":
+       return <p className="mt-4 text-muted">{block.text}</p>;
+     case "list":
+@@ -46,7 +47,7 @@ function ContentBlockView({ block }: { block: BlogContentBlock }) {
+         <ul className="mt-4 space-y-2">
+           {block.items.map((item) => (
+             <li key={item} className="flex gap-2 text-sm text-muted">
+-              <span className="text-accent">✓</span> {item}
++              <Check aria-hidden size={15} strokeWidth={2} className="mt-0.5 shrink-0 text-accent" /> {item}
+             </li>
+           ))}
+         </ul>
+@@ -116,7 +117,7 @@ export default async function BlogPostPage({
+               <Badge key={t}>{t}</Badge>
+             ))}
+           </div>
+-          <h1 className="mt-4 max-w-3xl font-display text-3xl font-extrabold leading-tight md:text-4xl">
++          <h1 className="mt-4 max-w-3xl font-display text-3xl font-medium leading-tight md:text-4xl">
+             {post.title}
+           </h1>
+           <p className="mt-3 max-w-2xl text-muted">{post.excerpt}</p>
+@@ -144,7 +145,7 @@ export default async function BlogPostPage({
+ 
+           {post.faqs && post.faqs.length > 0 && (
+             <section className="mt-10">
+-              <h2 className="font-display text-2xl font-bold">Frequently asked questions</h2>
++              <h2 className="font-display text-2xl font-medium">Frequently asked questions</h2>
+               <div className="mt-4">
+                 <FAQAccordion items={post.faqs} />
+               </div>
+@@ -155,7 +156,7 @@ export default async function BlogPostPage({
+         <aside className="h-fit space-y-6 md:sticky md:top-24">
+           {relatedTrips.length > 0 && (
+             <div className="rounded-2xl border border-line bg-white p-5">
+-              <h2 className="font-display text-lg font-bold">
++              <h2 className="font-display text-lg font-medium">
+                 {relatedTrips.length > 1 ? "Related trips" : "Book this trip"}
+               </h2>
+               <div className="mt-4 space-y-4">
+diff --git a/src/app/guides/page.tsx b/src/app/guides/page.tsx
+index d018cbf..6b00465 100644
+--- a/src/app/guides/page.tsx
++++ b/src/app/guides/page.tsx
+@@ -12,7 +12,7 @@ export const metadata: Metadata = {
+ export default function BlogPage() {
+   return (
+     <Container className="py-12">
+-      <h1 className="font-display text-4xl font-extrabold">Guides</h1>
++      <h1 className="font-display text-4xl font-medium">Guides</h1>
+       <p className="mt-3 max-w-xl text-muted">
+         Practical, specific write-ups on the destinations we run trips to — what
+         to carry, when to go, and what to actually expect.
+diff --git a/src/app/internal/referrals/page.tsx b/src/app/internal/referrals/page.tsx
+index 716faea..900c71e 100644
+--- a/src/app/internal/referrals/page.tsx
++++ b/src/app/internal/referrals/page.tsx
+@@ -45,7 +45,7 @@ export default async function InternalReferralsPage({
+   if (!supabase) {
+     return (
+       <Container className="py-14">
+-        <h1 className="font-display text-3xl font-extrabold">Referral codes</h1>
++        <h1 className="font-display text-3xl font-medium">Referral codes</h1>
+         <p className="mt-3 text-sm text-muted">
+           Supabase isn&apos;t configured yet (see DEPLOYMENT.md) — there&apos;s nothing to show until leads start
+           being saved there.
+@@ -63,7 +63,7 @@ export default async function InternalReferralsPage({
+   if (error || !data) {
+     return (
+       <Container className="py-14">
+-        <h1 className="font-display text-3xl font-extrabold">Referral codes</h1>
++        <h1 className="font-display text-3xl font-medium">Referral codes</h1>
+         <p className="mt-3 text-sm text-muted">Couldn&apos;t load referrals right now — try again shortly.</p>
+       </Container>
+     );
+@@ -79,7 +79,7 @@ export default async function InternalReferralsPage({
+ 
+   return (
+     <Container className="py-14">
+-      <h1 className="font-display text-3xl font-extrabold">Referral codes</h1>
++      <h1 className="font-display text-3xl font-medium">Referral codes</h1>
+       <p className="mt-2 max-w-2xl text-sm text-muted">
+         {codes.length} code{codes.length === 1 ? "" : "s"} in use. A code&apos;s owner is whoever generated it on
+         /referral; every other row under it is someone who entered that code while booking. This page is
+@@ -97,7 +97,7 @@ export default async function InternalReferralsPage({
+             <div key={code} className="rounded-2xl border border-line bg-white p-5">
+               <div className="flex flex-wrap items-center justify-between gap-2">
+                 <div>
+-                  <span className="font-display text-lg font-bold tracking-wide">{code}</span>
++                  <span className="font-display text-lg font-medium tracking-wide">{code}</span>
+                   {issuer && (
+                     <span className="ml-2 text-sm text-muted">
+                       — {issuer.name} ({issuer.phone})
+diff --git a/src/app/layout.tsx b/src/app/layout.tsx
+index 10f8b8e..ad32244 100644
+--- a/src/app/layout.tsx
++++ b/src/app/layout.tsx
+@@ -14,14 +14,11 @@ import { site } from "@/lib/site";
+ // network access to Google Fonts — only the visitor's browser does, which
+ // is the normal case for every real visitor.
+ //
+-// Single-typeface system: Inter for everything, body and headings alike.
+-// (Google Fonts doesn't host "Inter Display" as its own family — Inter is
+-// a variable font with an optical-size axis built in, so the browser
+-// already renders it slightly more display-like at the larger sizes
+-// headings use. Requesting the 900 weight too, since some headings use
+-// font-black-level weight.)
++// Two-typeface system: Fraunces (editorial serif) for display headings,
++// Inter for body and UI text. Both are variable fonts, so one request each
++// covers every weight used on the site.
+ const FONTS_HREF =
+-  "https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap";
++  "https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400..700&family=Inter:wght@400;500;600;700;800&display=swap";
+ 
+ export const metadata: Metadata = {
+   metadataBase: new URL(site.url),
+diff --git a/src/app/links/LinksPageContent.tsx b/src/app/links/LinksPageContent.tsx
+index a92aa0d..e11b77a 100644
+--- a/src/app/links/LinksPageContent.tsx
++++ b/src/app/links/LinksPageContent.tsx
+@@ -41,7 +41,7 @@ const discoverLinks = [
+ export function LinksPageContent() {
+   return (
+     <Container className="flex max-w-md flex-col items-center py-14 text-center">
+-      <div className="font-display text-2xl font-extrabold">{site.name}</div>
++      <div className="font-display text-2xl font-medium">{site.name}</div>
+       <p className="mt-2 text-sm text-muted">
+         Bengaluru&apos;s travel and riding community — bike rides, weekend
+         getaways and curated trips.
+diff --git a/src/app/not-found.tsx b/src/app/not-found.tsx
+index 4aa6297..0d7e027 100644
+--- a/src/app/not-found.tsx
++++ b/src/app/not-found.tsx
+@@ -4,8 +4,8 @@ import { Button } from "@/components/ui/Button";
+ export default function NotFound() {
+   return (
+     <Container className="flex flex-col items-center py-24 text-center">
+-      <div className="font-display text-6xl font-extrabold text-accent">404</div>
+-      <h1 className="mt-4 font-display text-2xl font-bold">
++      <div className="font-display text-6xl font-medium text-accent">404</div>
++      <h1 className="mt-4 font-display text-2xl font-medium">
+         Looks like we&apos;re between adventures here.
+       </h1>
+       <p className="mt-2 max-w-sm text-muted">
+diff --git a/src/app/page.tsx b/src/app/page.tsx
+index 612f4a1..436cff0 100644
+--- a/src/app/page.tsx
++++ b/src/app/page.tsx
+@@ -7,16 +7,18 @@ import { BikeOrNot } from "@/components/home/BikeOrNot";
+ import { CommunityTeaser } from "@/components/home/CommunityTeaser";
+ import { InstagramSection } from "@/components/home/InstagramSection";
+ 
++// Order tells one story: see the trips → why us → how easy it is → the two
++// ways to travel → the people → then invite ideas and follow along.
+ export default function Home() {
+   return (
+     <>
+       <Hero />
+       <UpcomingTrips />
+-      <HiddenGemSuggest />
+-      <HowItWorks />
+       <WhyTripshala />
++      <HowItWorks />
+       <BikeOrNot />
+       <CommunityTeaser />
++      <HiddenGemSuggest />
+       <InstagramSection />
+     </>
+   );
+diff --git a/src/app/policies/cancellation/page.tsx b/src/app/policies/cancellation/page.tsx
+index cf820a6..4e27790 100644
+--- a/src/app/policies/cancellation/page.tsx
++++ b/src/app/policies/cancellation/page.tsx
+@@ -18,7 +18,7 @@ const tiers = [
+ export default function CancellationPage() {
+   return (
+     <Container className="max-w-3xl py-14">
+-      <h1 className="font-display text-3xl font-extrabold">Cancellation &amp; Refund Policy</h1>
++      <h1 className="font-display text-3xl font-medium">Cancellation &amp; Refund Policy</h1>
+       <p className="mt-3 text-sm text-muted">
+         Seats, stays and transport are booked and paid for on your behalf as soon as a trip fills up, so refunds get smaller closer to departure — this is standard across group trip operators. Here&apos;s exactly how it works.
+       </p>
+diff --git a/src/app/policies/privacy/page.tsx b/src/app/policies/privacy/page.tsx
+index cbf7eaa..47f0c59 100644
+--- a/src/app/policies/privacy/page.tsx
++++ b/src/app/policies/privacy/page.tsx
+@@ -7,7 +7,7 @@ export const metadata: Metadata = { title: "Privacy Policy" };
+ export default function PrivacyPage() {
+   return (
+     <Container className="max-w-3xl py-14">
+-      <h1 className="font-display text-3xl font-extrabold">Privacy Policy</h1>
++      <h1 className="font-display text-3xl font-medium">Privacy Policy</h1>
+       <div className="prose mt-6 space-y-4 text-sm text-muted">
+         <p>Tripshala collects the information you submit through our booking and enquiry forms — name, phone number, email, age, city and trip preferences — solely to plan and confirm your trip and to communicate with you about it.</p>
+         <p>We do not sell your personal information. Information may be shared with trip leads and accommodation partners strictly as needed to run the trip you&apos;ve booked.</p>
+diff --git a/src/app/policies/terms/page.tsx b/src/app/policies/terms/page.tsx
+index c6a994d..eee5eb2 100644
+--- a/src/app/policies/terms/page.tsx
++++ b/src/app/policies/terms/page.tsx
+@@ -6,7 +6,7 @@ export const metadata: Metadata = { title: "Terms" };
+ export default function TermsPage() {
+   return (
+     <Container className="max-w-3xl py-14">
+-      <h1 className="font-display text-3xl font-extrabold">Terms of Use</h1>
++      <h1 className="font-display text-3xl font-medium">Terms of Use</h1>
+       <div className="prose mt-6 space-y-4 text-sm text-muted">
+         <p>These terms govern your use of the Tripshala website and participation in Tripshala trips. By booking a trip, you agree to these terms.</p>
+         <p><strong className="text-ink">Bookings.</strong> A booking is confirmed only once Tripshala confirms it in writing (WhatsApp or email), not upon form submission alone.</p>
+diff --git a/src/app/referral/page.tsx b/src/app/referral/page.tsx
+index 5b80429..a0fdfad 100644
+--- a/src/app/referral/page.tsx
++++ b/src/app/referral/page.tsx
+@@ -16,7 +16,7 @@ const REFERRAL_CREDIT = 299;
+ export default function ReferralPage() {
+   return (
+     <Container className="py-14">
+-      <h1 className="font-display text-4xl font-extrabold">Bring a friend. Ride more. Pay less.</h1>
++      <h1 className="font-display text-4xl font-medium">Bring a friend. Ride more. Pay less.</h1>
+       <p className="mt-3 max-w-xl text-muted">
+         Tripshala grows through the people already on it — not just ads. Get your code below, no waiting on us.
+       </p>
+@@ -28,14 +28,14 @@ export default function ReferralPage() {
+       </section>
+ 
+       <section className="mt-14 max-w-xl">
+-        <h2 className="font-display text-2xl font-bold">Get your code</h2>
++        <h2 className="font-display text-2xl font-medium">Get your code</h2>
+         <div className="mt-4">
+           <ReferralCodeTool />
+         </div>
+       </section>
+ 
+       <section className="mt-14">
+-        <h2 className="font-display text-2xl font-bold">What you both get</h2>
++        <h2 className="font-display text-2xl font-medium">What you both get</h2>
+         <div className="mt-4 rounded-2xl border border-line bg-white p-6">
+           <p className="text-sm text-muted">
+             Once your friend&apos;s trip is confirmed, you both get{" "}
+@@ -63,7 +63,7 @@ export default function ReferralPage() {
+ function Step({ number, title, body }: { number: string; title: string; body: string }) {
+   return (
+     <div>
+-      <div className="font-display text-3xl font-extrabold text-accent">{number}</div>
++      <div className="font-display text-3xl font-medium text-accent">{number}</div>
+       <h3 className="mt-2 font-semibold">{title}</h3>
+       <p className="mt-1 text-sm text-muted">{body}</p>
+     </div>
+diff --git a/src/app/trips/[slug]/itinerary/page.tsx b/src/app/trips/[slug]/itinerary/page.tsx
+index fc683a4..df3bfbd 100644
+--- a/src/app/trips/[slug]/itinerary/page.tsx
++++ b/src/app/trips/[slug]/itinerary/page.tsx
+@@ -1,3 +1,4 @@
++import { ArrowLeft } from "lucide-react";
+ import type { Metadata } from "next";
+ import Link from "next/link";
+ import { notFound } from "next/navigation";
+@@ -45,13 +46,13 @@ export default async function ItineraryPrintPage({
+     <div className="mx-auto max-w-3xl px-6 py-10 print:px-0 print:py-0">
+       <div className="print:hidden mb-6 flex items-center justify-between">
+         <Link href={`/trips/${trip.slug}`} className="text-sm text-muted hover:text-ink">
+-          ← Back to trip page
++          <ArrowLeft aria-hidden size={14} className="mr-1 inline-block -translate-y-px" />Back to trip page
+         </Link>
+         <PrintButton />
+       </div>
+ 
+       <p className="text-xs font-semibold uppercase tracking-wide text-accent-2">{site.name} · Itinerary</p>
+-      <h1 className="mt-1 font-display text-3xl font-extrabold">{trip.title}</h1>
++      <h1 className="mt-1 font-display text-3xl font-medium">{trip.title}</h1>
+       <p className="mt-1 text-muted">
+         {trip.destination} · {trip.duration} · {trip.transport}
+       </p>
+@@ -78,7 +79,7 @@ export default async function ItineraryPrintPage({
+       <div className="mt-8 space-y-8">
+         {trip.itinerary.map((day) => (
+           <div key={day.day} className="break-inside-avoid">
+-            <h2 className="font-display text-lg font-bold">
++            <h2 className="font-display text-lg font-medium">
+               Day {day.day}: {day.title}
+             </h2>
+             <ul className="mt-3 space-y-1.5 border-l-2 border-line pl-4 text-sm">
+diff --git a/src/app/trips/[slug]/page.tsx b/src/app/trips/[slug]/page.tsx
+index 013646e..f48b655 100644
+--- a/src/app/trips/[slug]/page.tsx
++++ b/src/app/trips/[slug]/page.tsx
+@@ -13,6 +13,7 @@ import { TrackViewTrip } from "@/components/TrackViewTrip";
+ import { TripHeroCTAs } from "@/components/TripHeroCTAs";
+ import { ItineraryTimeline } from "@/components/ItineraryTimeline";
+ import { ItineraryPdfButton } from "@/components/ItineraryPdfButton";
++import { Check, Flag, MapPin, X } from "lucide-react";
+ 
+ export function generateStaticParams() {
+   return trips.map((t) => ({ slug: t.slug }));
+@@ -96,7 +97,7 @@ export default async function TripDetailPage({
+ 
+       {/* Hero */}
+       <section className="border-b border-line bg-paper-raised">
+-        <Container className="grid gap-8 py-10 md:grid-cols-2 md:py-14">
++        <Container className="grid items-center gap-10 py-10 md:grid-cols-2 md:gap-14 md:py-16">
+           {trip.coverImage ? (
+             <TripPhoto src={trip.coverImage} alt={trip.coverImageLabel} aspect="aspect-[4/3]" priority />
+           ) : (
+@@ -108,16 +109,16 @@ export default async function TripDetailPage({
+                 <Badge key={c}>{c}</Badge>
+               ))}
+             </div>
+-            <h1 className="mt-4 font-display text-3xl font-extrabold leading-tight md:text-4xl">
++            <h1 className="mt-5 font-display text-4xl font-medium leading-[1.08] md:text-5xl">
+               {trip.title}
+             </h1>
+-            <p className="mt-2 text-muted">📍 Bengaluru → {trip.destination}</p>
++            <p className="mt-3 inline-flex items-center gap-1.5 text-muted"><MapPin aria-hidden size={15} strokeWidth={1.75} /> Bengaluru to {trip.destination}</p>
+             <div className="mt-4 flex flex-wrap items-center gap-4 text-sm">
+               <span className="font-semibold">{trip.date}</span>
+               <span>{trip.duration}</span>
+               <span>{trip.transport}</span>
+             </div>
+-            <div className="mt-4 text-2xl font-bold">
++            <div className="mt-6 text-3xl font-semibold">
+               from ₹{trip.price.toLocaleString("en-IN")}
+               <span className="ml-2 text-sm font-normal text-muted">per person</span>
+             </div>
+@@ -135,8 +136,8 @@ export default async function TripDetailPage({
+         <div className="space-y-12 md:col-span-2">
+           {/* Quick info */}
+           <section>
+-            <h2 className="font-display text-2xl font-bold">Quick info</h2>
+-            <dl className="mt-4 grid grid-cols-2 gap-4 rounded-2xl border border-line p-5 sm:grid-cols-3">
++            <h2 className="font-display text-2xl font-medium">Quick info</h2>
++            <dl className="mt-5 grid grid-cols-2 gap-x-6 gap-y-5 rounded-2xl bg-white p-6 ring-1 ring-line sm:grid-cols-3">
+               <QuickInfo label="Date" value={trip.date} />
+               <QuickInfo label="Duration" value={trip.duration} />
+               <QuickInfo label="Starting point" value={trip.startingPoint} />
+@@ -152,7 +153,7 @@ export default async function TripDetailPage({
+ 
+           {/* About */}
+           <section>
+-            <h2 className="font-display text-2xl font-bold">About the trip</h2>
++            <h2 className="font-display text-2xl font-medium">About the trip</h2>
+             <div className="mt-4 space-y-4 text-muted">
+               {trip.description.map((p, i) => (
+                 <p key={i}>{p}</p>
+@@ -160,8 +161,8 @@ export default async function TripDetailPage({
+             </div>
+             <ul className="mt-4 space-y-2">
+               {trip.highlights.map((h) => (
+-                <li key={h} className="flex gap-2 text-sm">
+-                  <span className="text-accent">✓</span> {h}
++                <li key={h} className="flex items-start gap-2 text-sm">
++                  <Check aria-hidden size={15} strokeWidth={2} className="mt-0.5 shrink-0 text-accent" /> {h}
+                 </li>
+               ))}
+             </ul>
+@@ -170,13 +171,13 @@ export default async function TripDetailPage({
+           {/* Itinerary */}
+           <section>
+             <div className="flex flex-wrap items-center justify-between gap-3">
+-              <h2 className="font-display text-2xl font-bold">Itinerary</h2>
++              <h2 className="font-display text-2xl font-medium">Itinerary</h2>
+               <ItineraryPdfButton tripSlug={trip.slug} tripName={trip.title} />
+             </div>
+ 
+             <div className="mt-4 grid gap-3 rounded-2xl bg-paper-raised p-4 text-sm sm:grid-cols-2">
+               <div className="flex items-start gap-2.5">
+-                <span aria-hidden>📍</span>
++                <MapPin aria-hidden size={16} strokeWidth={1.75} className="mt-0.5 shrink-0 text-accent" />
+                 <div>
+                   <div className="font-semibold text-ink">Pickup</div>
+                   {trip.pickupPoints ? (
+@@ -199,7 +200,7 @@ export default async function TripDetailPage({
+                 </div>
+               </div>
+               <div className="flex items-start gap-2.5">
+-                <span aria-hidden>🏁</span>
++                <Flag aria-hidden size={16} strokeWidth={1.75} className="mt-0.5 shrink-0 text-accent" />
+                 <div>
+                   <div className="font-semibold text-ink">Drop-off</div>
+                   <div className="text-muted">{trip.endingPoint}</div>
+@@ -215,21 +216,21 @@ export default async function TripDetailPage({
+           {/* Inclusions / exclusions */}
+           <section className="grid gap-8 sm:grid-cols-2">
+             <div>
+-              <h2 className="font-display text-xl font-bold">Included</h2>
++              <h2 className="font-display text-xl font-medium">Included</h2>
+               <ul className="mt-3 space-y-2 text-sm text-muted">
+                 {trip.inclusions.map((i) => (
+                   <li key={i} className="flex gap-2">
+-                    <span className="text-accent-2">✓</span> {i}
++                    <Check aria-hidden size={15} strokeWidth={2} className="mt-0.5 shrink-0 text-accent-2" /> {i}
+                   </li>
+                 ))}
+               </ul>
+             </div>
+             <div>
+-              <h2 className="font-display text-xl font-bold">Not included</h2>
++              <h2 className="font-display text-xl font-medium">Not included</h2>
+               <ul className="mt-3 space-y-2 text-sm text-muted">
+                 {trip.exclusions.map((i) => (
+                   <li key={i} className="flex gap-2">
+-                    <span className="text-muted">✕</span> {i}
++                    <X aria-hidden size={15} strokeWidth={2} className="mt-0.5 shrink-0 text-muted/70" /> {i}
+                   </li>
+                 ))}
+               </ul>
+@@ -238,7 +239,7 @@ export default async function TripDetailPage({
+ 
+           {/* Who is this for */}
+           <section>
+-            <h2 className="font-display text-2xl font-bold">Who is this for?</h2>
++            <h2 className="font-display text-2xl font-medium">Who is this for?</h2>
+             <p className="mt-2 text-sm text-muted">Perfect for:</p>
+             <div className="mt-3 flex flex-wrap gap-2">
+               {trip.whoFor.map((w) => (
+@@ -249,7 +250,7 @@ export default async function TripDetailPage({
+ 
+           {/* FAQ */}
+           <section>
+-            <h2 className="font-display text-2xl font-bold">Frequently asked questions</h2>
++            <h2 className="font-display text-2xl font-medium">Frequently asked questions</h2>
+             <div className="mt-4">
+               <FAQAccordion items={trip.faqs} />
+             </div>
+@@ -257,8 +258,8 @@ export default async function TripDetailPage({
+         </div>
+ 
+         {/* Booking sidebar */}
+-        <div id="book" className="h-fit scroll-mt-20 rounded-2xl border border-line bg-white p-6 md:sticky md:top-24">
+-          <h2 className="font-display text-xl font-bold">Book your spot</h2>
++        <div id="book" className="h-fit scroll-mt-20 rounded-2xl bg-white p-6 shadow-[0_18px_40px_-24px_rgba(28,25,23,0.35)] ring-1 ring-line md:sticky md:top-24">
++          <h2 className="font-display text-xl font-medium">Book your spot</h2>
+           <p className="mt-1 text-sm text-muted">
+             {trip.seatsLeft} of {trip.seatsTotal} seats left · {trip.bookingStatus === "sold-out" ? "Sold out" : "Booking open"}
+           </p>
+diff --git a/src/app/trips/page.tsx b/src/app/trips/page.tsx
+index 3ec444c..364a40e 100644
+--- a/src/app/trips/page.tsx
++++ b/src/app/trips/page.tsx
+@@ -13,7 +13,7 @@ export const metadata: Metadata = {
+ export default function TripsPage() {
+   return (
+     <Container className="py-12">
+-      <h1 className="font-display text-4xl font-extrabold">Upcoming Trips</h1>
++      <h1 className="font-display text-4xl font-medium">Upcoming Trips</h1>
+       <p className="mt-3 max-w-xl text-muted">
+         Every trip below is planned end to end — route, stay and stops. Filter
+         by how you want to travel this weekend.
+diff --git a/src/components/BlogCard.tsx b/src/components/BlogCard.tsx
+index 4787238..766a2c4 100644
+--- a/src/components/BlogCard.tsx
++++ b/src/components/BlogCard.tsx
+@@ -26,7 +26,7 @@ export function BlogCard({ post }: { post: BlogPost }) {
+             <Badge key={t}>{t}</Badge>
+           ))}
+         </div>
+-        <h3 className="font-display text-lg font-bold leading-snug group-hover:text-accent">
++        <h3 className="font-display text-lg font-medium leading-snug group-hover:text-accent">
+           {post.title}
+         </h3>
+         <p className="text-sm text-muted line-clamp-2">{post.excerpt}</p>
+diff --git a/src/components/Footer.tsx b/src/components/Footer.tsx
+index 0d6480c..7dd061c 100644
+--- a/src/components/Footer.tsx
++++ b/src/components/Footer.tsx
+@@ -5,14 +5,15 @@ import { site } from "@/lib/site";
+ export function Footer() {
+   return (
+     <footer className="print:hidden border-t border-line bg-paper-raised">
+-      <Container className="grid gap-10 py-14 md:grid-cols-4">
++      <Container className="grid gap-10 py-16 md:grid-cols-4 md:py-20">
+         <div>
+-          <div className="font-display text-lg font-bold">{site.name}</div>
++          <div className="font-display text-2xl font-semibold tracking-tight">{site.name}</div>
++          <p className="mt-3 font-display text-lg italic leading-snug text-ink/80">{site.tagline}</p>
+           <p className="mt-3 text-sm text-muted">{site.description}</p>
+         </div>
+ 
+         <div>
+-          <div className="text-sm font-semibold">Explore</div>
++          <div className="text-xs font-semibold uppercase tracking-[0.16em] text-ink/60">Explore</div>
+           <ul className="mt-3 space-y-2 text-sm text-muted">
+             <li><Link href="/trips" className="hover:text-ink">Trips</Link></li>
+             <li><Link href="/corporate-school-trips" className="hover:text-ink">Corporate &amp; School Trips</Link></li>
+@@ -20,11 +21,12 @@ export function Footer() {
+             <li><Link href="/community" className="hover:text-ink">Community</Link></li>
+             <li><Link href="/about" className="hover:text-ink">About</Link></li>
+             <li><Link href="/faq" className="hover:text-ink">FAQ</Link></li>
++            <li><Link href="/referral" className="hover:text-ink">Refer a friend — earn ₹299</Link></li>
+           </ul>
+         </div>
+ 
+         <div>
+-          <div className="text-sm font-semibold">Connect</div>
++          <div className="text-xs font-semibold uppercase tracking-[0.16em] text-ink/60">Connect</div>
+           <ul className="mt-3 space-y-2 text-sm text-muted">
+             <li>
+               <a href={site.instagramUrl} target="_blank" rel="noopener noreferrer" className="hover:text-ink">
+@@ -47,7 +49,7 @@ export function Footer() {
+         </div>
+ 
+         <div>
+-          <div className="text-sm font-semibold">Policies</div>
++          <div className="text-xs font-semibold uppercase tracking-[0.16em] text-ink/60">Policies</div>
+           <ul className="mt-3 space-y-2 text-sm text-muted">
+             <li><Link href="/policies/terms" className="hover:text-ink">Terms</Link></li>
+             <li><Link href="/policies/privacy" className="hover:text-ink">Privacy</Link></li>
+diff --git a/src/components/Header.tsx b/src/components/Header.tsx
+index af86708..1a547d7 100644
+--- a/src/components/Header.tsx
++++ b/src/components/Header.tsx
+@@ -2,6 +2,7 @@
+ 
+ import Link from "next/link";
+ import { useState } from "react";
++import { Menu, X } from "lucide-react";
+ import { Container } from "./ui/Container";
+ import { Button } from "./ui/Button";
+ import { NAV_LINKS, site } from "@/lib/site";
+@@ -12,7 +13,7 @@ export function Header() {
+   return (
+     <header className="print:hidden sticky top-0 z-40 border-b border-line bg-paper/90 backdrop-blur">
+       <Container className="flex h-16 items-center justify-between">
+-        <Link href="/" className="font-display text-xl font-bold tracking-tight">
++        <Link href="/" className="font-display text-2xl font-semibold tracking-tight">
+           {site.name}
+         </Link>
+ 
+@@ -21,7 +22,7 @@ export function Header() {
+             <Link
+               key={link.href}
+               href={link.href}
+-              className="text-sm font-medium text-ink/80 transition-colors hover:text-ink"
++              className="text-sm font-medium text-ink/70 transition-colors hover:text-ink"
+             >
+               {link.label}
+             </Link>
+@@ -36,10 +37,11 @@ export function Header() {
+ 
+         <button
+           aria-label="Toggle menu"
++          aria-expanded={open}
+           className="flex h-10 w-10 items-center justify-center rounded-full border border-line md:hidden"
+           onClick={() => setOpen((o) => !o)}
+         >
+-          <span className="text-xl">{open ? "✕" : "☰"}</span>
++          {open ? <X size={18} strokeWidth={1.75} /> : <Menu size={18} strokeWidth={1.75} />}
+         </button>
+       </Container>
+ 
+diff --git a/src/components/ItineraryPdfButton.tsx b/src/components/ItineraryPdfButton.tsx
+index b1c2519..4018b99 100644
+--- a/src/components/ItineraryPdfButton.tsx
++++ b/src/components/ItineraryPdfButton.tsx
+@@ -1,5 +1,7 @@
+ "use client";
+ 
++import { Download } from "lucide-react";
++
+ import { FormEvent, useState } from "react";
+ import { useRouter } from "next/navigation";
+ import { track, AnalyticsEvents } from "@/lib/analytics";
+@@ -116,7 +118,7 @@ export function ItineraryPdfButton({ tripSlug, tripName }: { tripSlug: string; t
+       onClick={handleClick}
+       className="flex items-center gap-1.5 rounded-xl border border-line px-3.5 py-2 text-xs font-semibold text-ink transition-colors hover:border-ink"
+     >
+-      📄 Download itinerary (PDF)
++      <Download aria-hidden size={14} /> Download itinerary (PDF)
+     </button>
+   );
+ }
+diff --git a/src/components/ItineraryTimeline.tsx b/src/components/ItineraryTimeline.tsx
+index e28c924..0247293 100644
+--- a/src/components/ItineraryTimeline.tsx
++++ b/src/components/ItineraryTimeline.tsx
+@@ -1,6 +1,10 @@
+ "use client";
+ 
+ import { useState } from "react";
++import {
++  BusFront, Coffee, Compass, Dot, Footprints, Landmark, MapPin, Moon, PawPrint, Sunrise, Utensils, Waves,
++  type LucideIcon,
++} from "lucide-react";
+ import type { ItineraryDay } from "@/lib/trips";
+ 
+ // A day-tabbed vertical timeline, replacing the old plain bulleted list.
+@@ -9,23 +13,23 @@ import type { ItineraryDay } from "@/lib/trips";
+ // stat/icon row) — day switcher up top so a long multi-day trip doesn't
+ // turn into one long wall of text, and each stop gets an icon inferred
+ // from its own label so the page reads as a schedule, not a bullet dump.
+-const ICON_RULES: Array<[RegExp, string]> = [
+-  [/breakfast|lunch|dinner|meal|coffee|tasting|cuisine/i, "🍽️"],
+-  [/safari/i, "🐾"],
+-  [/temple|darshan|shrine|theertham/i, "🛕"],
+-  [/trek|hike|climb|summit|peak/i, "🥾"],
+-  [/sunrise|sunset|viewpoint|view point/i, "🌄"],
+-  [/waterfall|lake|river|backwater|beach|coracle|island/i, "🌊"],
+-  [/assemble|briefing|pickup point|bike check/i, "🧭"],
+-  [/depart|board|leave for|drive to/i, "🚐"],
+-  [/arrive|reach|check.?in/i, "📍"],
+-  [/bonfire|stargaz|night/i, "🌙"],
+-  [/free time|leisure|rest/i, "☕"],
++const ICON_RULES: Array<[RegExp, LucideIcon]> = [
++  [/breakfast|lunch|dinner|meal|coffee|tasting|cuisine/i, Utensils],
++  [/safari/i, PawPrint],
++  [/temple|darshan|shrine|theertham/i, Landmark],
++  [/trek|hike|climb|summit|peak/i, Footprints],
++  [/sunrise|sunset|viewpoint|view point/i, Sunrise],
++  [/waterfall|lake|river|backwater|beach|coracle|island/i, Waves],
++  [/assemble|briefing|pickup point|bike check/i, Compass],
++  [/depart|board|leave for|drive to/i, BusFront],
++  [/arrive|reach|check.?in/i, MapPin],
++  [/bonfire|stargaz|night/i, Moon],
++  [/free time|leisure|rest/i, Coffee],
+ ];
+ 
+-function iconFor(label: string): string {
++function iconFor(label: string): LucideIcon {
+   const rule = ICON_RULES.find(([re]) => re.test(label));
+-  return rule ? rule[1] : "•";
++  return rule ? rule[1] : Dot;
+ }
+ 
+ export function ItineraryTimeline({ days }: { days: ItineraryDay[] }) {
+@@ -45,7 +49,7 @@ export function ItineraryTimeline({ days }: { days: ItineraryDay[] }) {
+               onClick={() => setActive(i)}
+               aria-current={i === active}
+               className={`rounded-full border px-4 py-2 text-sm font-semibold transition-colors ${
+-                i === active ? "border-accent-2 bg-accent-2 text-white" : "border-line bg-white text-ink hover:border-ink"
++                i === active ? "border-ink bg-ink text-paper" : "border-line bg-white text-ink hover:border-ink"
+               }`}
+             >
+               Day {d.day}
+@@ -55,27 +59,30 @@ export function ItineraryTimeline({ days }: { days: ItineraryDay[] }) {
+       )}
+ 
+       <div className="p-5 sm:p-6">
+-        <h3 className="font-display text-lg font-bold">
++        <h3 className="font-display text-lg font-medium">
+           {days.length > 1 ? `Day ${day.day}: ${day.title}` : day.title}
+         </h3>
+ 
+         <div className="relative mt-5">
+           <div aria-hidden className="absolute left-4 top-4 bottom-4 w-0.5 bg-line" />
+           <ol className="space-y-5">
+-            {day.items.map((item, i) => (
++            {day.items.map((item, i) => {
++              const Icon = iconFor(item.label);
++              return (
+               <li key={i} className="relative flex gap-4">
+                 <span
+                   aria-hidden
+-                  className="relative z-10 flex h-8 w-8 shrink-0 items-center justify-center rounded-full border border-line bg-white text-sm"
++                  className="relative z-10 flex h-8 w-8 shrink-0 items-center justify-center rounded-full border border-line bg-white"
+                 >
+-                  {iconFor(item.label)}
++                  <Icon size={15} strokeWidth={1.75} className="text-accent" />
+                 </span>
+                 <div className="pt-1">
+-                  <div className="text-xs font-semibold uppercase tracking-wide text-accent-2">{item.time}</div>
++                  <div className="text-xs font-semibold uppercase tracking-[0.12em] text-muted">{item.time}</div>
+                   <p className="mt-0.5 text-sm text-ink">{item.label}</p>
+                 </div>
+               </li>
+-            ))}
++              );
++            })}
+           </ol>
+         </div>
+       </div>
+diff --git a/src/components/PrintButton.tsx b/src/components/PrintButton.tsx
+index cd191ec..c8b1d53 100644
+--- a/src/components/PrintButton.tsx
++++ b/src/components/PrintButton.tsx
+@@ -1,5 +1,7 @@
+ "use client";
+ 
++import { Printer } from "lucide-react";
++
+ // print:hidden on this button itself — no point showing "Save as PDF" on
+ // the PDF you just made by clicking it.
+ export function PrintButton() {
+@@ -9,7 +11,7 @@ export function PrintButton() {
+       onClick={() => window.print()}
+       className="print:hidden rounded-xl bg-accent px-4 py-2.5 text-sm font-semibold text-white transition-colors hover:bg-accent-dark"
+     >
+-      🖨️ Save as PDF
++      <Printer aria-hidden size={15} className="mr-1.5 inline-block -translate-y-px" />Save as PDF
+     </button>
+   );
+ }
+diff --git a/src/components/ReferralBanner.tsx b/src/components/ReferralBanner.tsx
+index 46a3fd1..c9146e4 100644
+--- a/src/components/ReferralBanner.tsx
++++ b/src/components/ReferralBanner.tsx
+@@ -3,6 +3,7 @@
+ import Link from "next/link";
+ import { usePathname } from "next/navigation";
+ import { useSyncExternalStore } from "react";
++import { ArrowRight, X } from "lucide-react";
+ import { Container } from "./ui/Container";
+ import { track, AnalyticsEvents } from "@/lib/analytics";
+ 
+@@ -57,26 +58,23 @@ export function ReferralBanner() {
+     dismissBanner();
+   }
+ 
+-  // Redundant on the referral page itself, and on the internal dashboard.
+-  if (!visible || pathname?.startsWith("/referral") || pathname?.startsWith("/internal")) {
++  // Redundant on the referral page itself and the internal dashboard. Also
++  // kept off the homepage so the first impression is the brand, not a
++  // promo — the referral programme is still linked from the footer.
++  if (!visible || pathname === "/" || pathname?.startsWith("/referral") || pathname?.startsWith("/internal")) {
+     return null;
+   }
+ 
+   return (
+-    <div className="print:hidden relative bg-accent-2 text-white">
++    <div className="print:hidden relative bg-ink text-paper">
+       <Container className="flex items-center justify-center py-2.5 pr-9 pl-4 text-center">
+         <Link
+           href="/referral"
+           onClick={() => track(AnalyticsEvents.REFERRAL_BANNER_CLICK)}
+-          className="text-sm font-medium leading-snug sm:text-[0.925rem]"
++          className="text-[0.8125rem] font-medium leading-snug tracking-wide"
+         >
+-          <span aria-hidden className="mr-1.5">
+-            🎁
+-          </span>
+-          Refer a friend and earn <span className="underline underline-offset-2">₹299 credit</span> — get your code
+-          <span aria-hidden className="ml-1">
+-            →
+-          </span>
++          Refer a friend and earn <span className="underline decoration-white/40 underline-offset-4">₹299 credit</span>
++          <ArrowRight aria-hidden size={14} className="ml-1.5 inline-block -translate-y-px" />
+         </Link>
+       </Container>
+       <button
+@@ -85,7 +83,7 @@ export function ReferralBanner() {
+         onClick={dismiss}
+         className="absolute right-2 top-1/2 flex h-7 w-7 -translate-y-1/2 items-center justify-center rounded-full text-white/80 transition-colors hover:bg-white/15 hover:text-white sm:right-4"
+       >
+-        ✕
++        <X size={14} />
+       </button>
+     </div>
+   );
+diff --git a/src/components/ReferralCodeTool.tsx b/src/components/ReferralCodeTool.tsx
+index 7ca0f61..f85e270 100644
+--- a/src/components/ReferralCodeTool.tsx
++++ b/src/components/ReferralCodeTool.tsx
+@@ -68,7 +68,7 @@ export function ReferralCodeTool() {
+     return (
+       <div className="rounded-2xl border border-accent-2/30 bg-accent-2/10 p-6">
+         <p className="text-sm font-medium text-muted">Your referral code</p>
+-        <p className="mt-1 font-display text-3xl font-extrabold tracking-wide text-ink">{result.code}</p>
++        <p className="mt-1 font-display text-3xl font-medium tracking-wide text-ink">{result.code}</p>
+ 
+         <p className="mt-4 text-sm font-medium text-muted">Share this link — it fills the code in automatically</p>
+         <div className="mt-1 flex flex-col gap-2 sm:flex-row">
+diff --git a/src/components/TripCard.tsx b/src/components/TripCard.tsx
+index 1874f79..b1c1095 100644
+--- a/src/components/TripCard.tsx
++++ b/src/components/TripCard.tsx
+@@ -1,107 +1,104 @@
+-"use client";
+-
+ import Link from "next/link";
+-import type { MouseEvent } from "react";
++import Image from "next/image";
++import { ArrowUpRight, Bike, BusFront, Check, Clock } from "lucide-react";
+ import { Trip } from "@/lib/trips";
+ import { PlaceholderMedia } from "./ui/PlaceholderMedia";
+-import { TripPhoto } from "./ui/TripPhoto";
+-import { Badge } from "./ui/Badge";
+-import { whatsappMessages } from "@/lib/whatsapp";
+-import { track, AnalyticsEvents } from "@/lib/analytics";
+ 
+-const statusLabel: Record<Trip["bookingStatus"], { text: string; tone: "success" | "warning" | "default" }> = {
+-  open: { text: "Open", tone: "success" },
+-  "few-left": { text: "Few seats left", tone: "warning" },
+-  "sold-out": { text: "Sold out", tone: "default" },
+-  closed: { text: "Booking closed", tone: "default" },
++// Premium card: photo-led, one quiet status pill, one price. Urgency and
++// discount cues are deliberately understated — a struck-through original
++// price still shows when a real discount is running, but there's no loud
++// "Save ₹X" badge. WhatsApp enquiries go through the site-wide floating
++// button and the trip page itself, rather than a button on every card.
++const statusPill: Partial<Record<Trip["bookingStatus"], string>> = {
++  "few-left": "Few seats left",
++  "sold-out": "Sold out",
++  closed: "Booking closed",
+ };
+ 
+ export function TripCard({ trip }: { trip: Trip }) {
+-  const status = statusLabel[trip.bookingStatus];
++  const pill = statusPill[trip.bookingStatus];
+   const hasDiscount = typeof trip.originalPrice === "number" && trip.originalPrice > trip.price;
+-
+-  function handleWhatsAppClick(e: MouseEvent) {
+-    // The button sits on top of the card's own <Link> — stop the click from
+-    // also triggering navigation to the trip page.
+-    e.preventDefault();
+-    e.stopPropagation();
+-    track(AnalyticsEvents.CLICK_WHATSAPP_CARD, { trip: trip.title });
+-    window.open(whatsappMessages.tripEnquiry(trip.title, trip.date), "_blank", "noopener,noreferrer");
+-  }
++  const TransportIcon = trip.transport === "Bike" ? Bike : BusFront;
+ 
+   return (
+     <Link
+       href={`/trips/${trip.slug}`}
+-      className="group flex flex-col overflow-hidden rounded-2xl border border-line bg-white transition-shadow hover:shadow-lg"
++      className="group flex flex-col overflow-hidden rounded-2xl bg-white ring-1 ring-line transition-all duration-300 hover:-translate-y-0.5 hover:shadow-[0_18px_40px_-20px_rgba(28,25,23,0.35)]"
+     >
+-      <div className="relative">
++      <div className="relative aspect-[4/3] overflow-hidden">
+         {trip.coverImage ? (
+-          <TripPhoto
++          <Image
+             src={trip.coverImage}
+             alt={trip.coverImageLabel}
+-            aspect="aspect-[4/3]"
+-            className="rounded-none rounded-t-2xl border-0 border-b border-line"
++            fill
++            sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
++            className="object-cover transition-transform duration-700 ease-out group-hover:scale-[1.04]"
+           />
+         ) : (
+-          <PlaceholderMedia label={trip.coverImageLabel} aspect="aspect-[4/3]" className="rounded-none rounded-t-2xl border-0 border-b border-line" />
++          <PlaceholderMedia label={trip.coverImageLabel} aspect="aspect-[4/3]" className="rounded-none border-0" />
+         )}
+-        <button
+-          type="button"
+-          onClick={handleWhatsAppClick}
+-          aria-label={`Ask about ${trip.title} on WhatsApp`}
+-          className="absolute right-3 top-3 z-10 flex h-9 w-9 items-center justify-center rounded-full bg-[#25D366] text-white shadow-md transition-transform hover:scale-105"
+-        >
+-          <svg viewBox="0 0 32 32" className="h-[18px] w-[18px] fill-white" aria-hidden="true">
+-            <path d="M16.01 3C9.38 3 4 8.36 4 14.98c0 2.2.59 4.27 1.62 6.05L4 29l8.2-1.57a13 13 0 0 0 3.81.57h.01c6.63 0 12-5.36 12-11.98C28.02 8.36 22.65 3 16.01 3zm7.1 17.02c-.3.85-1.72 1.62-2.38 1.72-.61.1-1.38.14-2.23-.14-.51-.16-1.17-.38-2.02-.75-3.55-1.54-5.87-5.12-6.05-5.36-.18-.24-1.44-1.92-1.44-3.66 0-1.74.91-2.6 1.24-2.95.32-.35.7-.44.93-.44.24 0 .47 0 .68.01.22.01.51-.08.8.61.3.71 1.02 2.45 1.11 2.63.09.18.15.39.03.63-.12.24-.18.39-.36.6-.18.21-.38.47-.54.63-.18.18-.37.37-.16.73.21.36.94 1.55 2.02 2.51 1.39 1.24 2.56 1.62 2.92 1.8.36.18.57.15.78-.09.21-.24.9-1.05 1.14-1.41.24-.36.48-.3.8-.18.33.12 2.08.98 2.44 1.16.36.18.6.27.69.42.09.15.09.85-.21 1.7z" />
+-          </svg>
+-        </button>
+-      </div>
+-      <div className="flex flex-1 flex-col gap-3 p-5">
+-        <div className="flex flex-wrap gap-2">
+-          {trip.categories.slice(0, 2).map((c) => (
+-            <Badge key={c}>{c}</Badge>
+-          ))}
++        <div aria-hidden className="absolute inset-x-0 bottom-0 h-1/3 bg-gradient-to-t from-black/45 to-transparent" />
++        <div className="absolute bottom-3 left-4 right-4 flex items-center justify-between text-xs font-medium text-white">
++          <span className="tracking-wide">{trip.categories.slice(0, 2).join(" · ")}</span>
++          {pill && (
++            <span className="rounded-full bg-white/95 px-2.5 py-1 text-[0.7rem] font-semibold text-ink">{pill}</span>
++          )}
+         </div>
+-        <h3 className="font-display text-lg font-bold leading-snug group-hover:text-accent">
+-          {trip.title}
++      </div>
++
++      <div className="flex flex-1 flex-col p-5 sm:p-6">
++        <p className="text-xs font-medium uppercase tracking-[0.14em] text-muted">
++          {trip.destination.split(",")[0]}
++        </p>
++        <h3 className="mt-1.5 flex items-start justify-between gap-3 font-display text-xl font-medium leading-snug">
++          <span>{trip.title}</span>
++          <ArrowUpRight
++            aria-hidden
++            size={18}
++            strokeWidth={1.5}
++            className="mt-1 shrink-0 text-muted transition-all duration-300 group-hover:-translate-y-0.5 group-hover:translate-x-0.5 group-hover:text-accent"
++          />
+         </h3>
+-        <p className="text-sm text-muted">📍 Bengaluru → {trip.destination}</p>
+ 
+         {trip.highlights.length > 0 && (
+-          <ul className="flex flex-col gap-1">
++          <ul className="mt-3 flex flex-col gap-1.5">
+             {trip.highlights.slice(0, 2).map((h) => (
+-              <li key={h} className="flex items-start gap-1.5 text-sm text-ink/80">
+-                <span className="mt-0.5 text-accent-2">✓</span>
++              <li key={h} className="flex items-start gap-2 text-sm text-ink/75">
++                <Check aria-hidden size={14} strokeWidth={2} className="mt-[3px] shrink-0 text-accent-2" />
+                 <span className="line-clamp-1">{h}</span>
+               </li>
+             ))}
+           </ul>
+         )}
+ 
+-        <div className="mt-1 flex flex-wrap items-center gap-x-3 gap-y-1 text-xs text-muted">
+-          <span>🕐 {trip.duration}</span>
+-          <span>🚐 {trip.transport}</span>
++        <div className="mt-4 flex flex-wrap items-center gap-x-4 gap-y-1.5 text-xs text-muted">
++          <span className="inline-flex items-center gap-1.5">
++            <Clock aria-hidden size={13} strokeWidth={1.75} /> {trip.duration.split(" (")[0]}
++          </span>
++          <span className="inline-flex items-center gap-1.5">
++            <TransportIcon aria-hidden size={13} strokeWidth={1.75} /> {trip.transport}
++          </span>
+         </div>
+ 
+-        <div className="mt-auto flex items-end justify-between pt-3">
+-          <div className="flex flex-col gap-1">
+-            <Badge tone={status.tone}>{status.text}</Badge>
+-            <span className="text-xs text-muted">{trip.date}</span>
+-          </div>
++        <div className="mt-auto pt-5">
++        <div className="flex items-end justify-between border-t border-line pt-4">
++          <span className="max-w-[55%] text-xs leading-snug text-muted">{trip.date}</span>
+           <div className="text-right">
+-            <div className="text-xs text-muted">From</div>
+-            {hasDiscount ? (
+-              <div className="flex items-center justify-end gap-1.5">
+-                <span className="text-xs text-muted line-through">
++            <div className="text-[0.7rem] uppercase tracking-wider text-muted">
++              From{" "}
++              {hasDiscount && (
++                <span className="ml-1 normal-case tracking-normal line-through decoration-muted/60">
+                   ₹{trip.originalPrice!.toLocaleString("en-IN")}
+                 </span>
+-                <Badge tone="success">Save ₹{(trip.originalPrice! - trip.price).toLocaleString("en-IN")}</Badge>
+-              </div>
+-            ) : null}
+-            <div className="text-lg font-bold text-ink">₹{trip.price.toLocaleString("en-IN")}</div>
+-            <div className="text-xs text-muted">per person</div>
++              )}
++            </div>
++            <div className="text-lg font-semibold text-ink">
++              ₹{trip.price.toLocaleString("en-IN")}
++              <span className="ml-1 text-xs font-normal text-muted">/ person</span>
++            </div>
+           </div>
+         </div>
++        </div>
+       </div>
+     </Link>
+   );
+diff --git a/src/components/TripFilters.tsx b/src/components/TripFilters.tsx
+index c59c6e2..ea1a3cd 100644
+--- a/src/components/TripFilters.tsx
++++ b/src/components/TripFilters.tsx
+@@ -1,5 +1,7 @@
+ "use client";
+ 
++import { X } from "lucide-react";
++
+ import { useCallback, useEffect, useMemo, useState } from "react";
+ import { usePathname, useRouter, useSearchParams } from "next/navigation";
+ import { ALL_CATEGORIES, Trip, TripCategory } from "@/lib/trips";
+@@ -205,7 +207,7 @@ function FacetPanel({
+           type="button"
+           onClick={() => onPick(o)}
+           className={`rounded-full border px-3.5 py-2 text-xs font-semibold transition-colors ${
+-            active === o ? "border-accent-2 bg-accent-2 text-white" : "border-line bg-white text-ink hover:border-ink"
++            active === o ? "border-ink bg-ink text-paper" : "border-line bg-white text-ink hover:border-ink"
+           }`}
+         >
+           {o}
+@@ -225,7 +227,7 @@ function Chip({ label, onRemove }: { label: string; onRemove: () => void }) {
+         aria-label={`Remove ${label} filter`}
+         className="flex h-4 w-4 items-center justify-center rounded-full text-paper/70 hover:text-paper"
+       >
+-        ✕
++        <X aria-hidden size={12} />
+       </button>
+     </span>
+   );
+diff --git a/src/components/home/BikeOrNot.tsx b/src/components/home/BikeOrNot.tsx
+index 48f6af7..0ba75c7 100644
+--- a/src/components/home/BikeOrNot.tsx
++++ b/src/components/home/BikeOrNot.tsx
+@@ -3,27 +3,27 @@ import { TripPhoto } from "../ui/TripPhoto";
+ 
+ export function BikeOrNot() {
+   return (
+-    <section className="border-b border-line py-16">
+-      <Container className="grid items-center gap-10 md:grid-cols-2">
++    <section className="py-20 md:py-28">
++      <Container className="grid items-center gap-12 md:grid-cols-2 md:gap-16">
+         <TripPhoto
+           src="/photos/bike-or-tempo-group.jpg"
+           alt="Riders and the Tempo Traveller group together at the same stop"
+-          aspect="aspect-[5/4]"
++          aspect="aspect-[4/5]"
+           className="md:order-2"
+         />
+         <div className="md:order-1">
+-          <h2 className="font-display text-3xl font-bold">
+-            Bring your bike. Or just bring yourself.
++          <p className="eyebrow">Two ways to travel</p>
++          <h2 className="mt-4 text-4xl font-medium leading-[1.1] md:text-5xl">
++            Bring your bike. <em className="italic text-accent">Or just bring yourself.</em>
+           </h2>
+-          <p className="mt-4 text-muted">
+-            Some trips are built around riding. Others run as group road
+-            trips in a Tempo Traveller or bus — small groups get a Tempo,
+-            bigger ones get a bus. Either way, the destination is the point.
+-            How you get there is just logistics.
++          <p className="mt-6 text-lg leading-relaxed text-muted">
++            Some trips are built around the ride. Others run as road trips in a
++            Tempo Traveller or coach — smaller groups get a Tempo, larger ones a
++            bus. Either way, the destination is the point.
+           </p>
+-          <p className="mt-4 text-muted">
+-            Every trip listing tells you exactly which mode it uses, so
+-            there&apos;s never a surprise at the assembly point.
++          <p className="mt-4 leading-relaxed text-muted">
++            Every listing says exactly how you&apos;ll travel, so there&apos;s never a
++            surprise at the pickup point.
+           </p>
+         </div>
+       </Container>
+diff --git a/src/components/home/CommunityTeaser.tsx b/src/components/home/CommunityTeaser.tsx
+index 7eb8cb4..532918b 100644
+--- a/src/components/home/CommunityTeaser.tsx
++++ b/src/components/home/CommunityTeaser.tsx
+@@ -1,6 +1,7 @@
++import Link from "next/link";
++import { ArrowRight } from "lucide-react";
+ import { Container } from "../ui/Container";
+ import { TripPhoto } from "../ui/TripPhoto";
+-import { Button } from "../ui/Button";
+ 
+ const testimonials = [
+   {
+@@ -15,25 +16,36 @@ const testimonials = [
+ 
+ export function CommunityTeaser() {
+   return (
+-    <section className="border-b border-line py-16">
++    <section className="bg-ink py-20 text-paper md:py-28">
+       <Container>
+-        <div className="flex flex-wrap items-end justify-between gap-4">
+-          <h2 className="font-display text-3xl font-bold">The people make the trip.</h2>
+-          <Button href="/community" variant="outline">See the community</Button>
++        <div className="flex flex-wrap items-end justify-between gap-6">
++          <div>
++            <p className="eyebrow !text-[#f3b58f]">The community</p>
++            <h2 className="mt-4 text-4xl font-medium leading-[1.1] md:text-5xl">The people make the trip.</h2>
++          </div>
++          <Link
++            href="/community"
++            className="group inline-flex items-center gap-2 text-sm font-semibold underline decoration-white/25 underline-offset-8 transition-colors hover:decoration-[#f3b58f]"
++          >
++            Meet the community
++            <ArrowRight aria-hidden size={16} className="transition-transform group-hover:translate-x-1" />
++          </Link>
+         </div>
+ 
+-        <div className="mt-10 grid gap-6 md:grid-cols-3">
+-          <TripPhoto src="/photos/community-lake-group.jpg" alt="Group photo by the lake on a Tripshala trip" />
+-          <TripPhoto src="/photos/community-bikes-lineup.jpg" alt="Bikes lined up on a Tripshala ride" />
+-          <TripPhoto src="/photos/community-tea-estate-group.jpg" alt="Group photo at a tea estate stop" />
++        <div className="mt-12 grid gap-4 md:grid-cols-3 md:gap-6">
++          <TripPhoto src="/photos/community-lake-group.jpg" alt="Group photo by the lake on a Tripshala trip" sizes="(max-width: 768px) 100vw, 33vw" />
++          <TripPhoto src="/photos/community-bikes-lineup.jpg" alt="Bikes lined up on a Tripshala ride" sizes="(max-width: 768px) 100vw, 33vw" />
++          <TripPhoto src="/photos/community-tea-estate-group.jpg" alt="Group photo at a tea estate stop" sizes="(max-width: 768px) 100vw, 33vw" />
+         </div>
+ 
+-        <div className="mt-10 grid gap-6 md:grid-cols-2">
++        <div className="mt-16 grid gap-12 md:grid-cols-2 md:gap-16">
+           {testimonials.map((t) => (
+-            <blockquote key={t.name} className="rounded-2xl border border-dashed border-line bg-paper-raised p-6 text-sm italic text-muted">
+-              &ldquo;{t.quote}&rdquo;
+-              <footer className="mt-3 not-italic font-medium text-ink">— {t.name}</footer>
+-            </blockquote>
++            <figure key={t.name} className="border-t border-white/15 pt-8">
++              <blockquote className="font-display text-2xl font-light leading-snug text-paper/95 md:text-[1.7rem]">
++                &ldquo;{t.quote}&rdquo;
++              </blockquote>
++              <figcaption className="mt-5 text-sm font-medium tracking-wide text-paper/60">{t.name}</figcaption>
++            </figure>
+           ))}
+         </div>
+       </Container>
+diff --git a/src/components/home/Hero.tsx b/src/components/home/Hero.tsx
+index ba6b383..ad40f87 100644
+--- a/src/components/home/Hero.tsx
++++ b/src/components/home/Hero.tsx
+@@ -1,38 +1,70 @@
++import Image from "next/image";
++import { CalendarClock, MapPin, Moon, Users } from "lucide-react";
+ import { Container } from "../ui/Container";
+ import { Button } from "../ui/Button";
+-import { TripPhoto } from "../ui/TripPhoto";
++
++// Full-bleed, image-led hero. The photo does the selling; copy is kept to a
++// headline, one line and two actions. Swap HERO_IMAGE for a wider/sharper
++// shot (2400px+ landscape) whenever one is available.
++const HERO_IMAGE = "/photos/chikmagalur-peak.jpg";
++
++const promises = [
++  { icon: CalendarClock, text: "Hour-by-hour itineraries" },
++  { icon: MapPin, text: "Pickups across Bengaluru" },
++  { icon: Moon, text: "Friday-night departures" },
++  { icon: Users, text: "Small groups, room to breathe" },
++];
+ 
+ export function Hero() {
+   return (
+-    <section className="border-b border-line bg-paper">
+-      <Container className="grid items-center gap-10 py-14 md:grid-cols-2 md:py-20">
+-        <div>
+-          <h1 className="font-display text-4xl font-extrabold leading-[1.05] tracking-tight md:text-6xl">
+-            The trip&apos;s planned.
+-            <br />
+-            You just have to <span className="text-accent">show up.</span>
+-          </h1>
+-          <p className="mt-6 max-w-md text-lg text-muted">
+-            Curated bike rides, weekend getaways and 1-2 day escapes from
+-            Bengaluru. We find the route, the stay and the people — you bring
+-            yourself.
+-          </p>
+-          <div className="mt-8 flex flex-wrap gap-4">
+-            <Button href="/trips" variant="primary">
+-              Explore Upcoming Trips
+-            </Button>
+-            <Button href="/community" variant="outline">
+-              Join the Community
+-            </Button>
+-          </div>
++    <section className="relative isolate overflow-hidden bg-ink text-white">
++      <Image
++        src={HERO_IMAGE}
++        alt="Golden-hour light over a peak in the Chikmagalur hills"
++        fill
++        priority
++        sizes="100vw"
++        className="-z-20 object-cover object-center"
++      />
++      {/* Legibility wash: darker at the bottom-left where the copy sits. */}
++      <div
++        aria-hidden
++        className="absolute inset-0 -z-10 bg-gradient-to-t from-black/80 via-black/35 to-black/10 md:bg-gradient-to-tr md:from-black/80 md:via-black/40 md:to-transparent"
++      />
++
++      <Container className="flex min-h-[78svh] flex-col justify-end pb-14 pt-32 md:min-h-[86svh] md:pb-20">
++        <p className="eyebrow rise-in !text-white/80">Curated escapes from Bengaluru</p>
++        <h1 className="rise-in rise-in-delay-1 mt-4 max-w-3xl text-5xl font-medium leading-[1.02] md:text-7xl">
++          The trip&apos;s planned.
++          <br />
++          You just have to <em className="font-normal italic text-[#f3b58f]">show up.</em>
++        </h1>
++        <p className="rise-in rise-in-delay-2 mt-6 max-w-xl text-lg leading-relaxed text-white/85">
++          Bike rides, hill escapes and heritage weekends — the route, the stay
++          and the company, all taken care of.
++        </p>
++        <div className="rise-in rise-in-delay-3 mt-9 flex flex-wrap gap-3">
++          <Button href="/trips" variant="primary">
++            Explore upcoming trips
++          </Button>
++          <Button href="/community" variant="ghost-light">
++            Join the community
++          </Button>
+         </div>
+-        <TripPhoto
+-          src="/photos/hero-riders-savandurga.jpg"
+-          alt="Riders taking a break under the rock face on a Tripshala ride"
+-          aspect="aspect-[5/4]"
+-          priority
+-        />
+       </Container>
++
++      <div className="border-t border-white/15 bg-black/30 backdrop-blur-sm">
++        <Container>
++          <ul className="grid grid-cols-2 gap-x-6 gap-y-3 py-5 text-sm text-white/85 md:grid-cols-4">
++            {promises.map(({ icon: Icon, text }) => (
++              <li key={text} className="flex items-center gap-2.5">
++                <Icon aria-hidden size={16} strokeWidth={1.75} className="shrink-0 text-[#f3b58f]" />
++                {text}
++              </li>
++            ))}
++          </ul>
++        </Container>
++      </div>
+     </section>
+   );
+ }
+diff --git a/src/components/home/HiddenGemSuggest.tsx b/src/components/home/HiddenGemSuggest.tsx
+index d737db5..7412a40 100644
+--- a/src/components/home/HiddenGemSuggest.tsx
++++ b/src/components/home/HiddenGemSuggest.tsx
+@@ -164,11 +164,12 @@ export function HiddenGemSuggest() {
+   }
+ 
+   return (
+-    <section className="border-b border-line bg-paper-raised py-16">
+-      <Container className="grid gap-8 md:grid-cols-2 md:items-center">
++    <section className="bg-paper-raised py-20 md:py-28">
++      <Container className="grid gap-10 md:grid-cols-2 md:items-center md:gap-16">
+         <div>
+-          <h2 className="font-display text-3xl font-bold">Know a hidden gem near Bengaluru?</h2>
+-          <p className="mt-3 max-w-md text-muted">
++          <p className="eyebrow">Suggest a destination</p>
++          <h2 className="mt-4 text-4xl font-medium leading-[1.1] md:text-5xl">Know a hidden gem near Bengaluru?</h2>
++          <p className="mt-5 max-w-md leading-relaxed text-muted">
+             The best trips on this site started as a place someone in the
+             community mentioned once. Tell us about somewhere less-explored
+             and we&apos;ll look into planning a trip there — and you&apos;ll
+diff --git a/src/components/home/HowItWorks.tsx b/src/components/home/HowItWorks.tsx
+index af4182b..2d9c39f 100644
+--- a/src/components/home/HowItWorks.tsx
++++ b/src/components/home/HowItWorks.tsx
+@@ -4,34 +4,37 @@ const steps = [
+   {
+     number: "01",
+     title: "Pick a trip",
+-    body: "Find a ride or getaway that looks like your kind of weekend — filter by bike ride, weekend, heritage, nature or however you like to travel.",
++    body: "Browse rides, hill escapes, heritage weekends and day trips — filter by the kind of weekend you're after.",
+   },
+   {
+     number: "02",
+-    title: "Book your spot",
+-    body: "Join solo or bring your people. A short form and a WhatsApp message is all it takes.",
++    title: "Reserve your seat",
++    body: "Come solo or bring your people. A short form and a quick WhatsApp confirmation, and your seat is held.",
+   },
+   {
+     number: "03",
+-    title: "Show up and explore",
+-    body: "We've handled the route, the stops and the stay. You just need to show up with a full tank or a packed bag.",
++    title: "Show up",
++    body: "The route, the stops and the stay are handled. Arrive at your pickup point with a full tank or a packed bag.",
+   },
+ ];
+ 
+ export function HowItWorks() {
+   return (
+-    <section className="border-b border-line py-16">
++    <section className="py-20 md:py-28">
+       <Container>
+-        <h2 className="font-display text-3xl font-bold">How Tripshala works</h2>
+-        <div className="mt-10 grid gap-8 md:grid-cols-3">
++        <p className="eyebrow">How it works</p>
++        <h2 className="mt-4 max-w-xl text-4xl font-medium leading-[1.1] md:text-5xl">
++          Three steps, then the open road.
++        </h2>
++        <ol className="mt-14 grid gap-10 md:grid-cols-3 md:gap-12">
+           {steps.map((s) => (
+-            <div key={s.number}>
+-              <div className="font-display text-4xl font-extrabold text-accent">{s.number}</div>
+-              <h3 className="mt-3 text-xl font-semibold">{s.title}</h3>
+-              <p className="mt-2 text-muted">{s.body}</p>
+-            </div>
++            <li key={s.number} className="border-t border-ink/10 pt-6">
++              <div className="font-display text-5xl font-light italic text-accent">{s.number}</div>
++              <h3 className="mt-4 text-xl font-semibold">{s.title}</h3>
++              <p className="mt-2 leading-relaxed text-muted">{s.body}</p>
++            </li>
+           ))}
+-        </div>
++        </ol>
+       </Container>
+     </section>
+   );
+diff --git a/src/components/home/InstagramSection.tsx b/src/components/home/InstagramSection.tsx
+index 42f7a1b..31f4368 100644
+--- a/src/components/home/InstagramSection.tsx
++++ b/src/components/home/InstagramSection.tsx
+@@ -20,12 +20,13 @@ const posts = [
+ 
+ export function InstagramSection() {
+   return (
+-    <section className="border-b border-line bg-paper-raised py-16">
++    <section className="py-20 md:py-28">
+       <Container>
+         <div className="flex flex-wrap items-end justify-between gap-4">
+           <div>
+-            <h2 className="font-display text-3xl font-bold">Follow the road with us.</h2>
+-            <p className="mt-2 text-muted">@{site.instagramHandle} on Instagram</p>
++            <p className="eyebrow">On Instagram</p>
++            <h2 className="mt-4 text-4xl font-medium leading-[1.1] md:text-5xl">Follow the road with us.</h2>
++            <p className="mt-3 text-muted">@{site.instagramHandle} on Instagram</p>
+           </div>
+           <Button
+             href={site.instagramUrl}
+@@ -38,9 +39,9 @@ export function InstagramSection() {
+           </Button>
+         </div>
+ 
+-        <div className="mt-8 grid grid-cols-2 gap-4 sm:grid-cols-3 md:grid-cols-6">
++        <div className="mt-12 grid grid-cols-2 gap-3 sm:grid-cols-3 md:grid-cols-6">
+           {posts.map((p) => (
+-            <TripPhoto key={p.src} src={p.src} alt={p.alt} aspect="aspect-square" sizes="(max-width: 768px) 50vw, 16vw" />
++            <TripPhoto key={p.src} src={p.src} alt={p.alt} aspect="aspect-[4/5]" sizes="(max-width: 768px) 50vw, 16vw" />
+           ))}
+         </div>
+       </Container>
+diff --git a/src/components/home/UpcomingTrips.tsx b/src/components/home/UpcomingTrips.tsx
+index 4289542..03af0f6 100644
+--- a/src/components/home/UpcomingTrips.tsx
++++ b/src/components/home/UpcomingTrips.tsx
+@@ -1,5 +1,6 @@
++import Link from "next/link";
++import { ArrowRight } from "lucide-react";
+ import { Container } from "../ui/Container";
+-import { Button } from "../ui/Button";
+ import { TripCard } from "../TripCard";
+ import { trips } from "@/lib/trips";
+ 
+@@ -7,20 +8,29 @@ export function UpcomingTrips() {
+   const featured = trips.slice(0, 3);
+ 
+   return (
+-    <section className="border-b border-line py-16">
++    <section className="py-20 md:py-28">
+       <Container>
+-        <div className="flex flex-wrap items-end justify-between gap-4">
+-          <h2 className="font-display text-3xl font-bold">Where are we going next?</h2>
+-          <Button href="/trips" variant="outline">See all trips</Button>
++        <div className="flex flex-wrap items-end justify-between gap-6">
++          <div>
++            <p className="eyebrow">Upcoming departures</p>
++            <h2 className="mt-4 text-4xl font-medium leading-[1.1] md:text-5xl">Where are we going next?</h2>
++          </div>
++          <Link
++            href="/trips"
++            className="group inline-flex items-center gap-2 text-sm font-semibold text-ink underline decoration-ink/20 underline-offset-8 transition-colors hover:decoration-accent"
++          >
++            See all {trips.length} trips
++            <ArrowRight aria-hidden size={16} className="transition-transform group-hover:translate-x-1" />
++          </Link>
+         </div>
+ 
+         {featured.length === 0 ? (
+-          <p className="mt-10 rounded-2xl border border-dashed border-line p-10 text-center text-muted">
++          <p className="mt-12 rounded-2xl border border-dashed border-line p-10 text-center text-muted">
+             Nothing on the calendar yet. But that doesn&apos;t mean you have to stay home —{" "}
+             <a className="font-semibold text-accent underline" href="/contact">join the WhatsApp community</a> to hear about the next one first.
+           </p>
+         ) : (
+-          <div className="mt-10 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
++          <div className="mt-12 grid gap-6 sm:grid-cols-2 lg:grid-cols-3 lg:gap-8">
+             {featured.map((trip) => (
+               <TripCard key={trip.id} trip={trip} />
+             ))}
+diff --git a/src/components/home/WhyTripshala.tsx b/src/components/home/WhyTripshala.tsx
+index 90165f5..e2fdfe9 100644
+--- a/src/components/home/WhyTripshala.tsx
++++ b/src/components/home/WhyTripshala.tsx
+@@ -1,41 +1,55 @@
++import { Armchair, CalendarClock, MapPin, Moon } from "lucide-react";
+ import { Container } from "../ui/Container";
+ 
++// Built around what Tripshala actually does differently (all of it already
++// true in the trip data), instead of generic "good people / curated" lines.
+ const benefits = [
+   {
+-    icon: "🧭",
+-    title: "Curated routes",
+-    body: "We figure out where to go and how to get there, from ghat roads to lesser-known heritage towns.",
++    icon: Armchair,
++    title: "Room to breathe",
++    body: "On Tempo Traveller trips we seat 11 in a 13-seater, not the usual 12. Nobody spends eight hours wedged into a middle seat.",
+   },
+   {
+-    icon: "🫂",
+-    title: "Good people",
+-    body: "Meet riders and travellers who also want to get out of the city for a weekend — most trips run in small groups on purpose.",
++    icon: Moon,
++    title: "Your whole weekend, on location",
++    body: "Longer trips leave on Friday night. You wake up at the destination instead of losing Saturday to the highway.",
+   },
+   {
+-    icon: "💬",
+-    title: "No planning headache",
+-    body: "You don't need 47 messages in a group chat to decide where you're going. We've already decided.",
++    icon: MapPin,
++    title: "Picked up near you",
++    body: "Choose from pickup points across the city — Mysore Road, Hosur Road, Tumkur Road, Hebbal — rather than crossing Bengaluru at dawn.",
+   },
+   {
+-    icon: "🔁",
+-    title: "Different every weekend",
+-    body: "Rides, hidden places, food stops, nature and heritage — the format changes, the quality doesn't.",
++    icon: CalendarClock,
++    title: "Planned to the hour",
++    body: "Every route, stop and stay is worked out before you book. You get an hour-by-hour itinerary, not a vague plan and a group chat.",
+   },
+ ];
+ 
+ export function WhyTripshala() {
+   return (
+-    <section className="border-b border-line bg-paper-raised py-16">
++    <section className="bg-paper-raised py-20 md:py-28">
+       <Container>
+-        <h2 className="font-display text-3xl font-bold">Why Tripshala</h2>
+-        <div className="mt-10 grid gap-6 sm:grid-cols-2">
+-          {benefits.map((b) => (
+-            <div key={b.title} className="rounded-2xl border border-line bg-white p-6">
+-              <div className="text-3xl">{b.icon}</div>
+-              <h3 className="mt-3 text-lg font-semibold">{b.title}</h3>
+-              <p className="mt-2 text-muted">{b.body}</p>
+-            </div>
+-          ))}
++        <div className="grid gap-12 md:grid-cols-[1fr_1.6fr] md:gap-16">
++          <div>
++            <p className="eyebrow">Why Tripshala</p>
++            <h2 className="mt-4 text-4xl font-medium leading-[1.1] md:text-5xl">
++              The details other trips leave to chance.
++            </h2>
++            <p className="mt-5 max-w-sm text-muted">
++              A good weekend away is mostly logistics done well. We sweat those,
++              so the only thing left for you is the trip itself.
++            </p>
++          </div>
++          <div className="grid gap-x-10 gap-y-10 sm:grid-cols-2">
++            {benefits.map(({ icon: Icon, title, body }) => (
++              <div key={title} className="border-t border-ink/10 pt-6">
++                <Icon aria-hidden size={22} strokeWidth={1.5} className="text-accent" />
++                <h3 className="mt-4 text-lg font-semibold">{title}</h3>
++                <p className="mt-2 leading-relaxed text-muted">{body}</p>
++              </div>
++            ))}
++          </div>
+         </div>
+       </Container>
+     </section>
+diff --git a/src/components/ui/Badge.tsx b/src/components/ui/Badge.tsx
+index ad6bc97..83e2bb5 100644
+--- a/src/components/ui/Badge.tsx
++++ b/src/components/ui/Badge.tsx
+@@ -11,7 +11,7 @@ export function Badge({
+     default: "bg-paper-raised text-ink border-line",
+     accent: "bg-accent/10 text-accent-dark border-accent/30",
+     success: "bg-accent-2/10 text-accent-2 border-accent-2/30",
+-    warning: "bg-amber-100 text-amber-800 border-amber-300",
++    warning: "bg-[#f6ecdc] text-[#7a5418] border-[#e8d6b6]",
+   };
+   return (
+     <span
+diff --git a/src/components/ui/Button.tsx b/src/components/ui/Button.tsx
+index 2e1262f..6268af2 100644
+--- a/src/components/ui/Button.tsx
++++ b/src/components/ui/Button.tsx
+@@ -1,17 +1,20 @@
+ import Link from "next/link";
+ import { ReactNode } from "react";
+ 
+-type Variant = "primary" | "secondary" | "outline" | "whatsapp";
++type Variant = "primary" | "secondary" | "outline" | "whatsapp" | "ghost-light";
+ 
+ const variantClasses: Record<Variant, string> = {
+   primary:
+-    "bg-accent text-white hover:bg-accent-dark active:scale-[0.98]",
++    "bg-accent text-white shadow-sm shadow-accent/20 hover:bg-accent-dark",
+   secondary:
+-    "bg-ink text-paper hover:bg-ink/90 active:scale-[0.98]",
++    "bg-ink text-paper hover:bg-ink/85",
+   outline:
+-    "border border-line text-ink hover:border-ink active:scale-[0.98]",
++    "border border-ink/15 text-ink hover:border-ink/60 hover:bg-white",
+   whatsapp:
+-    "bg-[#25D366] text-white hover:brightness-95 active:scale-[0.98]",
++    "bg-[#25D366] text-white hover:brightness-95",
++  // For use on top of photography / dark backgrounds.
++  "ghost-light":
++    "border border-white/40 text-white backdrop-blur-sm hover:border-white hover:bg-white/10",
+ };
+ 
+ interface ButtonProps {
+@@ -35,7 +38,7 @@ export function Button({
+   target,
+   rel,
+ }: ButtonProps) {
+-  const classes = `inline-flex items-center justify-center gap-2 rounded-full px-6 py-3 text-sm font-semibold tracking-wide transition-transform ${variantClasses[variant]} ${className}`;
++  const classes = `inline-flex items-center justify-center gap-2 rounded-full px-6 py-3 text-sm font-semibold tracking-wide transition-all duration-200 active:scale-[0.98] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent ${variantClasses[variant]} ${className}`;
+ 
+   if (href) {
+     return (
+diff --git a/src/components/ui/PlaceholderMedia.tsx b/src/components/ui/PlaceholderMedia.tsx
+index f5775c4..d1ba06d 100644
+--- a/src/components/ui/PlaceholderMedia.tsx
++++ b/src/components/ui/PlaceholderMedia.tsx
+@@ -1,3 +1,4 @@
++import { Camera } from "lucide-react";
+ // Honest placeholder for trip/community photography that doesn't exist yet.
+ // Deliberately NOT a fake stock photo — it's labeled so nobody mistakes it
+ // for real trust-building imagery. Swap for real photos before launch
+@@ -17,7 +18,7 @@ export function PlaceholderMedia({
+       className={`placeholder-media relative flex ${aspect} w-full items-end overflow-hidden rounded-2xl border border-line ${className}`}
+     >
+       <div className="m-3 rounded-lg bg-ink/80 px-3 py-1.5 text-xs font-medium text-paper backdrop-blur-sm">
+-        📷 {label}
++        <Camera aria-hidden size={12} className="mr-1.5 inline-block -translate-y-px" />{label}
+       </div>
+     </div>
+   );
+diff --git a/src/components/ui/TripPhoto.tsx b/src/components/ui/TripPhoto.tsx
+index fc10d2d..e17c0d5 100644
+--- a/src/components/ui/TripPhoto.tsx
++++ b/src/components/ui/TripPhoto.tsx
+@@ -19,7 +19,7 @@ export function TripPhoto({
+ }) {
+   return (
+     <div
+-      className={`relative flex ${aspect} w-full overflow-hidden rounded-2xl border border-line ${className}`}
++      className={`relative flex ${aspect} w-full overflow-hidden rounded-2xl bg-paper-raised ${className}`}
+     >
+       <Image
+         src={src}

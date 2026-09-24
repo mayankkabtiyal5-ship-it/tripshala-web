@@ -19,7 +19,7 @@ export function TripPhoto({
 }) {
   return (
     <div
-      className={`relative flex ${aspect} w-full overflow-hidden rounded-2xl border border-line ${className}`}
+      className={`relative flex ${aspect} w-full overflow-hidden rounded-2xl bg-paper-raised ${className}`}
     >
       <Image
         src={src}

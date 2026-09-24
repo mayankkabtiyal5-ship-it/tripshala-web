@@ -1,106 +1,103 @@
-"use client";
-
 import Link from "next/link";
-import type { MouseEvent } from "react";
+import Image from "next/image";
+import { ArrowUpRight, Bike, BusFront, Check, Clock } from "lucide-react";
 import { Trip } from "@/lib/trips";
 import { PlaceholderMedia } from "./ui/PlaceholderMedia";
-import { TripPhoto } from "./ui/TripPhoto";
-import { Badge } from "./ui/Badge";
-import { whatsappMessages } from "@/lib/whatsapp";
-import { track, AnalyticsEvents } from "@/lib/analytics";
 
-const statusLabel: Record<Trip["bookingStatus"], { text: string; tone: "success" | "warning" | "default" }> = {
-  open: { text: "Open", tone: "success" },
-  "few-left": { text: "Few seats left", tone: "warning" },
-  "sold-out": { text: "Sold out", tone: "default" },
-  closed: { text: "Booking closed", tone: "default" },
+// Premium card: photo-led, one quiet status pill, one price. Urgency and
+// discount cues are deliberately understated — a struck-through original
+// price still shows when a real discount is running, but there's no loud
+// "Save ₹X" badge. WhatsApp enquiries go through the site-wide floating
+// button and the trip page itself, rather than a button on every card.
+const statusPill: Partial<Record<Trip["bookingStatus"], string>> = {
+  "few-left": "Few seats left",
+  "sold-out": "Sold out",
+  closed: "Booking closed",
 };
 
 export function TripCard({ trip }: { trip: Trip }) {
-  const status = statusLabel[trip.bookingStatus];
+  const pill = statusPill[trip.bookingStatus];
   const hasDiscount = typeof trip.originalPrice === "number" && trip.originalPrice > trip.price;
-
-  function handleWhatsAppClick(e: MouseEvent) {
-    // The button sits on top of the card's own <Link> — stop the click from
-    // also triggering navigation to the trip page.
-    e.preventDefault();
-    e.stopPropagation();
-    track(AnalyticsEvents.CLICK_WHATSAPP_CARD, { trip: trip.title });
-    window.open(whatsappMessages.tripEnquiry(trip.title, trip.date), "_blank", "noopener,noreferrer");
-  }
+  const TransportIcon = trip.transport === "Bike" ? Bike : BusFront;
 
   return (
     <Link
       href={`/trips/${trip.slug}`}
-      className="group flex flex-col overflow-hidden rounded-2xl border border-line bg-white transition-shadow hover:shadow-lg"
+      className="group flex flex-col overflow-hidden rounded-2xl bg-white ring-1 ring-line transition-all duration-300 hover:-translate-y-0.5 hover:shadow-[0_18px_40px_-20px_rgba(28,25,23,0.35)]"
     >
-      <div className="relative">
+      <div className="relative aspect-[4/3] overflow-hidden">
         {trip.coverImage ? (
-          <TripPhoto
+          <Image
             src={trip.coverImage}
             alt={trip.coverImageLabel}
-            aspect="aspect-[4/3]"
-            className="rounded-none rounded-t-2xl border-0 border-b border-line"
+            fill
+            sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
+            className="object-cover transition-transform duration-700 ease-out group-hover:scale-[1.04]"
           />
         ) : (
-          <PlaceholderMedia label={trip.coverImageLabel} aspect="aspect-[4/3]" className="rounded-none rounded-t-2xl border-0 border-b border-line" />
+          <PlaceholderMedia label={trip.coverImageLabel} aspect="aspect-[4/3]" className="rounded-none border-0" />
         )}
-        <button
-          type="button"
-          onClick={handleWhatsAppClick}
-          aria-label={`Ask about ${trip.title} on WhatsApp`}
-          className="absolute right-3 top-3 z-10 flex h-9 w-9 items-center justify-center rounded-full bg-[#25D366] text-white shadow-md transition-transform hover:scale-105"
-        >
-          <svg viewBox="0 0 32 32" className="h-[18px] w-[18px] fill-white" aria-hidden="true">
-            <path d="M16.01 3C9.38 3 4 8.36 4 14.98c0 2.2.59 4.27 1.62 6.05L4 29l8.2-1.57a13 13 0 0 0 3.81.57h.01c6.63 0 12-5.36 12-11.98C28.02 8.36 22.65 3 16.01 3zm7.1 17.02c-.3.85-1.72 1.62-2.38 1.72-.61.1-1.38.14-2.23-.14-.51-.16-1.17-.38-2.02-.75-3.55-1.54-5.87-5.12-6.05-5.36-.18-.24-1.44-1.92-1.44-3.66 0-1.74.91-2.6 1.24-2.95.32-.35.7-.44.93-.44.24 0 .47 0 .68.01.22.01.51-.08.8.61.3.71 1.02 2.45 1.11 2.63.09.18.15.39.03.63-.12.24-.18.39-.36.6-.18.21-.38.47-.54.63-.18.18-.37.37-.16.73.21.36.94 1.55 2.02 2.51 1.39 1.24 2.56 1.62 2.92 1.8.36.18.57.15.78-.09.21-.24.9-1.05 1.14-1.41.24-.36.48-.3.8-.18.33.12 2.08.98 2.44 1.16.36.18.6.27.69.42.09.15.09.85-.21 1.7z" />
-          </svg>
-        </button>
-      </div>
-      <div className="flex flex-1 flex-col gap-3 p-5">
-        <div className="flex flex-wrap gap-2">
-          {trip.categories.slice(0, 2).map((c) => (
-            <Badge key={c}>{c}</Badge>
-          ))}
+        <div aria-hidden className="absolute inset-x-0 bottom-0 h-1/3 bg-gradient-to-t from-black/45 to-transparent" />
+        <div className="absolute bottom-3 left-4 right-4 flex items-center justify-between text-xs font-medium text-white">
+          <span className="tracking-wide">{trip.categories.slice(0, 2).join(" · ")}</span>
+          {pill && (
+            <span className="rounded-full bg-white/95 px-2.5 py-1 text-[0.7rem] font-semibold text-ink">{pill}</span>
+          )}
         </div>
-        <h3 className="font-display text-lg font-bold leading-snug group-hover:text-accent">
-          {trip.title}
+      </div>
+
+      <div className="flex flex-1 flex-col p-5 sm:p-6">
+        <p className="text-xs font-medium uppercase tracking-[0.14em] text-muted">
+          {trip.destination.split(",")[0]}
+        </p>
+        <h3 className="mt-1.5 flex items-start justify-between gap-3 font-display text-xl font-medium leading-snug">
+          <span>{trip.title}</span>
+          <ArrowUpRight
+            aria-hidden
+            size={18}
+            strokeWidth={1.5}
+            className="mt-1 shrink-0 text-muted transition-all duration-300 group-hover:-translate-y-0.5 group-hover:translate-x-0.5 group-hover:text-accent"
+          />
         </h3>
-        <p className="text-sm text-muted">📍 Bengaluru → {trip.destination}</p>
 
         {trip.highlights.length > 0 && (
-          <ul className="flex flex-col gap-1">
+          <ul className="mt-3 flex flex-col gap-1.5">
             {trip.highlights.slice(0, 2).map((h) => (
-              <li key={h} className="flex items-start gap-1.5 text-sm text-ink/80">
-                <span className="mt-0.5 text-accent-2">✓</span>
+              <li key={h} className="flex items-start gap-2 text-sm text-ink/75">
+                <Check aria-hidden size={14} strokeWidth={2} className="mt-[3px] shrink-0 text-accent-2" />
                 <span className="line-clamp-1">{h}</span>
               </li>
             ))}
           </ul>
         )}
 
-        <div className="mt-1 flex flex-wrap items-center gap-x-3 gap-y-1 text-xs text-muted">
-          <span>🕐 {trip.duration}</span>
-          <span>🚐 {trip.transport}</span>
+        <div className="mt-4 flex flex-wrap items-center gap-x-4 gap-y-1.5 text-xs text-muted">
+          <span className="inline-flex items-center gap-1.5">
+            <Clock aria-hidden size={13} strokeWidth={1.75} /> {trip.duration.split(" (")[0]}
+          </span>
+          <span className="inline-flex items-center gap-1.5">
+            <TransportIcon aria-hidden size={13} strokeWidth={1.75} /> {trip.transport}
+          </span>
         </div>
 
-        <div className="mt-auto flex items-end justify-between pt-3">
-          <div className="flex flex-col gap-1">
-            <Badge tone={status.tone}>{status.text}</Badge>
-            <span className="text-xs text-muted">{trip.date}</span>
-          </div>
+        <div className="mt-auto pt-5">
+        <div className="flex items-end justify-between border-t border-line pt-4">
+          <span className="max-w-[55%] text-xs leading-snug text-muted">{trip.date}</span>
           <div className="text-right">
-            <div className="text-xs text-muted">From</div>
-            {hasDiscount ? (
-              <div className="flex items-center justify-end gap-1.5">
-                <span className="text-xs text-muted line-through">
+            <div className="text-[0.7rem] uppercase tracking-wider text-muted">
+              From{" "}
+              {hasDiscount && (
+                <span className="ml-1 normal-case tracking-normal line-through decoration-muted/60">
                   ₹{trip.originalPrice!.toLocaleString("en-IN")}
                 </span>
-                <Badge tone="success">Save ₹{(trip.originalPrice! - trip.price).toLocaleString("en-IN")}</Badge>
-              </div>
-            ) : null}
-            <div className="text-lg font-bold text-ink">₹{trip.price.toLocaleString("en-IN")}</div>
-            <div className="text-xs text-muted">per person</div>
+              )}
+            </div>
+            <div className="text-lg font-semibold text-ink">
+              ₹{trip.price.toLocaleString("en-IN")}
+              <span className="ml-1 text-xs font-normal text-muted">/ person</span>
+            </div>
           </div>
+        </div>
         </div>
       </div>
     </Link>

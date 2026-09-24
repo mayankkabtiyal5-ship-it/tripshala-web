@@ -33,7 +33,7 @@ const options = [
 export default function ContactPage() {
   return (
     <Container className="py-14">
-      <h1 className="font-display text-4xl font-extrabold">Talk to Tripshala</h1>
+      <h1 className="font-display text-4xl font-medium">Talk to Tripshala</h1>
       <p className="mt-3 max-w-xl text-muted">
         WhatsApp is the fastest way to reach us — pick the reason below and
         we&apos;ll open a chat with the right message already started.

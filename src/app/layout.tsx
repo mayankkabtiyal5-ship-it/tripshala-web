@@ -14,14 +14,11 @@ import { site } from "@/lib/site";
 // network access to Google Fonts — only the visitor's browser does, which
 // is the normal case for every real visitor.
 //
-// Single-typeface system: Inter for everything, body and headings alike.
-// (Google Fonts doesn't host "Inter Display" as its own family — Inter is
-// a variable font with an optical-size axis built in, so the browser
-// already renders it slightly more display-like at the larger sizes
-// headings use. Requesting the 900 weight too, since some headings use
-// font-black-level weight.)
+// Two-typeface system: Fraunces (editorial serif) for display headings,
+// Inter for body and UI text. Both are variable fonts, so one request each
+// covers every weight used on the site.
 const FONTS_HREF =
-  "https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap";
+  "https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400..700&family=Inter:wght@400;500;600;700;800&display=swap";
 
 export const metadata: Metadata = {
   metadataBase: new URL(site.url),

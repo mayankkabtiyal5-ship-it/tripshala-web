@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 import { useState } from "react";
+import { Menu, X } from "lucide-react";
 import { Container } from "./ui/Container";
 import { Button } from "./ui/Button";
 import { NAV_LINKS, site } from "@/lib/site";
@@ -12,7 +13,7 @@ export function Header() {
   return (
     <header className="print:hidden sticky top-0 z-40 border-b border-line bg-paper/90 backdrop-blur">
       <Container className="flex h-16 items-center justify-between">
-        <Link href="/" className="font-display text-xl font-bold tracking-tight">
+        <Link href="/" className="font-display text-2xl font-semibold tracking-tight">
           {site.name}
         </Link>
 
@@ -21,7 +22,7 @@ export function Header() {
             <Link
               key={link.href}
               href={link.href}
-              className="text-sm font-medium text-ink/80 transition-colors hover:text-ink"
+              className="text-sm font-medium text-ink/70 transition-colors hover:text-ink"
             >
               {link.label}
             </Link>
@@ -36,10 +37,11 @@ export function Header() {
 
         <button
           aria-label="Toggle menu"
+          aria-expanded={open}
           className="flex h-10 w-10 items-center justify-center rounded-full border border-line md:hidden"
           onClick={() => setOpen((o) => !o)}
         >
-          <span className="text-xl">{open ? "✕" : "☰"}</span>
+          {open ? <X size={18} strokeWidth={1.75} /> : <Menu size={18} strokeWidth={1.75} />}
         </button>
       </Container>
 

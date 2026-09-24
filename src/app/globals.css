@@ -1,17 +1,19 @@
 @import "tailwindcss";
 
 :root {
-  /* Tripshala design tokens */
-  --color-ink: #211d1a; /* warm near-black, primary text */
-  --color-paper: #faf7f2; /* warm off-white, page background */
-  --color-paper-raised: #f2ece1; /* cards / raised surfaces */
-  --color-accent: #e2662a; /* burnt orange - primary brand accent */
-  --color-accent-dark: #b94f1e;
-  --color-accent-2: #1f6f5c; /* deep teal - secondary accent */
-  --color-muted: #7a7266; /* warm gray for secondary text */
-  --color-line: #e4ddd1; /* borders / dividers */
-  --color-success: #1f6f5c;
-  --color-warning: #b8862c;
+  /* Tripshala design tokens.
+     Premium pass: one accent colour, warm neutrals, and teal kept only as a
+     quiet secondary (never competing with the orange for attention). */
+  --color-ink: #1c1917; /* warm near-black, primary text */
+  --color-paper: #fbf8f3; /* warm off-white, page background */
+  --color-paper-raised: #f3eee5; /* raised surfaces */
+  --color-accent: #c8552a; /* deeper terracotta - the one brand accent */
+  --color-accent-dark: #a2421f;
+  --color-accent-2: #2f5d50; /* muted forest - secondary, used sparingly */
+  --color-muted: #6f675c; /* warm gray for secondary text */
+  --color-line: #e7e0d4; /* borders / dividers */
+  --color-success: #2f5d50;
+  --color-warning: #9a6b1f;
 }
 
 @theme inline {
@@ -23,29 +25,61 @@
   --color-accent-2: var(--color-accent-2);
   --color-muted: var(--color-muted);
   --color-line: var(--color-line);
-  /* One typeface, site-wide — Inter for both display/heading text and
-     body copy (previously Bricolage Grotesque for headings). */
-  --font-display: "Inter", ui-sans-serif, system-ui, sans-serif;
+  /* Two-typeface system: Fraunces (a warm, editorial serif) for display
+     headings, Inter for everything else. To go back to Inter-only, change
+     --font-display to the same value as --font-sans. */
+  --font-display: "Fraunces", ui-serif, Georgia, serif;
   --font-sans: "Inter", ui-sans-serif, system-ui, sans-serif;
 }
 
 body {
   background: var(--color-paper);
   color: var(--color-ink);
-  font-family: "Inter", ui-sans-serif, system-ui, sans-serif;
+  font-family: var(--font-sans);
+  font-feature-settings: "ss01", "cv11";
 }
 
-h1, h2, h3, h4, .font-display {
-  font-family: "Inter", ui-sans-serif, system-ui, sans-serif;
-  /* Slightly tighter tracking stands in for what the old display face's
-     distinct character gave headings, now that they share a typeface
-     with body text. */
+h1, h2, .font-display {
+  font-family: var(--font-display);
+  font-optical-sizing: auto;
+  letter-spacing: -0.02em;
+}
+
+h3, h4 {
+  font-family: var(--font-sans);
   letter-spacing: -0.01em;
 }
 
 ::selection {
   background: var(--color-accent);
   color: white;
+}
+
+/* Small uppercase label that sits above section headings. */
+.eyebrow {
+  font-family: var(--font-sans);
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--color-accent);
+}
+
+/* Gentle entrance for hero content. Disabled for reduced-motion users. */
+@keyframes rise-in {
+  from { opacity: 0; transform: translateY(14px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+.rise-in {
+  animation: rise-in 0.9s cubic-bezier(0.2, 0.7, 0.2, 1) both;
+}
+.rise-in-delay-1 { animation-delay: 0.12s; }
+.rise-in-delay-2 { animation-delay: 0.24s; }
+.rise-in-delay-3 { animation-delay: 0.36s; }
+
+@media (prefers-reduced-motion: reduce) {
+  .rise-in { animation: none; }
+  * { transition-duration: 0.01ms !important; }
 }
 
 .placeholder-media {

@@ -68,7 +68,7 @@ export function ReferralCodeTool() {
     return (
       <div className="rounded-2xl border border-accent-2/30 bg-accent-2/10 p-6">
         <p className="text-sm font-medium text-muted">Your referral code</p>
-        <p className="mt-1 font-display text-3xl font-extrabold tracking-wide text-ink">{result.code}</p>
+        <p className="mt-1 font-display text-3xl font-medium tracking-wide text-ink">{result.code}</p>
 
         <p className="mt-4 text-sm font-medium text-muted">Share this link — it fills the code in automatically</p>
         <div className="mt-1 flex flex-col gap-2 sm:flex-row">

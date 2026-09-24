@@ -1,6 +1,7 @@
+import Link from "next/link";
+import { ArrowRight } from "lucide-react";
 import { Container } from "../ui/Container";
 import { TripPhoto } from "../ui/TripPhoto";
-import { Button } from "../ui/Button";
 
 const testimonials = [
   {
@@ -15,25 +16,36 @@ const testimonials = [
 
 export function CommunityTeaser() {
   return (
-    <section className="border-b border-line py-16">
+    <section className="bg-ink py-20 text-paper md:py-28">
       <Container>
-        <div className="flex flex-wrap items-end justify-between gap-4">
-          <h2 className="font-display text-3xl font-bold">The people make the trip.</h2>
-          <Button href="/community" variant="outline">See the community</Button>
+        <div className="flex flex-wrap items-end justify-between gap-6">
+          <div>
+            <p className="eyebrow !text-[#f3b58f]">The community</p>
+            <h2 className="mt-4 text-4xl font-medium leading-[1.1] md:text-5xl">The people make the trip.</h2>
+          </div>
+          <Link
+            href="/community"
+            className="group inline-flex items-center gap-2 text-sm font-semibold underline decoration-white/25 underline-offset-8 transition-colors hover:decoration-[#f3b58f]"
+          >
+            Meet the community
+            <ArrowRight aria-hidden size={16} className="transition-transform group-hover:translate-x-1" />
+          </Link>
         </div>
 
-        <div className="mt-10 grid gap-6 md:grid-cols-3">
-          <TripPhoto src="/photos/community-lake-group.jpg" alt="Group photo by the lake on a Tripshala trip" />
-          <TripPhoto src="/photos/community-bikes-lineup.jpg" alt="Bikes lined up on a Tripshala ride" />
-          <TripPhoto src="/photos/community-tea-estate-group.jpg" alt="Group photo at a tea estate stop" />
+        <div className="mt-12 grid gap-4 md:grid-cols-3 md:gap-6">
+          <TripPhoto src="/photos/community-lake-group.jpg" alt="Group photo by the lake on a Tripshala trip" sizes="(max-width: 768px) 100vw, 33vw" />
+          <TripPhoto src="/photos/community-bikes-lineup.jpg" alt="Bikes lined up on a Tripshala ride" sizes="(max-width: 768px) 100vw, 33vw" />
+          <TripPhoto src="/photos/community-tea-estate-group.jpg" alt="Group photo at a tea estate stop" sizes="(max-width: 768px) 100vw, 33vw" />
         </div>
 
-        <div className="mt-10 grid gap-6 md:grid-cols-2">
+        <div className="mt-16 grid gap-12 md:grid-cols-2 md:gap-16">
           {testimonials.map((t) => (
-            <blockquote key={t.name} className="rounded-2xl border border-dashed border-line bg-paper-raised p-6 text-sm italic text-muted">
-              &ldquo;{t.quote}&rdquo;
-              <footer className="mt-3 not-italic font-medium text-ink">— {t.name}</footer>
-            </blockquote>
+            <figure key={t.name} className="border-t border-white/15 pt-8">
+              <blockquote className="font-display text-2xl font-light leading-snug text-paper/95 md:text-[1.7rem]">
+                &ldquo;{t.quote}&rdquo;
+              </blockquote>
+              <figcaption className="mt-5 text-sm font-medium tracking-wide text-paper/60">{t.name}</figcaption>
+            </figure>
           ))}
         </div>
       </Container>

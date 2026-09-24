@@ -16,7 +16,7 @@ const REFERRAL_CREDIT = 299;
 export default function ReferralPage() {
   return (
     <Container className="py-14">
-      <h1 className="font-display text-4xl font-extrabold">Bring a friend. Ride more. Pay less.</h1>
+      <h1 className="font-display text-4xl font-medium">Bring a friend. Ride more. Pay less.</h1>
       <p className="mt-3 max-w-xl text-muted">
         Tripshala grows through the people already on it — not just ads. Get your code below, no waiting on us.
       </p>
@@ -28,14 +28,14 @@ export default function ReferralPage() {
       </section>
 
       <section className="mt-14 max-w-xl">
-        <h2 className="font-display text-2xl font-bold">Get your code</h2>
+        <h2 className="font-display text-2xl font-medium">Get your code</h2>
         <div className="mt-4">
           <ReferralCodeTool />
         </div>
       </section>
 
       <section className="mt-14">
-        <h2 className="font-display text-2xl font-bold">What you both get</h2>
+        <h2 className="font-display text-2xl font-medium">What you both get</h2>
         <div className="mt-4 rounded-2xl border border-line bg-white p-6">
           <p className="text-sm text-muted">
             Once your friend&apos;s trip is confirmed, you both get{" "}
@@ -63,7 +63,7 @@ export default function ReferralPage() {
 function Step({ number, title, body }: { number: string; title: string; body: string }) {
   return (
     <div>
-      <div className="font-display text-3xl font-extrabold text-accent">{number}</div>
+      <div className="font-display text-3xl font-medium text-accent">{number}</div>
       <h3 className="mt-2 font-semibold">{title}</h3>
       <p className="mt-1 text-sm text-muted">{body}</p>
     </div>

@@ -76,7 +76,7 @@ export default function FAQPage() {
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(faqJsonLd).replace(/</g, "\\u003c") }}
       />
-      <h1 className="font-display text-4xl font-extrabold">Frequently asked questions</h1>
+      <h1 className="font-display text-4xl font-medium">Frequently asked questions</h1>
       <p className="mt-3 max-w-xl text-muted">
         Can&apos;t find your answer here? Just ask — a real person replies on WhatsApp.
       </p>
@@ -84,7 +84,7 @@ export default function FAQPage() {
       <div className="mt-10 space-y-10">
         {groups.map((g) => (
           <section key={g.heading}>
-            <h2 className="font-display text-xl font-bold">{g.heading}</h2>
+            <h2 className="font-display text-xl font-medium">{g.heading}</h2>
             <div className="mt-4">
               <FAQAccordion items={g.items} />
             </div>
@@ -93,7 +93,7 @@ export default function FAQPage() {
       </div>
 
       <div className="mt-14 rounded-2xl border border-line bg-paper-raised p-8 text-center">
-        <h2 className="font-display text-xl font-bold">Still have a question?</h2>
+        <h2 className="font-display text-xl font-medium">Still have a question?</h2>
         <div className="mt-4">
           <Button href={whatsappMessages.general()} target="_blank" rel="noopener noreferrer" variant="whatsapp">
             Ask us on WhatsApp

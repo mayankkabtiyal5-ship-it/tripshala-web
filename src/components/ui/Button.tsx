@@ -1,17 +1,20 @@
 import Link from "next/link";
 import { ReactNode } from "react";
 
-type Variant = "primary" | "secondary" | "outline" | "whatsapp";
+type Variant = "primary" | "secondary" | "outline" | "whatsapp" | "ghost-light";
 
 const variantClasses: Record<Variant, string> = {
   primary:
-    "bg-accent text-white hover:bg-accent-dark active:scale-[0.98]",
+    "bg-accent text-white shadow-sm shadow-accent/20 hover:bg-accent-dark",
   secondary:
-    "bg-ink text-paper hover:bg-ink/90 active:scale-[0.98]",
+    "bg-ink text-paper hover:bg-ink/85",
   outline:
-    "border border-line text-ink hover:border-ink active:scale-[0.98]",
+    "border border-ink/15 text-ink hover:border-ink/60 hover:bg-white",
   whatsapp:
-    "bg-[#25D366] text-white hover:brightness-95 active:scale-[0.98]",
+    "bg-[#25D366] text-white hover:brightness-95",
+  // For use on top of photography / dark backgrounds.
+  "ghost-light":
+    "border border-white/40 text-white backdrop-blur-sm hover:border-white hover:bg-white/10",
 };
 
 interface ButtonProps {
@@ -35,7 +38,7 @@ export function Button({
   target,
   rel,
 }: ButtonProps) {
-  const classes = `inline-flex items-center justify-center gap-2 rounded-full px-6 py-3 text-sm font-semibold tracking-wide transition-transform ${variantClasses[variant]} ${className}`;
+  const classes = `inline-flex items-center justify-center gap-2 rounded-full px-6 py-3 text-sm font-semibold tracking-wide transition-all duration-200 active:scale-[0.98] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent ${variantClasses[variant]} ${className}`;
 
   if (href) {
     return (

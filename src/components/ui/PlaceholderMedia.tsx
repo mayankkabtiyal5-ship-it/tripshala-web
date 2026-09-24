@@ -1,3 +1,4 @@
+import { Camera } from "lucide-react";
 // Honest placeholder for trip/community photography that doesn't exist yet.
 // Deliberately NOT a fake stock photo — it's labeled so nobody mistakes it
 // for real trust-building imagery. Swap for real photos before launch
@@ -17,7 +18,7 @@ export function PlaceholderMedia({
       className={`placeholder-media relative flex ${aspect} w-full items-end overflow-hidden rounded-2xl border border-line ${className}`}
     >
       <div className="m-3 rounded-lg bg-ink/80 px-3 py-1.5 text-xs font-medium text-paper backdrop-blur-sm">
-        📷 {label}
+        <Camera aria-hidden size={12} className="mr-1.5 inline-block -translate-y-px" />{label}
       </div>
     </div>
   );

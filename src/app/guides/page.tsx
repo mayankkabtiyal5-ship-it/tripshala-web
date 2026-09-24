@@ -12,7 +12,7 @@ export const metadata: Metadata = {
 export default function BlogPage() {
   return (
     <Container className="py-12">
-      <h1 className="font-display text-4xl font-extrabold">Guides</h1>
+      <h1 className="font-display text-4xl font-medium">Guides</h1>
       <p className="mt-3 max-w-xl text-muted">
         Practical, specific write-ups on the destinations we run trips to — what
         to carry, when to go, and what to actually expect.

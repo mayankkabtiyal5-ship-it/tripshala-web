@@ -44,14 +44,14 @@ const galleryPhotos = [
 export default function CommunityPage() {
   return (
     <Container className="py-14">
-      <h1 className="font-display text-4xl font-extrabold">The Tripshala Community</h1>
+      <h1 className="font-display text-4xl font-medium">The Tripshala Community</h1>
       <p className="mt-3 max-w-xl text-muted">
         Riders, non-riders, solo travellers and friend groups — the people
         who keep showing up are the actual reason this works.
       </p>
 
       <section className="mt-10">
-        <h2 className="font-display text-2xl font-bold">Trip photos</h2>
+        <h2 className="font-display text-2xl font-medium">Trip photos</h2>
         <div className="mt-4 grid grid-cols-2 gap-4 sm:grid-cols-3 md:grid-cols-4">
           {galleryPhotos.map((p) => (
             <TripPhoto key={p.src} src={p.src} alt={p.alt} aspect="aspect-square" sizes="(max-width: 640px) 50vw, (max-width: 768px) 33vw, 25vw" />
@@ -60,7 +60,7 @@ export default function CommunityPage() {
       </section>
 
       <section className="mt-14">
-        <h2 className="font-display text-2xl font-bold">What people say</h2>
+        <h2 className="font-display text-2xl font-medium">What people say</h2>
         <div className="mt-4 grid gap-6 sm:grid-cols-2">
           {testimonials.map((t) => (
             <blockquote key={t.name} className="rounded-2xl border border-dashed border-line bg-paper-raised p-6 text-sm italic text-muted">
@@ -72,7 +72,7 @@ export default function CommunityPage() {
       </section>
 
       <section className="mt-14">
-        <h2 className="font-display text-2xl font-bold">Community milestones</h2>
+        <h2 className="font-display text-2xl font-medium">Community milestones</h2>
         <div className="mt-4 grid gap-6 sm:grid-cols-3">
           <Milestone number="5" label="trips hosted" />
           <Milestone number="57" label="riders &amp; travellers so far" />
@@ -81,7 +81,7 @@ export default function CommunityPage() {
       </section>
 
       <section className="mt-14">
-        <h2 className="font-display text-2xl font-bold">Follow along</h2>
+        <h2 className="font-display text-2xl font-medium">Follow along</h2>
         <p className="mt-2 text-muted">@{site.instagramHandle} on Instagram</p>
         <div className="mt-4">
           <Button href={site.instagramUrl} target="_blank" rel="noopener noreferrer" variant="secondary">
@@ -92,7 +92,7 @@ export default function CommunityPage() {
 
       <section className="mt-14">
         <div className="flex flex-wrap items-end justify-between gap-4">
-          <h2 className="font-display text-2xl font-bold">Join the next one</h2>
+          <h2 className="font-display text-2xl font-medium">Join the next one</h2>
           <Button href="/trips" variant="primary">See upcoming trips</Button>
         </div>
         <div className="mt-6 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
@@ -108,7 +108,7 @@ export default function CommunityPage() {
 function Milestone({ number, label }: { number: string; label: string }) {
   return (
     <div className="rounded-2xl border border-line p-6 text-center">
-      <div className="font-display text-3xl font-extrabold text-accent">{number}</div>
+      <div className="font-display text-3xl font-medium text-accent">{number}</div>
       <div className="mt-1 text-sm text-muted">{label}</div>
     </div>
   );
