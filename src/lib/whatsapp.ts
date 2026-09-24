@@ -13,6 +13,10 @@ export const whatsappMessages = {
     buildLink(
       `Hi Tripshala! I'd like to know more about your upcoming trips.`
     ),
+  generalWithName: (name: string) =>
+    buildLink(
+      `Hi Tripshala! I'm ${name}, and I'd like to know more about your upcoming trips.`
+    ),
   tripEnquiry: (tripName: string, date: string) =>
     buildLink(
       `Hi Tripshala! I'm interested in joining ${tripName} on ${date}. Can you share the details?`
