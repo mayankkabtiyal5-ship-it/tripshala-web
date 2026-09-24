@@ -385,8 +385,9 @@ export default async function TripDetailPage({
               tripDate={dateText}
               tripSlug={trip.slug}
               pickupPoints={trip.pickupPoints}
-              departures={deps.slice(0, 8).map(departureLabel)}
+              departures={deps.slice(0, 8).map((d) => ({ start: d.start, end: d.end, note: d.note, label: departureLabel(d) }))}
               price={trip.price}
+              durationLabel={trip.duration.split(" (")[0]}
               isBikeTrip={trip.transport.includes("Bike") || trip.categories.includes("Bike Rides")}
             />
           </div>

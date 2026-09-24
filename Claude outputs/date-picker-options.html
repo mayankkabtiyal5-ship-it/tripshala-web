@@ -1,0 +1,173 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Date Picker Options</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400..600&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{--ink:#1c1917;--paper:#fbf8f3;--raised:#f3eee5;--accent:#c8552a;--muted:#6f675c;--line:#e7e0d4;--peach:#f3b58f}
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--paper);color:var(--ink);font-family:Inter,system-ui,sans-serif}
+  .wrap{max-width:1120px;margin:0 auto;padding:40px 16px 64px}
+  h1{font-family:Fraunces,serif;font-weight:500;font-size:40px;letter-spacing:-.02em;margin:6px 0 8px}
+  .eyebrow{font-size:12px;font-weight:600;letter-spacing:.16em;text-transform:uppercase;color:var(--accent)}
+  .lead{color:var(--muted);max-width:620px;line-height:1.6;margin:0}
+  .grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(320px,1fr));gap:28px;margin-top:36px;align-items:start}
+  .opt h2{font-family:Fraunces,serif;font-weight:500;font-size:24px;margin:0}
+  .opt .tag{display:inline-block;font-size:11px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);margin-bottom:6px}
+  .opt p.desc{color:var(--muted);font-size:14px;line-height:1.55;margin:6px 0 16px;min-height:44px}
+  .card{background:#fff;border-radius:18px;padding:22px;box-shadow:0 18px 40px -24px rgba(28,25,23,.35);outline:1px solid var(--line)}
+  .k{font-size:10.5px;font-weight:600;letter-spacing:.16em;text-transform:uppercase;color:var(--muted)}
+  .price{margin:8px 0 16px}.price s{color:var(--muted);font-size:14px;margin-right:8px}.price b{font-family:Fraunces,serif;font-weight:500;font-size:30px}.price span{color:var(--muted);font-size:14px}
+  .label{font-size:14px;font-weight:500;display:flex;justify-content:space-between;align-items:center;margin-bottom:8px}
+  .note{font-size:12px;color:var(--muted);margin-top:8px;min-height:18px}
+  .dot{display:inline-block;width:6px;height:6px;border-radius:50%;background:var(--accent);margin-right:6px;vertical-align:1px}
+  .fake{margin-top:14px;display:grid;gap:10px}
+  .fake div{height:40px;border-radius:12px;border:1px solid var(--line);font-size:13px;color:var(--muted);display:flex;align-items:center;padding:0 14px}
+  .btn{margin-top:14px;background:var(--accent);color:#fff;border:0;border-radius:999px;padding:13px;width:100%;font-weight:600;font-size:14px;letter-spacing:.02em}
+  button{font-family:inherit;cursor:pointer}
+
+  /* A — tiles */
+  .rail{display:flex;gap:8px;overflow-x:auto;padding:4px 2px 4px;scrollbar-width:none}.rail::-webkit-scrollbar{display:none}
+  .tile{position:relative;flex:0 0 74px;border:0;border-radius:12px;background:#fff;outline:1px solid var(--line);padding:9px 6px 7px;text-align:center;color:var(--ink);transition:all .2s}
+  .tile:hover{outline-color:#b9ad9c}
+  .tile .wd{font-size:9.5px;font-weight:600;letter-spacing:.14em;color:var(--muted)}
+  .tile .d{font-family:Fraunces,serif;font-size:24px;line-height:1.15}
+  .tile .m{font-size:11px;font-weight:500;color:#57504a}
+  .tile .to{margin-top:4px;padding-top:4px;border-top:1px solid var(--line);font-size:9.5px;color:var(--muted)}
+  .tile.on{background:var(--ink);color:var(--paper);outline:0;box-shadow:0 10px 24px -14px rgba(28,25,23,.7)}
+  .tile.on .wd,.tile.on .to{color:rgba(251,248,243,.6)}.tile.on .m{color:rgba(251,248,243,.8)}.tile.on .to{border-color:rgba(255,255,255,.15)}
+  .tile .hol{position:absolute;top:-3px;right:6px;width:8px;height:8px;border-radius:50%;background:var(--accent)}
+  .tile.on .hol{background:var(--peach)}
+
+  /* B — calendar */
+  .calhead{display:flex;justify-content:space-between;align-items:center;margin-bottom:10px}
+  .calhead b{font-family:Fraunces,serif;font-weight:500;font-size:18px}
+  .arrow{width:28px;height:28px;border-radius:50%;border:1px solid var(--line);background:#fff;color:var(--muted)}
+  .arrow:disabled{opacity:.35;cursor:default}
+  .cal{display:grid;grid-template-columns:repeat(7,1fr);gap:4px;text-align:center}
+  .cal .h{font-size:10px;font-weight:600;letter-spacing:.1em;color:var(--muted);padding-bottom:4px}
+  .cal .c{height:36px;border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:13px;color:#c9c1b5;border:0;background:none;position:relative}
+  .cal .c.dep{color:var(--ink);font-weight:600;background:var(--raised)}
+  .cal .c.dep:hover{background:#ebe3d4}
+  .cal .c.span{color:var(--ink);background:rgba(200,85,42,.10);border-radius:0}
+  .cal .c.on{background:var(--ink);color:var(--paper)}
+  .cal .c.hol::after{content:"";position:absolute;bottom:4px;width:4px;height:4px;border-radius:50%;background:var(--accent)}
+  .cal .c.on.hol::after{background:var(--peach)}
+  .sel{margin-top:10px;display:flex;justify-content:space-between;align-items:center;background:var(--raised);border-radius:12px;padding:10px 14px;font-size:13px}
+  .sel b{font-weight:600}
+
+  /* C — list */
+  .list{display:grid;gap:8px;max-height:262px;overflow-y:auto;padding:2px;scrollbar-width:thin}
+  .row{display:flex;align-items:center;gap:12px;width:100%;text-align:left;background:#fff;border:0;outline:1px solid var(--line);border-radius:12px;padding:10px 12px;color:var(--ink);transition:all .2s}
+  .row:hover{outline-color:#b9ad9c}
+  .row .cal-ic{flex:0 0 44px;height:46px;border-radius:9px;background:var(--raised);display:flex;flex-direction:column;align-items:center;justify-content:center;line-height:1}
+  .row .cal-ic small{font-size:9px;font-weight:600;letter-spacing:.12em;color:var(--accent);text-transform:uppercase}
+  .row .cal-ic strong{font-family:Fraunces,serif;font-weight:500;font-size:20px;margin-top:2px}
+  .row .t{flex:1;min-width:0}
+  .row .t b{display:block;font-size:14px;font-weight:600}
+  .row .t span{font-size:12px;color:var(--muted);display:block}
+  .row .pill{font-size:10.5px;font-weight:600;color:var(--accent);background:rgba(200,85,42,.1);padding:3px 8px;border-radius:999px;white-space:nowrap}
+  .row .radio{flex:0 0 18px;height:18px;border-radius:50%;border:1.5px solid var(--line)}
+  .row.on{outline:1.5px solid var(--ink)}
+  .row.on .radio{border:5px solid var(--ink)}
+  .row.on .cal-ic{background:var(--ink)}.row.on .cal-ic strong{color:var(--paper)}.row.on .cal-ic small{color:var(--peach)}
+  footer{margin-top:40px;color:var(--muted);font-size:13px}
+  @media (prefers-color-scheme: dark){:root:not([data-theme="light"]){}}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="eyebrow">Booking card · departure date</div>
+  <h1>Three ways to pick a date</h1>
+  <p class="lead">Each one is live. Tap the dates to try them. They use the Coorg weekend trip's real dates, and the orange dot marks the Gandhi Jayanti long weekend. Tell me A, B or C.</p>
+
+  <div class="grid">
+    <!-- A -->
+    <section class="opt">
+      <div class="tag">Option A</div>
+      <h2>Date tiles</h2>
+      <p class="desc">A swipeable row of small calendar tiles. Compact, and it feels like an app.</p>
+      <div class="card">
+        <div class="k">Book your spot</div>
+        <div class="price"><s>₹5,599</s><b>₹4,999</b><span> / person</span></div>
+        <div class="label">Departure date</div>
+        <div class="rail" id="railA"></div>
+        <div class="note" id="noteA"></div>
+        <div class="fake"><div>Pickup point</div><div>Name · Phone</div></div>
+        <button class="btn">Reserve on WhatsApp</button>
+      </div>
+    </section>
+
+    <!-- B -->
+    <section class="opt">
+      <div class="tag">Option B</div>
+      <h2>Mini calendar</h2>
+      <p class="desc">A month view. Departure days stand out, and the whole trip span is highlighted once you pick one.</p>
+      <div class="card">
+        <div class="k">Book your spot</div>
+        <div class="price"><s>₹5,599</s><b>₹4,999</b><span> / person</span></div>
+        <div class="calhead"><button class="arrow" id="prevB">‹</button><b id="monB"></b><button class="arrow" id="nextB">›</button></div>
+        <div class="cal" id="calB"></div>
+        <div class="sel" id="selB"></div>
+        <div class="fake"><div>Pickup point</div><div>Name · Phone</div></div>
+        <button class="btn">Reserve on WhatsApp</button>
+      </div>
+    </section>
+
+    <!-- C -->
+    <section class="opt">
+      <div class="tag">Option C</div>
+      <h2>Departure list</h2>
+      <p class="desc">One clear row per batch, with the full dates spelled out. Easiest to read, and holiday batches get a label.</p>
+      <div class="card">
+        <div class="k">Book your spot</div>
+        <div class="price"><s>₹5,599</s><b>₹4,999</b><span> / person</span></div>
+        <div class="label">Choose your departure</div>
+        <div class="list" id="listC"></div>
+        <div class="fake"><div>Pickup point</div><div>Name · Phone</div></div>
+        <button class="btn">Reserve on WhatsApp</button>
+      </div>
+    </section>
+  </div>
+  <footer>All three keep an "Other date" option for asking on WhatsApp, and they work the same way on phones.</footer>
+</div>
+
+<script>
+const deps=[
+ ["2026-09-25","2026-09-27"],["2026-10-01","2026-10-03","Gandhi Jayanti long weekend"],["2026-10-02","2026-10-04","Gandhi Jayanti long weekend"],
+ ["2026-10-09","2026-10-11"],["2026-10-16","2026-10-18"],["2026-10-23","2026-10-25"],["2026-10-30","2026-11-01"],["2026-11-06","2026-11-08"]
+].map(([s,e,n])=>({s,e,n}));
+const M=["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"],MF=["January","February","March","April","May","June","July","August","September","October","November","December"],W=["Sun","Mon","Tue","Wed","Thu","Fri","Sat"];
+const P=iso=>{const d=new Date(iso+"T12:00:00Z");return{d:d.getUTCDate(),m:d.getUTCMonth(),w:d.getUTCDay(),y:d.getUTCFullYear()}};
+const range=x=>{const a=P(x.s),b=P(x.e);return `${W[a.w]} ${a.d} ${a.m===b.m?"":M[a.m]+" "}– ${W[b.w]} ${b.d} ${M[b.m]}`.replace("  "," ")};
+
+// A
+let a=0;const railA=document.getElementById("railA");
+function drawA(){railA.innerHTML=deps.map((x,i)=>{const s=P(x.s),e=P(x.e);return `<button class="tile ${i===a?"on":""}" data-i="${i}">${x.n?'<i class="hol"></i>':""}<div class="wd">${W[s.w].toUpperCase()}</div><div class="d">${s.d}</div><div class="m">${M[s.m]}</div><div class="to">to ${W[e.w]} ${e.d}</div></button>`}).join("")+`<button class="tile" style="outline-style:dashed;color:#6f675c;font-size:11px;font-weight:500">💬<br>Other<br>date</button>`;
+ document.getElementById("noteA").innerHTML=deps[a].n?`<span class="dot"></span>${deps[a].n}`:range(deps[a]);}
+railA.onclick=e=>{const t=e.target.closest(".tile[data-i]");if(t){a=+t.dataset.i;drawA()}};drawA();
+
+// B
+let b=0,mon=8;const months=[8,9,10];
+function drawB(){const y=2026,first=new Date(Date.UTC(y,mon,1)).getUTCDay(),days=new Date(Date.UTC(y,mon+1,0)).getUTCDate();
+ document.getElementById("monB").textContent=MF[mon]+" 2026";
+ document.getElementById("prevB").disabled=mon===months[0];document.getElementById("nextB").disabled=mon===months[months.length-1];
+ const sel=deps[b];let h=W.map(w=>`<div class="h">${w[0]}${w[1]}</div>`).join("");for(let i=0;i<first;i++)h+="<div></div>";
+ for(let d=1;d<=days;d++){const iso=`2026-${String(mon+1).padStart(2,"0")}-${String(d).padStart(2,"0")}`;const i=deps.findIndex(x=>x.s===iso);
+  let cls="c";if(iso>sel.s&&iso<=sel.e)cls+=" span";if(i>=0){cls+=" dep";if(deps[i].n)cls+=" hol";}if(iso===sel.s)cls+=" on";
+  h+=i>=0?`<button class="${cls}" data-i="${i}">${d}</button>`:`<div class="${cls}">${d}</div>`;}
+ document.getElementById("calB").innerHTML=h;
+ document.getElementById("selB").innerHTML=`<span><b>${range(sel)}</b>${sel.n?`<br><span class="dot"></span><span style="color:#6f675c">${sel.n}</span>`:""}</span><span style="color:#6f675c">2D / 1N</span>`;}
+document.getElementById("calB").onclick=e=>{const t=e.target.closest("[data-i]");if(t){b=+t.dataset.i;drawB()}};
+document.getElementById("prevB").onclick=()=>{mon--;drawB()};document.getElementById("nextB").onclick=()=>{mon++;drawB()};drawB();
+
+// C
+let c=0;const listC=document.getElementById("listC");
+function drawC(){listC.innerHTML=deps.map((x,i)=>{const s=P(x.s);return `<button class="row ${i===c?"on":""}" data-i="${i}"><span class="cal-ic"><small>${M[s.m]}</small><strong>${s.d}</strong></span><span class="t"><b>${range(x)}</b><span>${i===0?"Leaves tonight · ":""}${["Sunday","Monday","Tuesday","Wednesday","Thursday","Friday","Saturday"][s.w]} night departure</span>${x.n?'<span class="pill" style="display:inline-block;margin-top:4px">Gandhi Jayanti long weekend</span>':""}</span><span class="radio"></span></button>`}).join("")+`<button class="row" style="outline-style:dashed"><span class="cal-ic">💬</span><span class="t"><b>Another date</b><span>Ask us on WhatsApp</span></span><span class="radio"></span></button>`}
+listC.onclick=e=>{const t=e.target.closest(".row[data-i]");if(t){c=+t.dataset.i;drawC()}};drawC();
+</script>
+</body>
+</html>

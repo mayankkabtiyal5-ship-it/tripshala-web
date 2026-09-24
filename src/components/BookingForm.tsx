@@ -7,21 +7,23 @@ import { Button } from "./ui/Button";
 import { whatsappMessages } from "@/lib/whatsapp";
 import { track, AnalyticsEvents } from "@/lib/analytics";
 import { readStoredReferralCode } from "@/lib/referral";
+import { DatePicker, type DateOption } from "./booking/DatePicker";
 
 interface BookingFormProps {
   tripName: string;
   tripDate: string;
   tripSlug: string;
   pickupPoints?: string[];
-  departures?: string[]; // labels of upcoming departures, e.g. "1–3 Oct · Gandhi Jayanti long weekend"
+  departures?: DateOption[]; // upcoming departures, shown as date tiles
   price?: number; // per person, for the live total
   isBikeTrip?: boolean; // only bike rides ask about bringing a bike
+  durationLabel?: string; // e.g. "2 Days / 1 Night"
 }
 
 export const LAST_BOOKING_KEY = "tripshala_last_booking";
 const OTHER_DATE = "Another date — suggest on WhatsApp";
 
-export function BookingForm({ tripName, tripDate, tripSlug, pickupPoints, departures = [], price, isBikeTrip = false }: BookingFormProps) {
+export function BookingForm({ tripName, tripDate, tripSlug, pickupPoints, departures = [], price, isBikeTrip = false, durationLabel }: BookingFormProps) {
   const router = useRouter();
   const [people, setPeople] = useState(1);
   const startedTracking = useRef(false);
@@ -137,7 +139,7 @@ export function BookingForm({ tripName, tripDate, tripSlug, pickupPoints, depart
     <form ref={formRef} onSubmit={handleSubmit} onFocus={handleFirstInteraction} className="grid gap-4">
       {/* 1. When and where */}
       {departures.length > 0 && (
-        <SelectField label="Departure date" name="departure" options={[...departures, OTHER_DATE]} />
+        <DatePicker name="departure" options={departures} otherLabel={OTHER_DATE} durationLabel={durationLabel} />
       )}
       {pickupPoints && pickupPoints.length > 0 && (
         <SelectField label="Pickup point" name="pickupPoint" options={pickupPoints} />
