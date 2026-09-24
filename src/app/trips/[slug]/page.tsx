@@ -359,7 +359,7 @@ export default async function TripDetailPage({
               tripDate={dateText}
               tripSlug={trip.slug}
               pickupPoints={trip.pickupPoints}
-              departures={deps.map(departureLabel)}
+              departures={deps.slice(0, 8).map(departureLabel)}
             />
           </div>
         </div>

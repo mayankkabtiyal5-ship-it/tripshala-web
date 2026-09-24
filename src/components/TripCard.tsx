@@ -93,7 +93,11 @@ export function TripCard({ trip }: { trip: Trip }) {
               <CalendarDays aria-hidden size={13} strokeWidth={1.75} className="mt-px shrink-0 text-accent" />
               <span>
                 {formatDepartureRange(next)}
-                {deps.length > 1 && <span className="block text-muted">+{deps.length - 1} more date{deps.length > 2 ? "s" : ""}</span>}
+                {trip.weekly ? (
+                  <span className="block text-muted">Runs every weekend</span>
+                ) : (
+                  deps.length > 1 && <span className="block text-muted">+{deps.length - 1} more date{deps.length > 2 ? "s" : ""}</span>
+                )}
               </span>
             </span>
           ) : (

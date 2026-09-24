@@ -63,6 +63,12 @@ export interface Departure {
   seatsLeft?: number;
 }
 
+/** Runs every weekend: leaves on `startDays` (0=Sun … 6=Sat), back `nights` days later. */
+export interface WeeklySchedule {
+  startDays: number[];
+  nights: number;
+}
+
 export interface Trip {
   id: string;
   slug: string;
@@ -71,6 +77,7 @@ export interface Trip {
   startingPoint: string;
   endingPoint: string; // drop-off point — usually the same as startingPoint for a round trip, but state it explicitly rather than assuming
   pickupPoints?: string[]; // several named zones across the city to pick from (Tempo Traveller/Bus trips) — omit for trips with a single assembly point (e.g. bike rides, which convoy together)
+  weekly?: WeeklySchedule; // recurring weekend batches, generated automatically (see lib/departures.ts)
   departures?: Departure[]; // fixed-date batches; past ones hide automatically (see lib/departures.ts)
   date: string; // display string — a real fixed date once you have one (e.g. "18-19 Oct 2026"), or "Next batch — ask on WhatsApp" until then
   duration: string; // e.g. "2 Days / 1 Night"
@@ -106,6 +113,7 @@ export const trips: Trip[] = [
     destination: "Sakleshpur, Karnataka",
     startingPoint: "Bengaluru (assembly point shared after booking)",
     endingPoint: "Bengaluru (same assembly point, dropped back after the trip)",
+    weekly: { startDays: [6], nights: 1 },
     departures: [
       {"start": "2026-10-02", "end": "2026-10-03", "note": "Gandhi Jayanti long weekend", "seatsLeft": 20},
       {"start": "2026-10-03", "end": "2026-10-04", "note": "Gandhi Jayanti long weekend", "seatsLeft": 20}
@@ -304,6 +312,7 @@ export const trips: Trip[] = [
     destination: "Nandi Hills, Karnataka",
     startingPoint: "Hebbal, Bengaluru",
     endingPoint: "Hebbal, Bengaluru",
+    weekly: { startDays: [6, 0], nights: 0 },
     departures: [
       {"start": "2026-10-02", "end": "2026-10-02", "note": "Gandhi Jayanti long weekend", "seatsLeft": 15},
       {"start": "2026-10-04", "end": "2026-10-04", "note": "Gandhi Jayanti long weekend", "seatsLeft": 15}
@@ -424,6 +433,7 @@ export const trips: Trip[] = [
       "RR Nagar (Mysore Road)",
       "Kengeri (Mysore Road)"
     ],
+    "weekly": { "startDays": [5], "nights": 2 },
     "departures": [
       {"start": "2026-10-01", "end": "2026-10-03", "note": "Gandhi Jayanti long weekend", "seatsLeft": 11},
       {"start": "2026-10-02", "end": "2026-10-04", "note": "Gandhi Jayanti long weekend", "seatsLeft": 11}
@@ -688,6 +698,7 @@ export const trips: Trip[] = [
       "Goraguntepalya (Tumkur Road)",
       "Nelamangala (Tumkur Road toll)"
     ],
+    "weekly": { "startDays": [5], "nights": 2 },
     "departures": [
       {"start": "2026-10-01", "end": "2026-10-03", "note": "Gandhi Jayanti long weekend", "seatsLeft": 11},
       {"start": "2026-10-02", "end": "2026-10-04", "note": "Gandhi Jayanti long weekend", "seatsLeft": 11}
@@ -949,6 +960,7 @@ export const trips: Trip[] = [
       "Goraguntepalya (Tumkur Road)",
       "Nelamangala (Tumkur Road toll)"
     ],
+    "weekly": { "startDays": [5], "nights": 2 },
     "departures": [
       {"start": "2026-10-01", "end": "2026-10-03", "note": "Gandhi Jayanti long weekend", "seatsLeft": 11},
       {"start": "2026-10-02", "end": "2026-10-04", "note": "Gandhi Jayanti long weekend", "seatsLeft": 11}
@@ -1192,6 +1204,7 @@ export const trips: Trip[] = [
       "Silk Board (Hosur Road)",
       "Electronic City (near M5 Mall)"
     ],
+    "weekly": { "startDays": [5], "nights": 2 },
     "departures": [
       {"start": "2026-10-01", "end": "2026-10-03", "note": "Gandhi Jayanti long weekend", "seatsLeft": 11},
       {"start": "2026-10-02", "end": "2026-10-04", "note": "Gandhi Jayanti long weekend", "seatsLeft": 11}
@@ -1463,6 +1476,7 @@ export const trips: Trip[] = [
       "Silk Board (Hosur Road)",
       "Electronic City (near M5 Mall)"
     ],
+    "weekly": { "startDays": [5], "nights": 3 },
     "departures": [
       {"start": "2026-10-01", "end": "2026-10-04", "note": "Gandhi Jayanti long weekend", "seatsLeft": 11},
       {"start": "2026-10-02", "end": "2026-10-05", "note": "Gandhi Jayanti long weekend", "seatsLeft": 11}
@@ -1711,6 +1725,7 @@ export const trips: Trip[] = [
       "Silk Board (Hosur Road)",
       "Electronic City (near M5 Mall)"
     ],
+    "weekly": { "startDays": [5], "nights": 2 },
     "departures": [
       {"start": "2026-10-01", "end": "2026-10-03", "note": "Gandhi Jayanti long weekend", "seatsLeft": 11},
       {"start": "2026-10-02", "end": "2026-10-04", "note": "Gandhi Jayanti long weekend", "seatsLeft": 11}
@@ -1973,6 +1988,7 @@ export const trips: Trip[] = [
       "Silk Board (Hosur Road)",
       "Electronic City (near M5 Mall)"
     ],
+    "weekly": { "startDays": [5], "nights": 3 },
     "departures": [
       {"start": "2026-10-01", "end": "2026-10-04", "note": "Gandhi Jayanti long weekend", "seatsLeft": 11},
       {"start": "2026-10-02", "end": "2026-10-05", "note": "Gandhi Jayanti long weekend", "seatsLeft": 11}
@@ -2266,6 +2282,7 @@ export const trips: Trip[] = [
     startingPoint: "Bengaluru (assembly point shared after booking)",
     endingPoint: "Bengaluru (same assembly point, dropped back after the trip)",
     pickupPoints: ["RMZ Ecospace (Bellandur, Outer Ring Road)", "Banashankari (BDA Complex)", "RR Nagar (Mysore Road)", "Kengeri (Mysore Road)"],
+    weekly: { startDays: [6], nights: 1 },
     departures: [
       {"start": "2026-10-02", "end": "2026-10-03", "note": "Gandhi Jayanti long weekend", "seatsLeft": 25},
       {"start": "2026-10-03", "end": "2026-10-04", "note": "Gandhi Jayanti long weekend", "seatsLeft": 25}
@@ -2452,6 +2469,7 @@ export const trips: Trip[] = [
     startingPoint: "Bengaluru (Tempo Traveller pickup points shared after booking)",
     endingPoint: "Bengaluru (same pickup points, dropped back after the trip)",
     pickupPoints: ["RMZ Ecospace (Bellandur, Outer Ring Road)", "Banashankari (BDA Complex)", "RR Nagar (Mysore Road)", "Kengeri (Mysore Road)"],
+    weekly: { startDays: [6], nights: 1 },
     departures: [
       {"start": "2026-10-02", "end": "2026-10-03", "note": "Gandhi Jayanti long weekend", "seatsLeft": 20},
       {"start": "2026-10-03", "end": "2026-10-04", "note": "Gandhi Jayanti long weekend", "seatsLeft": 20}
@@ -2656,6 +2674,7 @@ export const trips: Trip[] = [
     startingPoint: "Bengaluru (assembly point shared after booking)",
     endingPoint: "Bengaluru (same assembly point, dropped back after the trip)",
     pickupPoints: ["RMZ Ecospace (Bellandur, Outer Ring Road)", "Banashankari (BDA Complex)", "RR Nagar (Mysore Road)", "Kengeri (Mysore Road)"],
+    weekly: { startDays: [6, 0], nights: 0 },
     departures: [
       {"start": "2026-10-02", "end": "2026-10-02", "note": "Gandhi Jayanti long weekend", "seatsLeft": 20},
       {"start": "2026-10-04", "end": "2026-10-04", "note": "Gandhi Jayanti long weekend", "seatsLeft": 20}
@@ -2796,6 +2815,7 @@ export const trips: Trip[] = [
     startingPoint: "Bengaluru (assembly point shared after booking)",
     endingPoint: "Bengaluru (same assembly point, dropped back after the trip)",
     pickupPoints: ["RMZ Ecospace (Bellandur, Outer Ring Road)", "Hebbal (near the flyover)", "Yelahanka (NH-44)", "Devanahalli (near the airport)"],
+    weekly: { startDays: [6, 0], nights: 0 },
     departures: [
       {"start": "2026-10-02", "end": "2026-10-02", "note": "Gandhi Jayanti long weekend", "seatsLeft": 25},
       {"start": "2026-10-04", "end": "2026-10-04", "note": "Gandhi Jayanti long weekend", "seatsLeft": 25}
@@ -2941,6 +2961,7 @@ export const trips: Trip[] = [
       "Yelahanka (NH-44)",
       "Devanahalli (near the airport)"
     ],
+    "weekly": { "startDays": [6, 0], "nights": 0 },
     "departures": [
       {"start": "2026-10-02", "end": "2026-10-02", "note": "Gandhi Jayanti long weekend", "seatsLeft": 11},
       {"start": "2026-10-04", "end": "2026-10-04", "note": "Gandhi Jayanti long weekend", "seatsLeft": 11}
@@ -3126,6 +3147,7 @@ export const trips: Trip[] = [
     startingPoint: "Bengaluru (assembly point shared after booking)",
     endingPoint: "Bengaluru (same assembly point, dropped back after the trip)",
     pickupPoints: ["RMZ Ecospace (Bellandur, Outer Ring Road)", "Banashankari (BDA Complex)", "RR Nagar (Mysore Road)", "Kengeri (Mysore Road)"],
+    weekly: { startDays: [6, 0], nights: 0 },
     departures: [
       {"start": "2026-10-02", "end": "2026-10-02", "note": "Gandhi Jayanti long weekend", "seatsLeft": 25},
       {"start": "2026-10-04", "end": "2026-10-04", "note": "Gandhi Jayanti long weekend", "seatsLeft": 25}
@@ -3266,6 +3288,7 @@ export const trips: Trip[] = [
       "RR Nagar (Mysore Road)",
       "Kengeri (Mysore Road)"
     ],
+    "weekly": { "startDays": [6, 0], "nights": 0 },
     "departures": [
       {"start": "2026-10-02", "end": "2026-10-02", "note": "Gandhi Jayanti long weekend", "seatsLeft": 11},
       {"start": "2026-10-04", "end": "2026-10-04", "note": "Gandhi Jayanti long weekend", "seatsLeft": 11}
@@ -3447,6 +3470,7 @@ export const trips: Trip[] = [
     startingPoint: "Bengaluru (assembly point shared after booking)",
     endingPoint: "Bengaluru (same assembly point, dropped back after the trip)",
     pickupPoints: ["RMZ Ecospace (Bellandur, Outer Ring Road)", "Banashankari (BDA Complex)", "RR Nagar (Mysore Road)", "Kengeri (Mysore Road)"],
+    weekly: { startDays: [6, 0], nights: 0 },
     departures: [
       {"start": "2026-10-02", "end": "2026-10-02", "note": "Gandhi Jayanti long weekend", "seatsLeft": 25},
       {"start": "2026-10-04", "end": "2026-10-04", "note": "Gandhi Jayanti long weekend", "seatsLeft": 25}
@@ -3608,6 +3632,7 @@ export const trips: Trip[] = [
     startingPoint: "Bengaluru (assembly point shared after booking)",
     endingPoint: "Bengaluru (same assembly point, dropped back after the trip)",
     pickupPoints: ["RMZ Ecospace (Bellandur, Outer Ring Road)", "Yeshwanthpur (Metro station)", "Goraguntepalya (Tumkur Road)", "Nelamangala (Tumkur Road toll)"],
+    weekly: { startDays: [5], nights: 2 },
     departures: [
       {"start": "2026-10-01", "end": "2026-10-03", "note": "Gandhi Jayanti long weekend", "seatsLeft": 20},
       {"start": "2026-10-02", "end": "2026-10-04", "note": "Gandhi Jayanti long weekend", "seatsLeft": 20}
@@ -3834,6 +3859,7 @@ export const trips: Trip[] = [
     startingPoint: "Bengaluru (assembly point shared after booking)",
     endingPoint: "Bengaluru (same assembly point, dropped back after the trip)",
     pickupPoints: ["RMZ Ecospace (Bellandur, Outer Ring Road)", "KR Puram (Old Madras Road)", "Whitefield (ITPL Main Road)", "Hoskote (NH-75 toll)"],
+    weekly: { startDays: [5], nights: 2 },
     departures: [
       {"start": "2026-10-01", "end": "2026-10-03", "note": "Gandhi Jayanti long weekend", "seatsLeft": 20},
       {"start": "2026-10-02", "end": "2026-10-04", "note": "Gandhi Jayanti long weekend", "seatsLeft": 20}
@@ -4027,6 +4053,7 @@ export const trips: Trip[] = [
     startingPoint: "Bengaluru (assembly point shared after booking)",
     endingPoint: "Bengaluru (same assembly point, dropped back after the trip)",
     pickupPoints: ["RMZ Ecospace (Bellandur, Outer Ring Road)", "Silk Board (Hosur Road)", "Electronic City (near M5 Mall)"],
+    weekly: { startDays: [5], nights: 2 },
     departures: [
       {"start": "2026-10-01", "end": "2026-10-03", "note": "Gandhi Jayanti long weekend", "seatsLeft": 20},
       {"start": "2026-10-02", "end": "2026-10-04", "note": "Gandhi Jayanti long weekend", "seatsLeft": 20}
@@ -5458,6 +5485,7 @@ export const trips: Trip[] = [
       "Goraguntepalya (Tumkur Road)",
       "Nelamangala (Tumkur Road toll)"
     ],
+    "weekly": { "startDays": [5], "nights": 3 },
     "departures": [
       {"start": "2026-10-01", "end": "2026-10-04", "note": "Gandhi Jayanti long weekend", "seatsLeft": 11},
       {"start": "2026-10-02", "end": "2026-10-05", "note": "Gandhi Jayanti long weekend", "seatsLeft": 11}
@@ -5980,6 +6008,7 @@ export const trips: Trip[] = [
       "Silk Board (Hosur Road)",
       "Electronic City (near M5 Mall)"
     ],
+    "weekly": { "startDays": [5], "nights": 2 },
     "departures": [
       {"start": "2026-10-01", "end": "2026-10-03", "note": "Gandhi Jayanti long weekend", "seatsLeft": 11},
       {"start": "2026-10-02", "end": "2026-10-04", "note": "Gandhi Jayanti long weekend", "seatsLeft": 11}
@@ -6561,6 +6590,7 @@ export const trips: Trip[] = [
       "Goraguntepalya (Tumkur Road)",
       "Nelamangala (Tumkur Road toll)"
     ],
+    "weekly": { "startDays": [6, 0], "nights": 0 },
     "departures": [
       {"start": "2026-10-02", "end": "2026-10-02", "note": "Gandhi Jayanti long weekend", "seatsLeft": 11},
       {"start": "2026-10-04", "end": "2026-10-04", "note": "Gandhi Jayanti long weekend", "seatsLeft": 11}
@@ -7049,6 +7079,7 @@ export const trips: Trip[] = [
       "RR Nagar (Mysore Road)",
       "Kengeri (Mysore Road)"
     ],
+    "weekly": { "startDays": [5], "nights": 2 },
     "departures": [
       {"start": "2026-10-01", "end": "2026-10-03", "note": "Gandhi Jayanti long weekend", "seatsLeft": 11},
       {"start": "2026-10-02", "end": "2026-10-04", "note": "Gandhi Jayanti long weekend", "seatsLeft": 11}
@@ -7596,6 +7627,7 @@ export const trips: Trip[] = [
       "Goraguntepalya (Tumkur Road)",
       "Nelamangala (Tumkur Road toll)"
     ],
+    "weekly": { "startDays": [5], "nights": 2 },
     "departures": [
       {"start": "2026-10-01", "end": "2026-10-03", "note": "Gandhi Jayanti long weekend", "seatsLeft": 11},
       {"start": "2026-10-02", "end": "2026-10-04", "note": "Gandhi Jayanti long weekend", "seatsLeft": 11}
@@ -7822,6 +7854,7 @@ export const trips: Trip[] = [
       "Silk Board (Hosur Road)",
       "Electronic City (near M5 Mall)"
     ],
+    "weekly": { "startDays": [5], "nights": 3 },
     "departures": [
       {"start": "2026-10-01", "end": "2026-10-04", "note": "Gandhi Jayanti long weekend", "seatsLeft": 11},
       {"start": "2026-10-02", "end": "2026-10-05", "note": "Gandhi Jayanti long weekend", "seatsLeft": 11}
@@ -8040,6 +8073,7 @@ export const trips: Trip[] = [
       "Silk Board (Hosur Road)",
       "Electronic City (near M5 Mall)"
     ],
+    "weekly": { "startDays": [5], "nights": 2 },
     "departures": [
       {"start": "2026-10-01", "end": "2026-10-03", "note": "Gandhi Jayanti long weekend", "seatsLeft": 11},
       {"start": "2026-10-02", "end": "2026-10-04", "note": "Gandhi Jayanti long weekend", "seatsLeft": 11}
@@ -8899,6 +8933,7 @@ export const trips: Trip[] = [
       "RR Nagar (Mysore Road)",
       "Kengeri (Mysore Road)"
     ],
+    "weekly": { "startDays": [5], "nights": 2 },
     "departures": [
       {"start": "2026-10-01", "end": "2026-10-03", "note": "Gandhi Jayanti long weekend", "seatsLeft": 11},
       {"start": "2026-10-02", "end": "2026-10-04", "note": "Gandhi Jayanti long weekend", "seatsLeft": 11}
@@ -9126,12 +9161,12 @@ export const trips: Trip[] = [
 export type CardTrip = Pick<
   Trip,
   | "id" | "slug" | "title" | "destination" | "duration" | "transport" | "price" | "originalPrice"
-  | "bookingStatus" | "categories" | "coverImage" | "coverImageLabel" | "highlights" | "date" | "departures"
+  | "bookingStatus" | "categories" | "coverImage" | "coverImageLabel" | "highlights" | "date" | "departures" | "weekly"
 >;
 
 export function toCardTrip(t: Trip): CardTrip {
-  const { id, slug, title, destination, duration, transport, price, originalPrice, bookingStatus, categories, coverImage, coverImageLabel, highlights, date, departures } = t;
-  return { id, slug, title, destination, duration, transport, price, originalPrice, bookingStatus, categories, coverImage, coverImageLabel, highlights: highlights.slice(0, 2), date, departures };
+  const { id, slug, title, destination, duration, transport, price, originalPrice, bookingStatus, categories, coverImage, coverImageLabel, highlights, date, departures, weekly } = t;
+  return { id, slug, title, destination, duration, transport, price, originalPrice, bookingStatus, categories, coverImage, coverImageLabel, highlights: highlights.slice(0, 2), date, departures, weekly };
 }
 
 export function getTripBySlug(slug: string): Trip | undefined {

@@ -1,6 +1,9 @@
 import type { CardTrip, Departure } from "./trips";
 
-type Trip = Pick<CardTrip, "departures" | "date">;
+type Trip = Pick<CardTrip, "departures" | "date" | "weekly">;
+
+/** How far ahead recurring weekend batches are listed. */
+const WEEKLY_HORIZON_DAYS = 56;
 
 // Helpers for fixed-date departures (Trip.departures). Dates are plain
 // "YYYY-MM-DD" strings in India time; a departure stays "upcoming" until the
@@ -22,9 +25,38 @@ export function todayInIndia(now: Date = new Date()): string {
   return ist.toISOString().slice(0, 10);
 }
 
+function addDays(iso: string, n: number): string {
+  const d = new Date(iso + "T12:00:00Z");
+  d.setUTCDate(d.getUTCDate() + n);
+  return d.toISOString().slice(0, 10);
+}
+
+function dayOfWeek(iso: string): number {
+  return new Date(iso + "T12:00:00Z").getUTCDay();
+}
+
+/**
+ * Fixed departures (holiday batches) plus the trip's recurring weekend
+ * batches for the next few weeks. A generated weekend batch is skipped when a
+ * fixed departure already covers that weekend, so holiday dates replace the
+ * regular ones rather than doubling up.
+ */
 export function upcomingDepartures(trip: Trip, now: Date = new Date()): Departure[] {
   const today = todayInIndia(now);
-  return (trip.departures ?? []).filter((d) => d.start >= today).sort((a, b) => a.start.localeCompare(b.start));
+  const fixed = (trip.departures ?? []).filter((d) => d.start >= today);
+  const generated: Departure[] = [];
+  if (trip.weekly) {
+    for (let i = 0; i <= WEEKLY_HORIZON_DAYS; i++) {
+      const start = addDays(today, i);
+      if (!trip.weekly.startDays.includes(dayOfWeek(start))) continue;
+      const covered = (trip.departures ?? []).some(
+        (d) => Math.abs(new Date(d.start).getTime() - new Date(start).getTime()) <= 3 * 86_400_000,
+      );
+      if (covered) continue;
+      generated.push({ start, end: addDays(start, trip.weekly.nights) });
+    }
+  }
+  return [...fixed, ...generated].sort((a, b) => a.start.localeCompare(b.start));
 }
 
 export function nextDeparture(trip: Trip, now?: Date): Departure | undefined {
