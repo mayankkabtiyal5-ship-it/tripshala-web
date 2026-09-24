@@ -8,7 +8,7 @@ export function StickyMobileCTA({ trip }: { trip: Trip }) {
   const disabled = trip.bookingStatus === "sold-out" || trip.bookingStatus === "closed";
 
   return (
-    <div className="fixed inset-x-0 bottom-0 z-40 flex gap-2 border-t border-line bg-paper/95 p-3 backdrop-blur md:hidden">
+    <div className="print:hidden fixed inset-x-0 bottom-0 z-40 flex gap-2 border-t border-line bg-paper/95 p-3 backdrop-blur md:hidden">
       <a
         href={`#book`}
         onClick={() => track(AnalyticsEvents.CLICK_BOOK, { trip: trip.slug, source: "sticky_mobile" })}

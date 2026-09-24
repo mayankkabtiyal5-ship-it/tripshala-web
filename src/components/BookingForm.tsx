@@ -10,9 +10,10 @@ interface BookingFormProps {
   tripName: string;
   tripDate: string;
   tripSlug: string;
+  pickupPoints?: string[];
 }
 
-export function BookingForm({ tripName, tripDate, tripSlug }: BookingFormProps) {
+export function BookingForm({ tripName, tripDate, tripSlug, pickupPoints }: BookingFormProps) {
   const [submitted, setSubmitted] = useState(false);
   const startedTracking = useRef(false);
   const formRef = useRef<HTMLFormElement>(null);
@@ -50,7 +51,14 @@ export function BookingForm({ tripName, tripDate, tripSlug }: BookingFormProps) 
     const bikeModel = String(data.get("bikeModel") || "");
     const source = String(data.get("source") || "");
     const referralCode = String(data.get("referralCode") || "");
+    const pickupPoint = String(data.get("pickupPoint") || "");
     const message = String(data.get("message") || "");
+
+    // The leads table has no dedicated pickup-point column, so it's folded
+    // into the free-text message rather than requiring a schema change.
+    const messageWithPickup = [pickupPoint ? `Pickup point: ${pickupPoint}` : null, message]
+      .filter(Boolean)
+      .join(" — ");
 
     if (referralCode) {
       track(AnalyticsEvents.REFERRAL_CODE_ENTERED, { trip: tripName, referralCode });
@@ -78,7 +86,7 @@ export function BookingForm({ tripName, tripDate, tripSlug }: BookingFormProps) 
           bikeModel,
           source,
           referralCode,
-          message,
+          message: messageWithPickup,
         }),
         keepalive: true,
       }).catch(() => {
@@ -96,6 +104,7 @@ export function BookingForm({ tripName, tripDate, tripSlug }: BookingFormProps) 
       people,
       hasBike,
       referralCode: referralCode || undefined,
+      pickupPoint: pickupPoint || undefined,
     });
 
     setSubmitted(true);
@@ -128,6 +137,10 @@ export function BookingForm({ tripName, tripDate, tripSlug }: BookingFormProps) 
         <SelectField label="Do you have a bike?" name="hasBike" options={["No", "Yes"]} />
         <Field label="Bike model (optional)" name="bikeModel" />
       </div>
+
+      {pickupPoints && pickupPoints.length > 0 && (
+        <SelectField label="Preferred pickup point" name="pickupPoint" options={pickupPoints} />
+      )}
 
       <div className="grid gap-4 sm:grid-cols-2">
         <SelectField

@@ -41,6 +41,26 @@ export async function POST(request: NextRequest) {
     return NextResponse.json({ ok: true, persisted: false });
   }
 
+  const tripSlug = str(body.tripSlug);
+  const source = str(body.source);
+
+  // Opt-in dedupe (see the PDF-itinerary download flow): the same person
+  // repeatedly downloading the same trip's itinerary shouldn't register a
+  // fresh lead row every time. Scoped to phone + trip + source so it never
+  // touches ordinary booking-form submissions, which should always record.
+  if (body.dedupe === true && tripSlug && source) {
+    const { data: existing } = await supabase
+      .from("leads")
+      .select("id")
+      .eq("phone", phone)
+      .eq("trip_slug", tripSlug)
+      .eq("source", source)
+      .limit(1);
+    if (existing && existing.length > 0) {
+      return NextResponse.json({ ok: true, persisted: true, deduped: true });
+    }
+  }
+
   const { error } = await supabase.from("leads").insert({
     trip_slug: str(body.tripSlug),
     trip_name: str(body.tripName),

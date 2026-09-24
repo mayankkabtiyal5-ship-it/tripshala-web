@@ -73,7 +73,7 @@ export function WhatsAppFloatingButton() {
   }
 
   return (
-    <div className={`fixed bottom-5 right-5 z-50 ${isTripPage ? "hidden md:block" : "block"}`}>
+    <div className={`print:hidden fixed bottom-5 right-5 z-50 ${isTripPage ? "hidden md:block" : "block"}`}>
       {open && (
         <div
           ref={popoverRef}

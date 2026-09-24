@@ -41,6 +41,9 @@ export const AnalyticsEvents = {
   REFERRAL_LINK_VISIT: "referral_link_visit",
   REFERRAL_BANNER_CLICK: "referral_banner_click",
   REFERRAL_BANNER_DISMISSED: "referral_banner_dismissed",
+  ITINERARY_PDF_CLICK: "itinerary_pdf_click",
+  ITINERARY_PDF_UNLOCKED: "itinerary_pdf_unlocked",
+  PICKUP_POINT_SELECTED: "pickup_point_selected",
 } as const;
 
 export function track(eventName: string, params: EventParams = {}) {

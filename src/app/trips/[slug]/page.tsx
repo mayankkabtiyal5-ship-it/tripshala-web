@@ -12,6 +12,7 @@ import { site } from "@/lib/site";
 import { TrackViewTrip } from "@/components/TrackViewTrip";
 import { TripHeroCTAs } from "@/components/TripHeroCTAs";
 import { ItineraryTimeline } from "@/components/ItineraryTimeline";
+import { ItineraryPdfButton } from "@/components/ItineraryPdfButton";
 
 export function generateStaticParams() {
   return trips.map((t) => ({ slug: t.slug }));
@@ -168,14 +169,33 @@ export default async function TripDetailPage({
 
           {/* Itinerary */}
           <section>
-            <h2 className="font-display text-2xl font-bold">Itinerary</h2>
+            <div className="flex flex-wrap items-center justify-between gap-3">
+              <h2 className="font-display text-2xl font-bold">Itinerary</h2>
+              <ItineraryPdfButton tripSlug={trip.slug} tripName={trip.title} />
+            </div>
 
             <div className="mt-4 grid gap-3 rounded-2xl bg-paper-raised p-4 text-sm sm:grid-cols-2">
               <div className="flex items-start gap-2.5">
                 <span aria-hidden>📍</span>
                 <div>
                   <div className="font-semibold text-ink">Pickup</div>
-                  <div className="text-muted">{trip.startingPoint}</div>
+                  {trip.pickupPoints ? (
+                    <>
+                      <div className="text-muted">Pick whichever zone is closest to you:</div>
+                      <div className="mt-1.5 flex flex-wrap gap-1.5">
+                        {trip.pickupPoints.map((p) => (
+                          <span
+                            key={p}
+                            className="rounded-full border border-line bg-white px-2.5 py-1 text-xs font-medium text-ink"
+                          >
+                            {p}
+                          </span>
+                        ))}
+                      </div>
+                    </>
+                  ) : (
+                    <div className="text-muted">{trip.startingPoint}</div>
+                  )}
                 </div>
               </div>
               <div className="flex items-start gap-2.5">
@@ -243,7 +263,12 @@ export default async function TripDetailPage({
             {trip.seatsLeft} of {trip.seatsTotal} seats left · {trip.bookingStatus === "sold-out" ? "Sold out" : "Booking open"}
           </p>
           <div className="mt-4">
-            <BookingForm tripName={trip.title} tripDate={trip.date} tripSlug={trip.slug} />
+            <BookingForm
+              tripName={trip.title}
+              tripDate={trip.date}
+              tripSlug={trip.slug}
+              pickupPoints={trip.pickupPoints}
+            />
           </div>
         </div>
       </Container>

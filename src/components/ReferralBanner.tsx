@@ -63,7 +63,7 @@ export function ReferralBanner() {
   }
 
   return (
-    <div className="relative bg-accent-2 text-white">
+    <div className="print:hidden relative bg-accent-2 text-white">
       <Container className="flex items-center justify-center py-2.5 pr-9 pl-4 text-center">
         <Link
           href="/referral"
