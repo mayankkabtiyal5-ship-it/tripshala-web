@@ -11,6 +11,7 @@ import { getTripBySlug, trips } from "@/lib/trips";
 import { site } from "@/lib/site";
 import { TrackViewTrip } from "@/components/TrackViewTrip";
 import { TripHeroCTAs } from "@/components/TripHeroCTAs";
+import { ItineraryTimeline } from "@/components/ItineraryTimeline";
 
 export function generateStaticParams() {
   return trips.map((t) => ({ slug: t.slug }));
@@ -24,12 +25,15 @@ export async function generateMetadata({
   const { slug } = await params;
   const trip = getTripBySlug(slug);
   if (!trip) return {};
+  const keywordTitle = `${trip.title} — ${trip.destination} from Bengaluru`;
+  const keywordDescription = `${trip.description[0]} ${trip.duration} · ${trip.transport} · from ₹${trip.price.toLocaleString("en-IN")} per person.`;
   return {
-    title: trip.title,
-    description: trip.description[0],
+    title: keywordTitle,
+    description: keywordDescription,
     openGraph: {
-      title: `${trip.title} | ${site.name}`,
-      description: trip.description[0],
+      title: `${keywordTitle} | ${site.name}`,
+      description: keywordDescription,
+      images: trip.coverImage ? [trip.coverImage] : undefined,
     },
   };
 }
@@ -64,12 +68,29 @@ export default async function TripDetailPage({
     },
   };
 
+  const faqJsonLd = {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    mainEntity: trip.faqs.map((f) => ({
+      "@type": "Question",
+      name: f.question,
+      acceptedAnswer: {
+        "@type": "Answer",
+        text: f.answer,
+      },
+    })),
+  };
+
   return (
     <>
       <TrackViewTrip slug={trip.slug} />
       <script
         type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd).replace(/</g, "\\u003c") }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(faqJsonLd).replace(/</g, "\\u003c") }}
       />
 
       {/* Hero */}
@@ -118,6 +139,7 @@ export default async function TripDetailPage({
               <QuickInfo label="Date" value={trip.date} />
               <QuickInfo label="Duration" value={trip.duration} />
               <QuickInfo label="Starting point" value={trip.startingPoint} />
+              <QuickInfo label="Ending point" value={trip.endingPoint} />
               <QuickInfo label="Transport" value={trip.transport} />
               <QuickInfo label="Group size" value={`${trip.seatsTotal} max`} />
               <QuickInfo label="Difficulty" value={trip.difficulty} />
@@ -147,19 +169,26 @@ export default async function TripDetailPage({
           {/* Itinerary */}
           <section>
             <h2 className="font-display text-2xl font-bold">Itinerary</h2>
-            <div className="mt-4 space-y-6">
-              {trip.itinerary.map((day) => (
-                <div key={day.day}>
-                  <h3 className="font-semibold">Day {day.day}: {day.title}</h3>
-                  <ul className="mt-2 space-y-1 border-l-2 border-line pl-4 text-sm text-muted">
-                    {day.items.map((item, i) => (
-                      <li key={i}>
-                        <span className="font-medium text-ink">{item.time}</span> — {item.label}
-                      </li>
-                    ))}
-                  </ul>
+
+            <div className="mt-4 grid gap-3 rounded-2xl bg-paper-raised p-4 text-sm sm:grid-cols-2">
+              <div className="flex items-start gap-2.5">
+                <span aria-hidden>📍</span>
+                <div>
+                  <div className="font-semibold text-ink">Pickup</div>
+                  <div className="text-muted">{trip.startingPoint}</div>
                 </div>
-              ))}
+              </div>
+              <div className="flex items-start gap-2.5">
+                <span aria-hidden>🏁</span>
+                <div>
+                  <div className="font-semibold text-ink">Drop-off</div>
+                  <div className="text-muted">{trip.endingPoint}</div>
+                </div>
+              </div>
+            </div>
+
+            <div className="mt-4">
+              <ItineraryTimeline days={trip.itinerary} />
             </div>
           </section>
 
@@ -214,7 +243,7 @@ export default async function TripDetailPage({
             {trip.seatsLeft} of {trip.seatsTotal} seats left · {trip.bookingStatus === "sold-out" ? "Sold out" : "Booking open"}
           </p>
           <div className="mt-4">
-            <BookingForm tripName={trip.title} tripDate={trip.date} />
+            <BookingForm tripName={trip.title} tripDate={trip.date} tripSlug={trip.slug} />
           </div>
         </div>
       </Container>

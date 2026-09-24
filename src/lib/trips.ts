@@ -45,6 +45,7 @@ export interface Trip {
   title: string;
   destination: string;
   startingPoint: string;
+  endingPoint: string; // drop-off point — usually the same as startingPoint for a round trip, but state it explicitly rather than assuming
   date: string; // display string — a real fixed date once you have one (e.g. "18-19 Oct 2026"), or "Next batch — ask on WhatsApp" until then
   duration: string; // e.g. "2 Days / 1 Night"
   transport: "Bike" | "Tempo Traveller" | "Bus" | "Bike or Tempo Traveller";
@@ -77,6 +78,7 @@ export const trips: Trip[] = [
     title: "Sakleshpur Weekend Ride",
     destination: "Sakleshpur, Karnataka",
     startingPoint: "Bengaluru (assembly point shared after booking)",
+    endingPoint: "Bengaluru (same assembly point, dropped back after the trip)",
     date: "Next batch — ask on WhatsApp",
     duration: "2 Days / 1 Night",
     transport: "Bike",
@@ -163,6 +165,7 @@ export const trips: Trip[] = [
     title: "Nandi Hills Sunrise Ride",
     destination: "Nandi Hills, Karnataka",
     startingPoint: "Hebbal, Bengaluru",
+    endingPoint: "Hebbal, Bengaluru",
     date: "Next batch — ask on WhatsApp",
     duration: "Half day (4-5 hours)",
     transport: "Bike",
@@ -216,12 +219,13 @@ export const trips: Trip[] = [
     title: "Coorg Coffee Country Escape",
     destination: "Coorg (Kodagu), Karnataka",
     startingPoint: "Bengaluru (Tempo Traveller pickup points shared after booking)",
+    endingPoint: "Bengaluru (same pickup points, dropped back after the trip)",
     date: "Next batch — ask on WhatsApp",
-    duration: "2 Days / 1 Night",
+    duration: "2 Days / 1 Night (Friday night departure, back Sunday evening)",
     transport: "Tempo Traveller",
     price: 6499,
-    seatsTotal: 12,
-    seatsLeft: 12,
+    seatsTotal: 11,
+    seatsLeft: 11,
     bookingStatus: "open",
     difficulty: "Easy",
     stay: "Estate homestay, twin/triple sharing",
@@ -238,16 +242,19 @@ export const trips: Trip[] = [
       "A working coffee estate tour with the family that runs it",
       "Abbey Falls and a Raja's Seat sunset stop",
       "Group dinner that turns into the best part of the trip, every time",
+      "Extra room on board — we run 11 seats on our 13-seater Tempo Traveller, not the usual 12, so nobody's stuck in a cramped back row",
     ],
     itinerary: [
       {
         day: 1,
-        title: "Bengaluru to Coorg",
+        title: "Overnight departure, full day in Coorg",
         items: [
-          { time: "06:00", label: "Depart Bengaluru" },
-          { time: "09:00", label: "Breakfast stop" },
-          { time: "13:00", label: "Arrive, estate lunch" },
-          { time: "15:30", label: "Coffee estate walk and tasting" },
+          { time: "21:30", label: "Board Tempo Traveller from Bengaluru (overnight)" },
+          { time: "02:30", label: "Arrive Coorg, check into the homestay, rest" },
+          { time: "08:00", label: "Breakfast" },
+          { time: "09:30", label: "Coffee estate walk and tasting" },
+          { time: "13:00", label: "Estate lunch" },
+          { time: "15:30", label: "Free time at the homestay" },
           { time: "18:00", label: "Raja's Seat sunset" },
           { time: "20:00", label: "Group dinner at the homestay" },
         ],
@@ -270,7 +277,7 @@ export const trips: Trip[] = [
     faqs: [
       { question: "Do I need to ride a bike for this?", answer: "No — this trip uses a Tempo Traveller, no riding required." },
       { question: "Can I come alone?", answer: "Yes, solo travellers are common on our Tempo trips." },
-      { question: "What's the group size?", answer: "Capped at 12 for this trip." },
+      { question: "What's the group size?", answer: "Capped at 11 for this trip — we deliberately leave a seat spare on our 13-seater Tempo Traveller for extra room." },
     ],
     isSample: true,
   },
@@ -280,8 +287,9 @@ export const trips: Trip[] = [
     title: "Hampi Heritage Weekend",
     destination: "Hampi, Karnataka",
     startingPoint: "Bengaluru",
+    endingPoint: "Bengaluru",
     date: "Next batch — ask on WhatsApp",
-    duration: "2 Days / 1 Night",
+    duration: "2 Days / 1 Night (Friday night departure, back Sunday night)",
     transport: "Bus",
     price: 5499,
     seatsTotal: 30,
@@ -341,6 +349,7 @@ export const trips: Trip[] = [
     title: "Chikmagalur Weekday Escape",
     destination: "Chikmagalur, Karnataka",
     startingPoint: "Bengaluru",
+    endingPoint: "Bengaluru",
     date: "Next batch — ask on WhatsApp",
     duration: "2 Days / 1 Night",
     transport: "Bike or Tempo Traveller",
@@ -363,6 +372,7 @@ export const trips: Trip[] = [
       "Mullayanagiri sunrise trek, Karnataka's highest peak",
       "A quiet, uncrowded coffee estate visit",
       "Weekday pricing and zero weekend traffic",
+      "Extra room on board — we run 11 seats on our 13-seater Tempo Traveller, not the usual 12, so nobody's stuck in a cramped back row",
     ],
     itinerary: [
       {
@@ -404,6 +414,7 @@ export const trips: Trip[] = [
     title: "Munnar Tea Hills Long Weekend",
     destination: "Munnar, Kerala",
     startingPoint: "Bengaluru (Tempo Traveller pickup points shared after booking)",
+    endingPoint: "Bengaluru (same pickup points, dropped back after the trip)",
     date: "Next batch — ask on WhatsApp",
     duration: "3 Days / 2 Nights",
     transport: "Tempo Traveller",
@@ -426,6 +437,7 @@ export const trips: Trip[] = [
       "Tea estate walk with a working plantation guide",
       "Top Station — the highest viewpoint on the Munnar-Kodaikanal road",
       "Two full days in the hills, not just a drive-through",
+      "Extra room on board — we run 11 seats on our 13-seater Tempo Traveller, not the usual 12, so nobody's stuck in a cramped back row",
     ],
     itinerary: [
       {
@@ -493,6 +505,7 @@ export const trips: Trip[] = [
     title: "Kochi–Alleppey Backwaters Getaway",
     destination: "Kochi & Alleppey, Kerala",
     startingPoint: "Bengaluru (Tempo Traveller pickup points shared after booking)",
+    endingPoint: "Bengaluru (same pickup points, dropped back after the trip)",
     date: "Next batch — ask on WhatsApp",
     duration: "3 Days / 2 Nights",
     transport: "Tempo Traveller",
@@ -515,6 +528,7 @@ export const trips: Trip[] = [
       "A full night on a private houseboat, meals included",
       "Fort Kochi heritage walk — Chinese fishing nets, street art, old churches",
       "Backwater village stops most day-trippers never see",
+      "Extra room on board — we run 11 seats on our 13-seater Tempo Traveller, not the usual 12, so nobody's stuck in a cramped back row",
     ],
     itinerary: [
       {
@@ -582,8 +596,9 @@ export const trips: Trip[] = [
     title: "Pondicherry Weekend Getaway",
     destination: "Puducherry",
     startingPoint: "Bengaluru",
+    endingPoint: "Bengaluru",
     date: "Next batch — ask on WhatsApp",
-    duration: "2 Days / 1 Night",
+    duration: "2 Days / 1 Night (Friday night departure, back Sunday night)",
     transport: "Bus",
     price: 5999,
     seatsTotal: 25,
@@ -658,8 +673,9 @@ export const trips: Trip[] = [
     title: "Rameshwaram Island & Temple Getaway",
     destination: "Rameshwaram, Tamil Nadu",
     startingPoint: "Bengaluru",
+    endingPoint: "Bengaluru",
     date: "Next batch — ask on WhatsApp",
-    duration: "2 Days / 1 Night",
+    duration: "2 Days / 1 Night (Friday night departure, back Sunday night)",
     transport: "Bus",
     price: 6999,
     seatsTotal: 25,
@@ -743,6 +759,7 @@ export const trips: Trip[] = [
     title: "Manchanabele Lake Camping",
     destination: "Manchanabele, Karnataka",
     startingPoint: "Bengaluru (assembly point shared after booking)",
+    endingPoint: "Bengaluru (same assembly point, dropped back after the trip)",
     date: "Next batch — ask on WhatsApp",
     duration: "Overnight (Saturday evening – Sunday morning)",
     transport: "Tempo Traveller",
@@ -770,6 +787,7 @@ export const trips: Trip[] = [
       "Bonfire dinner and a night under genuinely dark skies",
       "Sunrise kayaking session included, no extra cost",
       "Closest overnight escape from Bengaluru — barely a 90-minute drive",
+      "Extra room on board — we run 11 seats on our 13-seater Tempo Traveller, not the usual 12, so nobody's stuck in a cramped back row",
     ],
     itinerary: [
       {
@@ -827,6 +845,7 @@ export const trips: Trip[] = [
     title: "Kabini Wildlife Safari Weekend",
     destination: "Kabini (Nagarhole), Karnataka",
     startingPoint: "Bengaluru (Tempo Traveller pickup points shared after booking)",
+    endingPoint: "Bengaluru (same pickup points, dropped back after the trip)",
     date: "Next batch — ask on WhatsApp",
     duration: "2 Days / 1 Night",
     transport: "Tempo Traveller",
@@ -854,6 +873,7 @@ export const trips: Trip[] = [
       "Among the best leopard and elephant sighting odds in South India",
       "Sunset coracle ride on the Kabini backwaters",
       "Small group, twin-sharing stay a short drive from the reserve",
+      "Extra room on board — we run 11 seats on our 13-seater Tempo Traveller, not the usual 12, so nobody's stuck in a cramped back row",
     ],
     itinerary: [
       {
@@ -912,6 +932,7 @@ export const trips: Trip[] = [
     title: "Savandurga Sunrise Trek",
     destination: "Savandurga, Karnataka",
     startingPoint: "Bengaluru (assembly point shared after booking)",
+    endingPoint: "Bengaluru (same assembly point, dropped back after the trip)",
     date: "Next batch — ask on WhatsApp",
     duration: "One day (5-6 hours round trip)",
     transport: "Tempo Traveller",
@@ -939,6 +960,7 @@ export const trips: Trip[] = [
       "Views of the Manchanabele, Thippagondanahalli and Magadi reservoirs",
       "Historic Savandurga fort and temple ruins en route",
       "Beginner-friendly but with genuine elevation and exposed rock",
+      "Extra room on board — we run 11 seats on our 13-seater Tempo Traveller, not the usual 12, so nobody's stuck in a cramped back row",
     ],
     itinerary: [
       {
@@ -986,6 +1008,7 @@ export const trips: Trip[] = [
     title: "Skandagiri Night Trek & Sunrise",
     destination: "Skandagiri, Karnataka",
     startingPoint: "Bengaluru (assembly point shared after booking)",
+    endingPoint: "Bengaluru (same assembly point, dropped back after the trip)",
     date: "Next batch — ask on WhatsApp",
     duration: "Overnight (11pm start, back by 9am)",
     transport: "Tempo Traveller",
@@ -1013,6 +1036,7 @@ export const trips: Trip[] = [
       "A night trek under genuinely dark, star-filled skies",
       "Fort ruins at the summit to explore while you wait for first light",
       "Back home by mid-morning, the rest of Sunday still free",
+      "Extra room on board — we run 11 seats on our 13-seater Tempo Traveller, not the usual 12, so nobody's stuck in a cramped back row",
     ],
     itinerary: [
       {
@@ -1060,6 +1084,7 @@ export const trips: Trip[] = [
     title: "Lepakshi Temple Day Trip",
     destination: "Lepakshi, Andhra Pradesh (just across the Karnataka border)",
     startingPoint: "Bengaluru (assembly point shared after booking)",
+    endingPoint: "Bengaluru (same assembly point, dropped back after the trip)",
     date: "Next batch — ask on WhatsApp",
     duration: "One day (7-8 hours round trip)",
     transport: "Tempo Traveller",
@@ -1087,6 +1112,7 @@ export const trips: Trip[] = [
       "One of India's largest monolithic Nandi statues, carved from a single granite boulder",
       "Vijayanagara-era ceiling frescoes in vivid, original colour",
       "The unfinished Kalyana Mandapa and its giant carved granite pillars",
+      "Extra room on board — we run 11 seats on our 13-seater Tempo Traveller, not the usual 12, so nobody's stuck in a cramped back row",
     ],
     itinerary: [
       {
@@ -1134,6 +1160,7 @@ export const trips: Trip[] = [
     title: "Melkote Temple Trail",
     destination: "Melkote, Karnataka",
     startingPoint: "Bengaluru (assembly point shared after booking)",
+    endingPoint: "Bengaluru (same assembly point, dropped back after the trip)",
     date: "Next batch — ask on WhatsApp",
     duration: "One day (7-8 hours round trip)",
     transport: "Tempo Traveller",
@@ -1161,6 +1188,7 @@ export const trips: Trip[] = [
       "The climb up to Yoganarasimha Temple for panoramic hill views",
       "A genuinely uncrowded pilgrimage town, even on weekends",
       "Strong Ramanujacharya history for anyone into temple history",
+      "Extra room on board — we run 11 seats on our 13-seater Tempo Traveller, not the usual 12, so nobody's stuck in a cramped back row",
     ],
     itinerary: [
       {
@@ -1207,6 +1235,7 @@ export const trips: Trip[] = [
     title: "Talakadu Sand Temples & Shivanasamudra Falls",
     destination: "Talakadu & Shivanasamudra, Karnataka",
     startingPoint: "Bengaluru (assembly point shared after booking)",
+    endingPoint: "Bengaluru (same assembly point, dropped back after the trip)",
     date: "Next batch — ask on WhatsApp",
     duration: "One day (8-9 hours round trip)",
     transport: "Tempo Traveller",
@@ -1234,6 +1263,7 @@ export const trips: Trip[] = [
       "A walk along the Kaveri riverbank at Talakadu",
       "Gaganachukki and Barachukki waterfalls at Shivanasamudra",
       "A genuinely different landscape — sand dunes on a riverbank, unlike anywhere else nearby",
+      "Extra room on board — we run 11 seats on our 13-seater Tempo Traveller, not the usual 12, so nobody's stuck in a cramped back row",
     ],
     itinerary: [
       {
@@ -1281,6 +1311,7 @@ export const trips: Trip[] = [
     title: "Nanjangud & Chamundi Hill Temple Trail",
     destination: "Nanjangud & Mysuru, Karnataka",
     startingPoint: "Bengaluru (assembly point shared after booking)",
+    endingPoint: "Bengaluru (same assembly point, dropped back after the trip)",
     date: "Next batch — ask on WhatsApp",
     duration: "One day (9-10 hours round trip)",
     transport: "Tempo Traveller",
@@ -1308,6 +1339,7 @@ export const trips: Trip[] = [
       "Chamundeshwari Temple atop Chamundi Hill, seat of the Mysore royal family's deity",
       "The giant Nandi statue partway up Chamundi Hill",
       "Panoramic views over Mysuru city from the hilltop",
+      "Extra room on board — we run 11 seats on our 13-seater Tempo Traveller, not the usual 12, so nobody's stuck in a cramped back row",
     ],
     itinerary: [
       {
@@ -1355,6 +1387,7 @@ export const trips: Trip[] = [
     title: "Sringeri – Horanadu – Kalasa Temple Circuit",
     destination: "Chikkamagaluru district, Karnataka",
     startingPoint: "Bengaluru (assembly point shared after booking)",
+    endingPoint: "Bengaluru (same assembly point, dropped back after the trip)",
     date: "Next batch — ask on WhatsApp",
     duration: "2 Days / 1 Night (Friday night departure, back Sunday night)",
     transport: "Tempo Traveller",
@@ -1382,6 +1415,7 @@ export const trips: Trip[] = [
       "Annapoorneshwari Temple at Horanadu, including its free community prasadam lunch",
       "Kalaseshwara Temple at Kalasa on the Bhadra river",
       "A genuinely offbeat Western Ghats temple circuit, well outside the usual weekend crowd",
+      "Extra room on board — we run 11 seats on our 13-seater Tempo Traveller, not the usual 12, so nobody's stuck in a cramped back row",
     ],
     itinerary: [
       {
@@ -1443,6 +1477,7 @@ export const trips: Trip[] = [
     title: "Tirupati Balaji Weekend Darshan",
     destination: "Tirumala, Andhra Pradesh",
     startingPoint: "Bengaluru (assembly point shared after booking)",
+    endingPoint: "Bengaluru (same assembly point, dropped back after the trip)",
     date: "Next batch — ask on WhatsApp",
     duration: "2 Days / 1 Night (Friday night departure, back Sunday night)",
     transport: "Tempo Traveller",
@@ -1470,6 +1505,7 @@ export const trips: Trip[] = [
       "Guidance through the ticket and queue process on the day",
       "Optional stop at Sri Padmavathi Temple, Tiruchanur",
       "Silathoranam natural rock arch and the Tirumala hills",
+      "Extra room on board — we run 11 seats on our 13-seater Tempo Traveller, not the usual 12, so nobody's stuck in a cramped back row",
     ],
     itinerary: [
       {
@@ -1527,6 +1563,7 @@ export const trips: Trip[] = [
     title: "Adiyogi & Isha Yoga Center Weekend",
     destination: "Coimbatore, Tamil Nadu",
     startingPoint: "Bengaluru (assembly point shared after booking)",
+    endingPoint: "Bengaluru (same assembly point, dropped back after the trip)",
     date: "Next batch — ask on WhatsApp",
     duration: "2 Days / 1 Night (Friday night departure, back Sunday night)",
     transport: "Tempo Traveller",
@@ -1554,6 +1591,7 @@ export const trips: Trip[] = [
       "A guided visit to the Dhyanalinga meditation space",
       "Isha's landscaped campus against the Velliangiri hills backdrop",
       "The evening 'Sounds of Isha' light and sound experience at the Adiyogi statue, timings permitting",
+      "Extra room on board — we run 11 seats on our 13-seater Tempo Traveller, not the usual 12, so nobody's stuck in a cramped back row",
     ],
     itinerary: [
       {
