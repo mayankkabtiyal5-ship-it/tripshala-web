@@ -1,6 +1,6 @@
 import { ImageResponse } from "next/og";
 import { getTripBySlug, trips } from "@/lib/trips";
-import { OG_SIZE, OgLogo, ogDisplayFont, ogPhoto } from "@/lib/og";
+import { OG_SIZE, OgLogo, ogFonts, ogPhoto } from "@/lib/og";
 import { tripDateLabel } from "@/lib/departures";
 
 export const alt = "Tripshala trip";
@@ -17,7 +17,7 @@ export function generateStaticParams() {
 export default async function TripOgImage({ params }: { params: Promise<{ slug: string }> }) {
   const { slug } = await params;
   const trip = getTripBySlug(slug);
-  const [photo, font] = await Promise.all([ogPhoto(trip?.coverImage), ogDisplayFont()]);
+  const [photo, { fonts, display, body }] = await Promise.all([ogPhoto(trip?.coverImage), ogFonts()]);
   const title = trip?.title ?? "Tripshala";
   const price = trip ? `₹${trip.price.toLocaleString("en-IN")}` : "";
   const when = trip ? tripDateLabel(trip) : "";
@@ -33,7 +33,7 @@ export default async function TripOgImage({ params }: { params: Promise<{ slug: 
           position: "relative",
           background: "radial-gradient(120% 90% at 20% 10%, #e9a57c 0%, #c8552a 45%, #5a2a17 100%)",
           color: "white",
-          fontFamily: "sans-serif",
+          fontFamily: body,
         }}
       >
         {photo && (
@@ -44,24 +44,24 @@ export default async function TripOgImage({ params }: { params: Promise<{ slug: 
             position: "absolute",
             inset: 0,
             display: "flex",
-            background: "linear-gradient(90deg, rgba(0,0,0,0.78) 0%, rgba(0,0,0,0.45) 55%, rgba(0,0,0,0.05) 100%)",
+            background: "linear-gradient(90deg, rgba(12,8,6,0.88) 0%, rgba(12,8,6,0.62) 50%, rgba(12,8,6,0.15) 100%)",
           }}
         />
         <div style={{ position: "relative", display: "flex", flexDirection: "column", justifyContent: "space-between", padding: "56px 64px", width: "100%" }}>
           <div style={{ display: "flex", alignItems: "center", gap: 14 }}>
             <OgLogo color="#f3b58f" size={46} />
-            <div style={{ fontSize: 34, fontFamily: font ? "Fraunces" : "serif" }}>Tripshala</div>
+            <div style={{ fontSize: 34, fontFamily: display, fontWeight: 500 }}>Tripshala</div>
           </div>
           <div style={{ display: "flex", flexDirection: "column", maxWidth: 760 }}>
             {when && (
-              <div style={{ display: "flex", fontSize: 24, letterSpacing: 2, textTransform: "uppercase", color: "#f3b58f" }}>{when}</div>
+              <div style={{ display: "flex", fontSize: 24, letterSpacing: 2, textTransform: "uppercase", color: "#f3b58f", fontWeight: 600 }}>{when}</div>
             )}
-            <div style={{ display: "flex", fontSize: title.length > 38 ? 60 : 72, lineHeight: 1.05, marginTop: 14, fontFamily: font ? "Fraunces" : "serif" }}>
+            <div style={{ display: "flex", fontSize: title.length > 38 ? 60 : 72, lineHeight: 1.05, marginTop: 14, fontFamily: display, fontWeight: 500 }}>
               {title}
             </div>
             <div style={{ display: "flex", alignItems: "center", gap: 18, marginTop: 28, fontSize: 28 }}>
               {price && (
-                <div style={{ display: "flex", background: "white", color: "#1c1917", borderRadius: 999, padding: "10px 24px", fontWeight: 700 }}>
+                <div style={{ display: "flex", background: "white", color: "#1c1917", borderRadius: 999, padding: "10px 24px", fontWeight: 600 }}>
                   {price} <span style={{ marginLeft: 8, fontWeight: 400, color: "#6f675c" }}>/ person</span>
                 </div>
               )}
@@ -73,7 +73,7 @@ export default async function TripOgImage({ params }: { params: Promise<{ slug: 
     ),
     {
       ...size,
-      fonts: font ? [{ name: "Fraunces", data: font, weight: 500, style: "normal" }] : undefined,
+      fonts,
     },
   );
 }
