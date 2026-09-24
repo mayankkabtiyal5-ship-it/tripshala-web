@@ -183,45 +183,66 @@ export default async function TripDetailPage({
           {/* Itinerary */}
           <section>
             <div className="flex flex-wrap items-center justify-between gap-3">
-              <h2 className="font-display text-2xl font-medium">Itinerary</h2>
+              <div>
+                <p className="eyebrow">Day by day</p>
+                <h2 className="mt-2 font-display text-2xl font-medium">The itinerary</h2>
+              </div>
               <ItineraryPdfButton tripSlug={trip.slug} tripName={trip.title} />
             </div>
 
-            <div className="mt-4 grid gap-3 rounded-2xl bg-paper-raised p-4 text-sm sm:grid-cols-2">
-              <div className="flex items-start gap-2.5">
-                <MapPin aria-hidden size={16} strokeWidth={1.75} className="mt-0.5 shrink-0 text-accent" />
-                <div>
-                  <div className="font-semibold text-ink">Pickup</div>
-                  {trip.pickupPoints ? (
-                    <>
-                      <div className="text-muted">Pick whichever zone is closest to you:</div>
-                      <div className="mt-1.5 flex flex-wrap gap-1.5">
-                        {trip.pickupPoints.map((p) => (
-                          <span
-                            key={p}
-                            className="rounded-full border border-line bg-white px-2.5 py-1 text-xs font-medium text-ink"
-                          >
-                            {p}
-                          </span>
-                        ))}
-                      </div>
-                    </>
-                  ) : (
-                    <div className="text-muted">{trip.startingPoint}</div>
-                  )}
+            {/* From / To / Mode, then the pickup route in order */}
+            <div className="mt-5 overflow-hidden rounded-2xl bg-white ring-1 ring-line">
+              <dl className="grid grid-cols-3 divide-x divide-line text-sm">
+                <div className="p-4">
+                  <dt className="text-[0.62rem] font-semibold uppercase tracking-[0.16em] text-muted">From</dt>
+                  <dd className="mt-1 font-semibold">Bengaluru</dd>
                 </div>
-              </div>
-              <div className="flex items-start gap-2.5">
-                <Flag aria-hidden size={16} strokeWidth={1.75} className="mt-0.5 shrink-0 text-accent" />
-                <div>
-                  <div className="font-semibold text-ink">Drop-off</div>
-                  <div className="text-muted">{trip.endingPoint}</div>
+                <div className="p-4">
+                  <dt className="text-[0.62rem] font-semibold uppercase tracking-[0.16em] text-muted">To</dt>
+                  <dd className="mt-1 font-semibold">Bengaluru</dd>
                 </div>
+                <div className="p-4">
+                  <dt className="text-[0.62rem] font-semibold uppercase tracking-[0.16em] text-muted">Mode</dt>
+                  <dd className="mt-1 font-semibold">
+                    {trip.transport} <span className="font-normal text-muted">· Included</span>
+                  </dd>
+                </div>
+              </dl>
+              <div className="border-t border-line p-4 text-sm">
+                <div className="flex items-center gap-2 font-semibold">
+                  <MapPin aria-hidden size={15} strokeWidth={1.75} className="text-accent" />
+                  {trip.pickupPoints ? "Pickup points, in order" : "Assembly point"}
+                </div>
+                {trip.pickupPoints ? (
+                  <ol className="mt-3 grid gap-2 sm:grid-cols-2">
+                    {trip.pickupPoints.map((p, i) => (
+                      <li key={p} className="flex items-center gap-2.5">
+                        <span
+                          className={`flex h-6 w-6 shrink-0 items-center justify-center rounded-full text-[0.7rem] font-semibold ${
+                            i === 0 ? "bg-accent text-white" : "bg-paper-raised text-ink"
+                          }`}
+                        >
+                          {i + 1}
+                        </span>
+                        <span className="text-ink/85">
+                          {p}
+                          {i === 0 && <span className="ml-1.5 text-xs font-semibold text-accent">First pickup</span>}
+                        </span>
+                      </li>
+                    ))}
+                  </ol>
+                ) : (
+                  <p className="mt-2 text-muted">{trip.startingPoint}</p>
+                )}
+                <p className="mt-3 flex items-start gap-2 text-xs text-muted">
+                  <Flag aria-hidden size={13} strokeWidth={1.75} className="mt-0.5 shrink-0" />
+                  Drop-off: {trip.endingPoint}
+                </p>
               </div>
             </div>
 
             <div className="mt-4">
-              <ItineraryTimeline days={trip.itinerary} />
+              <ItineraryTimeline days={trip.itinerary} transport={trip.transport} />
             </div>
           </section>
 

@@ -82,11 +82,21 @@ export default async function ItineraryPrintPage({
             <h2 className="font-display text-lg font-medium">
               Day {day.day}: {day.title}
             </h2>
-            <ul className="mt-3 space-y-1.5 border-l-2 border-line pl-4 text-sm">
+            {day.summary && <p className="mt-1 text-sm text-muted">{day.summary}</p>}
+            {day.stats && (
+              <p className="mt-1 text-xs text-muted">
+                {[day.stats.drive && `Drive: ${day.stats.drive}`, day.stats.stay && `Stay: ${day.stats.stay}`, day.stats.meals && `Included: ${day.stats.meals}`]
+                  .filter(Boolean)
+                  .join("  ·  ")}
+              </p>
+            )}
+            <ul className="mt-3 space-y-2.5 border-l-2 border-line pl-4 text-sm">
               {day.items.map((item, i) => (
-                <li key={i}>
+                <li key={i} className="break-inside-avoid">
                   <span className="font-semibold text-accent-2">{item.time}</span>{" "}
-                  <span className="text-ink">{item.label}</span>
+                  <span className="font-medium text-ink">{item.label}</span>
+                  {item.included === false && <span className="text-xs text-muted"> (on your own)</span>}
+                  {item.detail && <div className="text-muted">{item.detail}</div>}
                 </li>
               ))}
             </ul>

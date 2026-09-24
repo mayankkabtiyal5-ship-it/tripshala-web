@@ -1144,7 +1144,7 @@ export const posts: BlogPost[] = [
       { type: "heading", text: "3. Talakadu & Shivanasamudra — temples buried in sand, plus a waterfall" },
       {
         type: "paragraph",
-        text: "Talakadu is the strangest entry on this list — a temple town on the banks of the Kaveri that legend says got buried under sand dunes after a curse, with its Panchalinga temples only fully uncovered once every 12 years for a dedicated festival. Pair it with Shivanasamudra's twin waterfalls, twenty-odd kilometres away on the same river, for a day that mixes temple history with a proper nature stop.",
+        text: "Talakadu is the strangest entry on this list — a temple town on the banks of the Kaveri that legend says got buried under sand dunes after a curse, with its five Panchalinga temples drawing huge crowds during the rare Panchalinga Darshana festival, held when a particular star alignment falls. Pair it with Shivanasamudra's twin waterfalls, twenty-odd kilometres away on the same river, for a day that mixes temple history with a proper nature stop.",
       },
       {
         type: "list",
