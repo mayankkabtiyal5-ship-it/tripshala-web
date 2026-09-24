@@ -6,6 +6,7 @@ import { Footer } from "@/components/Footer";
 import { WhatsAppFloatingButton } from "@/components/WhatsAppFloatingButton";
 import { Analytics } from "@/components/Analytics";
 import { ReferralCapture } from "@/components/ReferralCapture";
+import { ReferralBanner } from "@/components/ReferralBanner";
 import { site } from "@/lib/site";
 
 // Fonts are loaded via a browser-fetched stylesheet (below) rather than
@@ -83,6 +84,7 @@ export default function RootLayout({
         />
       </head>
       <body className="antialiased">
+        <ReferralBanner />
         <Header />
         <main className="min-h-screen">{children}</main>
         <Footer />

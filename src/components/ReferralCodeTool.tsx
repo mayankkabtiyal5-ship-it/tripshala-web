@@ -60,7 +60,7 @@ export function ReferralCodeTool() {
   function handleShare() {
     if (!result) return;
     track(AnalyticsEvents.REFERRAL_LINK_SHARED, { code: result.code });
-    const message = `Hey! I've been riding with ${site.name} and thought you'd love it. Check out their upcoming trips with my link — book one and we both get ₹500 credit: ${result.link}`;
+    const message = `Hey! I've been riding with ${site.name} and thought you'd love it. Check out their upcoming trips with my link — book one and we both get ₹299 credit: ${result.link}`;
     window.open(buildWhatsAppShareLink(message), "_blank", "noopener,noreferrer");
   }
 

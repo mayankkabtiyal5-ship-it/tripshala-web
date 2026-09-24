@@ -9,10 +9,9 @@ export const metadata: Metadata = {
   description: "Bring a friend on a Tripshala trip and both of you get rewarded.",
 };
 
-// NOTE FOR MAYANK: ₹500 is a reasonable starting credit amount for trips in
-// the ₹799–₹10,999 range, but it's your call — change REFERRAL_CREDIT below
-// and it updates everywhere on this page.
-const REFERRAL_CREDIT = 500;
+// NOTE FOR MAYANK: change REFERRAL_CREDIT below and it updates everywhere
+// on this page.
+const REFERRAL_CREDIT = 299;
 
 export default function ReferralPage() {
   return (
