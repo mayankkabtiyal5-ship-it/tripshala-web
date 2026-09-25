@@ -44,6 +44,7 @@ export const AnalyticsEvents = {
   ITINERARY_PDF_CLICK: "itinerary_pdf_click",
   ITINERARY_PDF_UNLOCKED: "itinerary_pdf_unlocked",
   PICKUP_POINT_SELECTED: "pickup_point_selected",
+  WEEKEND_ALERTS_SIGNUP: "weekend_alerts_signup",
 } as const;
 
 export function track(eventName: string, params: EventParams = {}) {
@@ -53,5 +54,19 @@ export function track(eventName: string, params: EventParams = {}) {
     window.fbq?.("trackCustom", eventName, params);
   } catch {
     // analytics should never break the page
+  }
+}
+
+/**
+ * Standard "lead" conversion, so Google Ads / Meta ads can optimise for real
+ * enquiries: GA4's recommended generate_lead event and Meta's standard Lead.
+ */
+export function trackLead(source: string, value?: number) {
+  if (typeof window === "undefined") return;
+  try {
+    window.gtag?.("event", "generate_lead", { source, currency: "INR", value });
+    window.fbq?.("track", "Lead", { content_name: source, currency: "INR", value });
+  } catch {
+    // never break the page
   }
 }

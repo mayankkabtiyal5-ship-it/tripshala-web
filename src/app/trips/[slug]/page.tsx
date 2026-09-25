@@ -13,6 +13,7 @@ import { TripHeroCTAs } from "@/components/TripHeroCTAs";
 import { ItineraryTimeline } from "@/components/ItineraryTimeline";
 import { ItineraryPdfButton } from "@/components/ItineraryPdfButton";
 import { TripMoments } from "@/components/TripMoments";
+import { WeekendAlerts } from "@/components/WeekendAlerts";
 import { Armchair, CalendarDays, Check, ChevronDown, Flag, MapPin, RotateCcw, ShieldCheck, X } from "lucide-react";
 import { TripHeroMedia } from "@/components/trip/TripHeroMedia";
 import { TripSectionNav } from "@/components/trip/TripSectionNav";
@@ -313,6 +314,16 @@ export default async function TripDetailPage({
               {trip.whoFor.map((w) => (
                 <Badge key={w}>{w}</Badge>
               ))}
+            </div>
+          </section>
+
+          {/* Not ready yet? */}
+          <section className="rounded-2xl bg-paper-raised p-6 sm:p-8">
+            <p className="eyebrow">Not ready to book?</p>
+            <h2 className="mt-2 font-display text-2xl font-medium">Get next weekend&apos;s trips on WhatsApp</h2>
+            <p className="mt-2 text-sm text-muted">One message a week with upcoming dates and seats left.</p>
+            <div className="mt-5">
+              <WeekendAlerts variant="compact" context={trip.slug} />
             </div>
           </section>
 

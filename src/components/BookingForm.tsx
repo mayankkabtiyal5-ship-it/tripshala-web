@@ -5,7 +5,7 @@ import { ChevronDown, Minus, Plus } from "lucide-react";
 import { useRouter } from "next/navigation";
 import { Button } from "./ui/Button";
 import { whatsappMessages } from "@/lib/whatsapp";
-import { track, AnalyticsEvents } from "@/lib/analytics";
+import { track, trackLead, AnalyticsEvents } from "@/lib/analytics";
 import { readStoredReferralCode } from "@/lib/referral";
 import { DatePicker, type DateOption } from "./booking/DatePicker";
 
@@ -77,6 +77,7 @@ export function BookingForm({ tripName, tripDate, tripSlug, pickupPoints, depart
       track(AnalyticsEvents.REFERRAL_CODE_ENTERED, { trip: tripName, referralCode });
     }
     track(AnalyticsEvents.FORM_SUBMIT, { trip: tripName });
+    trackLead("booking_form", price ? price * Number(people || 1) : undefined);
 
     // Best-effort backup record in Supabase — fired in the background so a
     // slow or failed request never delays or blocks the WhatsApp handoff,

@@ -8,6 +8,7 @@ import { CommunityTeaser } from "@/components/home/CommunityTeaser";
 import { InstagramSection } from "@/components/home/InstagramSection";
 import { SeasonalFeature, getActiveSeason } from "@/components/home/SeasonalFeature";
 import { BrowseByType } from "@/components/home/BrowseByType";
+import { WeekendAlertsSection } from "@/components/home/WeekendAlertsSection";
 
 // Re-render a few times a day so date-driven sections (long-weekend band,
 // next departures) roll over on their own without a redeploy.
@@ -25,6 +26,7 @@ export default function Home() {
       <HowItWorks />
       <BikeOrNot />
       <CommunityTeaser />
+      <WeekendAlertsSection />
       <HiddenGemSuggest />
       <InstagramSection />
     </>
