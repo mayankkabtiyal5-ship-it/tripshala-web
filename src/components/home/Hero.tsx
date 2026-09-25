@@ -33,7 +33,7 @@ export function Hero() {
       />
 
       <Container className="flex min-h-[78svh] flex-col justify-end pb-14 pt-32 md:min-h-[86svh] md:pb-20">
-        <p className="eyebrow rise-in !text-white/80">Curated escapes from Bengaluru</p>
+        <p className="eyebrow rise-in !text-white/80">Tripshala · Weekend group trips from Bengaluru</p>
         <h1 className="rise-in rise-in-delay-1 mt-4 max-w-3xl text-5xl font-medium leading-[1.02] md:text-7xl">
           The trip&apos;s planned.
           <br />

@@ -1,3 +1,4 @@
+import type { Metadata } from "next";
 import { Hero } from "@/components/home/Hero";
 import { UpcomingTrips } from "@/components/home/UpcomingTrips";
 import { HiddenGemSuggest } from "@/components/home/HiddenGemSuggest";
@@ -13,6 +14,10 @@ import { WeekendAlertsSection } from "@/components/home/WeekendAlertsSection";
 // Re-render a few times a day so date-driven sections (long-weekend band,
 // next departures) roll over on their own without a redeploy.
 export const revalidate = 21600;
+
+export const metadata: Metadata = {
+  alternates: { canonical: "/" },
+};
 
 // Order tells one story: this season's trips → browse by type → why us → how easy it is → the two
 // ways to travel → the people → then invite ideas and follow along.

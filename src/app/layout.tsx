@@ -23,10 +23,11 @@ const FONTS_HREF =
 export const metadata: Metadata = {
   metadataBase: new URL(site.url),
   title: {
-    default: `${site.name} — ${site.tagline}`,
+    default: `${site.name} — Weekend Group Trips from Bengaluru`,
     template: `%s | ${site.name}`,
   },
-  description: site.description,
+  description: site.seoDescription,
+  applicationName: site.name,
   openGraph: {
     title: `${site.name} — ${site.tagline}`,
     description: site.description,
@@ -47,24 +48,44 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  // One graph: the business (TravelAgency) plus the WebSite. The WebSite
+  // `name`/`alternateName` is what Google uses for the site name shown above
+  // results, and the extra spellings help it stop "correcting" the brand.
   const organizationJsonLd = {
     "@context": "https://schema.org",
-    "@type": "TravelAgency",
-    name: site.name,
-    description: site.description,
-    url: site.url,
-    telephone: `+${site.whatsappNumber}`,
-    email: site.contactEmail,
-    address: {
-      "@type": "PostalAddress",
-      addressLocality: site.city,
-      addressCountry: "IN",
-    },
-    areaServed: {
-      "@type": "City",
-      name: site.city,
-    },
-    sameAs: [site.instagramUrl, site.facebookUrl],
+    "@graph": [
+      {
+        "@type": "TravelAgency",
+        "@id": `${site.url}/#organization`,
+        name: site.name,
+        alternateName: site.alternateNames,
+        slogan: site.tagline,
+        description: site.seoDescription,
+        url: site.url,
+        logo: `${site.url}/apple-icon.png`,
+        image: `${site.url}/opengraph-image`,
+        telephone: `+${site.whatsappNumber}`,
+        email: site.contactEmail,
+        priceRange: "₹799 – ₹11,499",
+        address: {
+          "@type": "PostalAddress",
+          addressLocality: site.city,
+          addressRegion: "Karnataka",
+          addressCountry: "IN",
+        },
+        areaServed: { "@type": "City", name: site.city },
+        sameAs: [site.instagramUrl, site.facebookUrl],
+      },
+      {
+        "@type": "WebSite",
+        "@id": `${site.url}/#website`,
+        name: site.name,
+        alternateName: site.alternateNames,
+        url: site.url,
+        inLanguage: "en-IN",
+        publisher: { "@id": `${site.url}/#organization` },
+      },
+    ],
   };
 
   return (

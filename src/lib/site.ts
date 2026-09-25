@@ -7,6 +7,11 @@ export const site = {
   brandLine: "More than a trip. A tribe.", // the line under the logo
   description:
     "Bengaluru's curated weekend travel and adventure community — bike rides, weekend getaways and 1-2 day escapes, planned for you.",
+  // Used for the homepage <meta description> and structured data — names the
+  // brand, the city and the kinds of trips so the brand search is unambiguous.
+  seoDescription:
+    "Tripshala (tripshala.in) runs weekend group trips from Bengaluru — Coorg, Chikmagalur, Gokarna, Ooty, Kerala, sunrise treks and temple trails. Every weekend, with pickups from RMZ Ecospace, Silk Board and Electronic City.",
+  alternateNames: ["Tripshala.in", "Trip Shala", "Tripshala Bengaluru"],
   url: "https://tripshala.in",
   city: "Bengaluru",
   instagramHandle: "tripshala.in",

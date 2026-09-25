@@ -7,7 +7,7 @@ import { trips, toCardTrip } from "@/lib/trips";
 export const revalidate = 21600;
 
 export const metadata: Metadata = {
-  title: "Upcoming Trips",
+  title: "Weekend Trips from Bengaluru — Upcoming Departures",
   description:
     "Weekend trips, bike rides and 1-2 day escapes from Bengaluru — filter by ride type, duration or theme.",
 };
