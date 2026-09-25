@@ -13,6 +13,7 @@ import { TripHeroCTAs } from "@/components/TripHeroCTAs";
 import { ItineraryTimeline } from "@/components/ItineraryTimeline";
 import { ItineraryPdfButton } from "@/components/ItineraryPdfButton";
 import { TripMoments } from "@/components/TripMoments";
+import { StickyAside } from "@/components/trip/StickyAside";
 import { WeekendAlerts } from "@/components/WeekendAlerts";
 import { Armchair, CalendarDays, Check, ChevronDown, Flag, MapPin, RotateCcw, ShieldCheck, X } from "lucide-react";
 import { TripHeroMedia } from "@/components/trip/TripHeroMedia";
@@ -337,7 +338,7 @@ export default async function TripDetailPage({
         </div>
 
         {/* Booking sidebar */}
-        <div id="book" className="h-fit scroll-mt-36 rounded-2xl bg-white p-6 shadow-[0_18px_40px_-24px_rgba(28,25,23,0.35)] ring-1 ring-line md:sticky md:top-32">
+        <StickyAside id="book" className="h-fit scroll-mt-36 rounded-2xl bg-white p-6 shadow-[0_18px_40px_-24px_rgba(28,25,23,0.35)] ring-1 ring-line">
           {(() => {
             const left = deps[0]?.seatsLeft ?? trip.seatsLeft;
             const pct = Math.round((1 - left / trip.seatsTotal) * 100);
@@ -408,7 +409,7 @@ export default async function TripDetailPage({
             <div><Armchair aria-hidden size={16} strokeWidth={1.75} className="mx-auto mb-1 text-accent" />Small group, room to breathe</div>
             <div><RotateCcw aria-hidden size={16} strokeWidth={1.75} className="mx-auto mb-1 text-accent" /><a href="/policies/cancellation" className="underline underline-offset-2">Clear cancellation terms</a></div>
           </div>
-        </div>
+        </StickyAside>
       </Container>
 
       <StickyMobileCTA
